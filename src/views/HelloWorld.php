@@ -1,6 +1,6 @@
 <?php
 
-include (dirname(__FILE__) . "/GlobalCanvas.php");
+include_once(dirname(__FILE__) . "/GlobalCanvas.php");
 
 
 class HelloWorld

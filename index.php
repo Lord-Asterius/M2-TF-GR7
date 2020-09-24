@@ -1,5 +1,6 @@
 <?php
 
+include_once("src/controllers/ControllerModuleList.php");
 include_once("src/views/HelloWorld.php");
 
 
@@ -24,4 +25,9 @@ if ($requestedPage === "helloWorld")
     // Hello world is a dummy page so no controller is needed
     $helloWorldView = new HelloWorld();
     $helloWorldView->render();
+}
+else if ($requestedPage === "moduleList")
+{
+    $controller = new ControllerModuleList();
+    $controller->handleRequest($sanitizedGet);
 }
