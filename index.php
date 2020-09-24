@@ -1,7 +1,7 @@
 <?php
 
 include_once("src/controllers/ControllerModuleList.php");
-include_once("src/views/HelloWorld.php");
+include_once("src/views/ViewHelloWorld.php");
 
 
 // We do a first sanitization pass by removing HTML tags and characters outside of the ASCII table
@@ -23,7 +23,7 @@ if (isset($sanitizedGet["page"]))
 if ($requestedPage === "helloWorld")
 {
     // Hello world is a dummy page so no controller is needed
-    $helloWorldView = new HelloWorld();
+    $helloWorldView = new ViewHelloWorld();
     $helloWorldView->render();
 }
 else if ($requestedPage === "moduleList")
