@@ -12,8 +12,9 @@ class GlobalCanvas
         $this->m_siteTitle = "Qui est là ?";
     }
 
-    public function renderTemplate($templatePath, $context)
+    public function renderTemplate($templateName, $context)
     {
-        include(dirname(__FILE__) . "/../templates/canvas.html");
+        $templatePath = dirname(__FILE__) . "/../../templates/" . $templateName . ".html";
+        include(dirname(__FILE__) . "/../../templates/canvas.html");
     }
 }

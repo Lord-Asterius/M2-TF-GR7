@@ -15,6 +15,6 @@ class HelloWorld
     public function render()
     {
         $context = ["textFromCode" => "This text was set from the context in PHP code"];
-        $this->m_canvas->renderTemplate(dirname(__FILE__) . "/../templates/helloWorld.html", $context);
+        $this->m_canvas->renderTemplate("helloWorld", $context);
     }
 }
