@@ -1,2 +1,6 @@
 <p>Welcome to the hello world page !</p>
-<p> <?= $context["textFromCode"] ?> </p>
+<p>The syntax &lt?= $context["elementName"] ?&gt can be used in templates to prints elements of the context in the HTML</p>
+<p>Example of a for loop and a text set from the PHP context</p>
+<?php for($i = 0; $i < 5; $i++): ?>
+    <p> From Code : <?= $context["textFromCode"] ?> </p>
+<?php endfor; ?>
