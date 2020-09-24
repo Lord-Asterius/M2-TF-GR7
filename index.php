@@ -1,7 +1,7 @@
 <?php
 
-include_once("src/views/HelloWord.php");
+include_once("src/views/HelloWorld.php");
 
 
-$helloWorldView = new HelloWord();
+$helloWorldView = new HelloWorld();
 $helloWorldView->render();

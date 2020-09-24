@@ -3,7 +3,7 @@
 include (dirname(__FILE__) . "/GlobalCanvas.php");
 
 
-class HelloWord
+class HelloWorld
 {
     private $m_canvas;
 
