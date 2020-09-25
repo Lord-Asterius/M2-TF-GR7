@@ -6,7 +6,11 @@
         <p class="card-text">Liste des inscrits</p>
         <ul class="list-group mx-auto w-50 p-3">
             <?php foreach($context["enrolledUsers"] as $enrolledUser): ?>
-                <li class="list-group-item text-left"> <?= $enrolledUser ?> </li>
+                <li class="list-group-item text-left">
+                    <?= $enrolledUser ?>
+                    <input type="image" src="images/bootstrap-icons/pencil-square.svg" alt="" class="float-right" width="32" height="32" title="Modifier les absences">
+                    <input type="image" src="images/bootstrap-icons/plus.svg" alt="" class="float-right" width="32" height="32" title="Ajouter une absence">
+                </li>
             <?php endforeach; ?>
         </ul>
     </div>
