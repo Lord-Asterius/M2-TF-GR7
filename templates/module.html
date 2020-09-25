@@ -8,10 +8,41 @@
             <?php foreach($context["enrolledUsers"] as $enrolledUser): ?>
                 <li class="list-group-item text-left">
                     <?= $enrolledUser ?>
-                    <input type="image" src="images/bootstrap-icons/pencil-square.svg" alt="" class="float-right" width="32" height="32" title="Modifier les absences">
+                    <input type="image" src="images/bootstrap-icons/pencil-square.svg" data-toggle="modal" data-target="#editModal" data-whatever="<?= $enrolledUser ?>" alt="" class="float-right" width="32" height="32" title="Modifier les absences">
                     <input type="image" src="images/bootstrap-icons/plus.svg" alt="" class="float-right" width="32" height="32" title="Ajouter une absence">
                 </li>
             <?php endforeach; ?>
         </ul>
     </div>
 </div>
+
+<!-- Modal -->
+<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editModalLabel">Éditer les absence de </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                ...
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $('#editModal').on('show.bs.modal', function (event)
+    {
+        var button = $(event.relatedTarget) // Button that triggered the modal
+        var user = button.data('whatever') // Extract info from data-* attributes
+        var modal = $(this)
+        modal.find('.modal-title').text('Éditer les absences de ' + user)
+    })
+</script>
