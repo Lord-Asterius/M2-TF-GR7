@@ -1,5 +1,6 @@
 <?php
 
+include_once("src/globals/PageIdentifiers.php");
 include_once("src/controllers/ControllerModuleList.php");
 include_once("src/views/ViewHelloWorld.php");
 
@@ -13,20 +14,20 @@ foreach ($_GET as $key => $value)
 
 
 // Retrieve the requested page, Hello world is set as the default page for now
-$requestedPage = "helloWorld";
+$requestedPage = PAGE_ID_HELLO_WORLD;
 if (isset($sanitizedGet["page"]))
 {
     $requestedPage = $sanitizedGet["page"];
 }
 
 // Dispatch to controllers
-if ($requestedPage === "helloWorld")
+if ($requestedPage === PAGE_ID_HELLO_WORLD)
 {
     // Hello world is a dummy page so no controller is needed
     $helloWorldView = new ViewHelloWorld();
     $helloWorldView->render();
 }
-else if ($requestedPage === "moduleList")
+else if ($requestedPage === PAGE_ID_MODULE_LIST)
 {
     $controller = new ControllerModuleList();
     $controller->handleRequest($sanitizedGet);

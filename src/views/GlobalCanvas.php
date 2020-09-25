@@ -1,5 +1,7 @@
 <?php
 
+include_once(dirname(__FILE__) . "/../globals/PageIdentifiers.php");
+
 
 class GlobalCanvas
 {
