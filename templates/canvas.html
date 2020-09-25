@@ -11,7 +11,7 @@
             <a class="navbar-brand" href="index.php"> <?= $this->m_siteTitle ?> </a>
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div class="navbar-nav">
-                    <a class="nav-item nav-link active" href="index.php?page=moduleList">Modules <span class="sr-only">(current)</span></a>
+                    <a class="nav-item nav-link <?= $this->getActiveStatusForPage('moduleList') ?>" href="index.php?page=moduleList">Modules</a>
                     <a class="nav-item nav-link" href="#">Absences</a>
                 </div>
             </div>

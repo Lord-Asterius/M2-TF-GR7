@@ -9,7 +9,7 @@ class ViewHelloWorld
 
     public function __construct()
     {
-        $this->m_canvas = new GlobalCanvas("Hello world page !");
+        $this->m_canvas = new GlobalCanvas("Hello world page !", "helloWorld");
     }
 
     public function render()

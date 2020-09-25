@@ -10,7 +10,7 @@ class ViewModuleList
 
     public function __construct()
     {
-        $this->m_canvas = new GlobalCanvas("Liste des modules");
+        $this->m_canvas = new GlobalCanvas("Liste des modules", "moduleList");
         $this->m_context = [];
     }
 
