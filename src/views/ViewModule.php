@@ -14,6 +14,16 @@ class ViewModule
         $this->m_context = [];
     }
 
+    public function setModuleName($moduleName)
+    {
+        $this->m_context["moduleName"] = $moduleName;
+    }
+
+    public function setEnrolledUsers($enrolledUsers)
+    {
+        $this->m_context["enrolledUsers"] = $enrolledUsers;
+    }
+
     public function render()
     {
         $this->m_canvas->renderTemplate("module", $this->m_context);

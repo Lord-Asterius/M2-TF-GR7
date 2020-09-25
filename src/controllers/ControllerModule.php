@@ -15,6 +15,17 @@ class ControllerModule
     public function handleRequest($getParameters)
     {
         //TODO
+
+        if (!isset($getParameters["module"]) || !is_string($getParameters["module"]))
+        {
+            // Invalid get parameter, we stop the processing
+            return;
+        }
+
+        $this->m_viewModule->setModuleName($getParameters["module"]);
+
+        // TODO Retrieve users from the database
+        $this->m_viewModule->setEnrolledUsers(["Fabrice Bouquet", "Fabien Peureux", "Autre personne"]);
         $this->m_viewModule->render();
     }
 }

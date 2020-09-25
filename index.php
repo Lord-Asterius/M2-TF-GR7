@@ -7,11 +7,11 @@ include_once("src/controllers/ControllerConnection.php");
 include_once("src/views/ViewHelloWorld.php");
 
 
-// We do a first sanitization pass by removing HTML tags and characters outside of the ASCII table
+// We do a first sanitization pass by removing HTML tags
 $sanitizedGet = [];
 foreach ($_GET as $key => $value)
 {
-    $sanitizedGet[$key] = filter_var($value, FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_HIGH);
+    $sanitizedGet[$key] = filter_var($value, FILTER_SANITIZE_STRING);
 }
 
 

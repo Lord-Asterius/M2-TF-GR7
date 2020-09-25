@@ -1,1 +1,13 @@
-<p>TODO</p>
+<div class="card text-center" style="padding-top: 1em">
+    <div class="card-header">
+        <h4> <?= $context["moduleName"] ?> </h4>
+    </div>
+    <div class="card-body">
+        <p class="card-text">Liste des inscrits</p>
+        <ul class="list-group mx-auto w-50 p-3">
+            <?php foreach($context["enrolledUsers"] as $enrolledUser): ?>
+                <li class="list-group-item text-left"> <?= $enrolledUser ?> </li>
+            <?php endforeach; ?>
+        </ul>
+    </div>
+</div>
