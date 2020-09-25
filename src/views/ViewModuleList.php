@@ -14,6 +14,11 @@ class ViewModuleList
         $this->m_context = [];
     }
 
+    public function setModulesNamesList($modulesNames)
+    {
+        $this->m_context["modulesNames"] = $modulesNames;
+    }
+
     public function render()
     {
         $this->m_canvas->renderTemplate("moduleList", $this->m_context);

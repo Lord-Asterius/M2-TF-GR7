@@ -2,6 +2,7 @@
 
 include_once("src/globals/PageIdentifiers.php");
 include_once("src/controllers/ControllerModuleList.php");
+include_once("src/controllers/ControllerModule.php");
 include_once("src/controllers/ControllerConnection.php");
 include_once("src/views/ViewHelloWorld.php");
 
@@ -32,7 +33,7 @@ if ($requestedPage === PAGE_ID_HELLO_WORLD)
     $helloWorldView = new ViewHelloWorld();
     $helloWorldView->render();
 }
-if ($requestedPage === PAGE_ID_CONNECTION)
+else if ($requestedPage === PAGE_ID_CONNECTION)
 {
     $controller = new ControllerConnection();
     $controller->handleRequest($sanitizedGet);
@@ -40,5 +41,10 @@ if ($requestedPage === PAGE_ID_CONNECTION)
 else if ($requestedPage === PAGE_ID_MODULE_LIST)
 {
     $controller = new ControllerModuleList();
+    $controller->handleRequest($sanitizedGet);
+}
+else if ($requestedPage === PAGE_ID_MODULE)
+{
+    $controller = new ControllerModule();
     $controller->handleRequest($sanitizedGet);
 }

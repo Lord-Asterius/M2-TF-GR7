@@ -14,7 +14,8 @@ class ControllerModuleList
 
     public function handleRequest($getParameters)
     {
-        //TODO
+        //TODO Get the list of module the current user have access to
+        $this->m_viewModuleList->setModulesNamesList(["Test fonctionnel", "PAM", "Réseaux avancé"]);
         $this->m_viewModuleList->render();
     }
 }
