@@ -5,6 +5,9 @@ include_once("src/controllers/ControllerModuleList.php");
 include_once("src/controllers/ControllerModule.php");
 include_once("src/controllers/ControllerConnection.php");
 include_once("src/views/ViewHelloWorld.php");
+include_once("src/controllers/ControllerAbsenceDetails.php");
+include_once("src/controllers/ControllerAbsenceList.php");
+
 
 
 // We do a first sanitization pass by removing HTML tags
@@ -47,4 +50,14 @@ else if ($requestedPage === PAGE_ID_MODULE)
 {
     $controller = new ControllerModule();
     $controller->handleRequest($sanitizedGet);
+}
+##by Khadija
+else if($requestedPage === PAGE_ID_ABSENCE_LIST) {
+    $controller = new ControllerAbsenceList();
+    $controller->handleRequest($sanitizedGet);   
+}
+
+else if($requestedPage === PAGE_ID_ABSENSE_DETAIL) {
+    $controller = new ControllerAbsenceDetails();
+    $controller->handleRequest($sanitizedGet); 
 }

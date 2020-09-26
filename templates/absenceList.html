@@ -1,0 +1,38 @@
+<div class="container" style="padding-top: 3em">
+    <!-- <ul class="list-group">
+      <?php foreach($context["attendanceData"] as $moduleName): ?>
+      <li class="list-group-item">
+        <a href="index.php?page=<?= PAGE_ID_MODULE ?>&module=<?= $moduleName ?>">
+          <?= $moduleName ?>
+        </a>
+      </li>
+      <?php endforeach; ?>
+    </ul>
+  </div> -->
+  
+    <div class="container" style="padding-top: 3em">
+      <table class="table table-bordered">
+        <thead>
+          <th>Name</th>
+          <th>Module</th>
+          <th>Date</th>
+        </thead>
+  
+        <?php foreach($context["attendanceData"] as $moduleName): ?>
+  
+        <tr>
+          <td>
+            <a
+              href="index.php?page=<?= PAGE_ID_ABSENSE_DETAIL ?>&studentId=<?= $moduleName['studentId'] ?>"
+              ><?= $moduleName["name"] ?></a
+            >
+          </td>
+          <td><?= $moduleName["module"] ?></td>
+          <td><?= $moduleName["date"] ?></td>
+        </tr>
+  
+        <?php endforeach; ?>
+      </table>
+    </div>
+  </div>
+  
