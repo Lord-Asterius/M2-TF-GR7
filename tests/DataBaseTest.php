@@ -7,19 +7,11 @@ include_once(__DIR__.'/../src/globals/PageIdentifiers.php');
 class DataBaseTest extends testCase
 {
 
-
     public function testConnection()
     {
 
         $this->expectOutputRegex('.*');
         ControllerDataBase::connectToDatabase();
     }
-
-    public function testPHPinfo()
-    {
-        phpinfo();
-
-    }
-
 
 }
