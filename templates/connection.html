@@ -1,11 +1,48 @@
-<form>
-    <div class="form-group">
-        <label for="inputLogin">Nom d'utilisateur</label>
-        <input type="text" class="form-control" id="inputLogin" placeholder="Entrer votre nom d'utilisateur">
+<!--<div class="row-align-items-center">-->
+<!--    <form>-->
+<!--        <div class="form-group">-->
+<!--            <label for="inputLogin">Nom d'utilisateur</label>-->
+<!--            <input type="text" class="form-control" id="inputLogin" placeholder="Entrer votre nom d'utilisateur">-->
+<!--        </div>-->
+<!--        <div class="form-group">-->
+<!--            <label for="inputPassword">Mot de passe</label>-->
+<!--            <input type="password" class="form-control" id="inputPassword" placeholder="Entrer votre mot de passe">-->
+<!--        </div>-->
+<!--        <button type="submit" class="btn btn-primary">Se connecter</button>-->
+<!--    </form>-->
+<!--</div>-->
+
+
+<body>
+<div id="login">
+    <div class="container">
+        <br>
+        <h4 class="text-center login-title">Connectez vous pour accéder au site</h4>
+        <br>
+        <div id="login-row" class="row justify-content-center align-items-center">
+            <div id="login-column" class="col-md-6">
+                <div id="login-box" class="col-md-12">
+                    <form id="login-form" class="form" action="" method="post">
+                        <h3 class="text-center text-secondary">Connexion</h3>
+                        <div class="form-group">
+                            <label for="username" class="text-secondary">Nom d'utilisateur :</label><br>
+                            <input type="text" name="username" id="username" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="password" class="text-secondary">Mot de passe :</label><br>
+                            <input type="text" name="password" id="password" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" name="submit" class="btn btn-md btn-secondary btn-block" value="Se connecter">
+                        </div>
+                    </form>
+                    <div id="formFooter">
+                        <a class="underlineHover text-secondary" href="#">Mot de passe oublié ?</a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="form-group">
-        <label for="inputPassword">Mot de passe</label>
-        <input type="password" class="form-control" id="inputPassword" placeholder="Entrer votre mot de passe">
-    </div>
-    <button type="submit" class="btn btn-primary">Se connecter</button>
-</form>
+</div>
+</body>
+
