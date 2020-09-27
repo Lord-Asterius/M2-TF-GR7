@@ -3,7 +3,9 @@ version: '3'
 services:
   # Database
   db:
-    image: mysql:latest
+    image: mysql:5.7
+    ports:
+      - '3306:3306'
     volumes:
       - db_data:/var/lib/mysql
       - ./qui_est_la.sql:/data/application/init.sql

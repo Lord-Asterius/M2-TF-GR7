@@ -15,13 +15,13 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
+/*!40101 SET NAMES utf8 */;
 
 --
 -- Base de données : `qui_est_la`
 --
 
-CREATE DATABASE IF NOT EXISTS `qui_est_la` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
+CREATE DATABASE IF NOT EXISTS `qui_est_la` DEFAULT CHARACTER SET utf8 COLLATE utf8_bin;
 USE `qui_est_la`;
 
 -- --------------------------------------------------------
@@ -35,7 +35,7 @@ CREATE TABLE `absence` (
   `reason` text NOT NULL,
   `etudiant_key` int NOT NULL,
   `comment` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- --------------------------------------------------------
 
@@ -45,11 +45,11 @@ CREATE TABLE `absence` (
 
 CREATE TABLE `administrateur` (
   `key` int NOT NULL,
-  `id` varchar(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `password` varchar(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `id` varchar(1024) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
+  `password` varchar(1024) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
   `first_name` varchar(1024) NOT NULL,
   `last_name` varchar(1024) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- --------------------------------------------------------
 
@@ -63,7 +63,7 @@ CREATE TABLE `administrative staff` (
   `last_name` varchar(1024) NOT NULL,
   `id` int NOT NULL,
   `password` varchar(1024) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- --------------------------------------------------------
 
@@ -73,11 +73,11 @@ CREATE TABLE `administrative staff` (
 
 CREATE TABLE `enseignant` (
   `key` int NOT NULL,
-  `id` varchar(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `password` varchar(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `first_name` varchar(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `id` varchar(1024) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
+  `password` varchar(1024) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
+  `first_name` varchar(1024) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
   `last_name` varchar(1024) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- --------------------------------------------------------
 
@@ -88,7 +88,7 @@ CREATE TABLE `enseignant` (
 CREATE TABLE `enseignant_module` (
   `enseignant_key` int NOT NULL,
   `module_key` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- --------------------------------------------------------
 
@@ -102,7 +102,7 @@ CREATE TABLE `etudiant` (
   `password` varchar(1024) NOT NULL,
   `first_name` varchar(1024) NOT NULL,
   `last_name` varchar(1024) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- --------------------------------------------------------
 
@@ -113,7 +113,7 @@ CREATE TABLE `etudiant` (
 CREATE TABLE `etudiant_module` (
   `etudiant_key` int NOT NULL,
   `module_key` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- --------------------------------------------------------
 
@@ -123,8 +123,8 @@ CREATE TABLE `etudiant_module` (
 
 CREATE TABLE `module` (
   `key` int NOT NULL,
-  `name` varchar(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `name` varchar(1024) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
 -- Index pour les tables déchargées
