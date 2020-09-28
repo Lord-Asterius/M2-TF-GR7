@@ -13,11 +13,15 @@ class ControllerDataBase
             if (IS_RELEASE) {
                 self::$data_base_connector = new PDO('mysql:host=' . SERVER_RELEASE . ';dbname=' . DB . 'qui_est_la', USER_RELEASE, PASS_RELEASE);
             } else {
-                self::$data_base_connector = new PDO('mysql:host=' . SERVER . ';dbname=1' . DB, USER, PASS);
+                self::$data_base_connector = new PDO('mysql:host=' . SERVER . ';dbname=' . DB, USER, PASS);
             }
 
         } catch (PDOException $e) {
-            self::errorExit('<h4>Error when connecting to the database</h4>');
+            if (IS_RELEASE) {
+                self::errorExit('<h4>Error when connecting to the database</h4>');
+            } else {
+                self::errorExit('<h4>Error when connecting to the database : ' . $e->getMessage() . '</h4>');
+            }
             die();
         }
     }
@@ -61,7 +65,8 @@ class ControllerDataBase
      * @param string $sql
      * @return mixed
      */
-    function query(string $sql){
+    function query(string $sql)
+    {
         return self::$data_base_connector->query($sql);
     }
 
@@ -73,49 +78,10 @@ class ControllerDataBase
      * @param string $sql
      * @return mixed nb of line affected
      */
-    function exec(string $sql) {
+    function exec(string $sql)
+    {
         return self::$data_base_connector->exec($sql);
     }
-
-    /**
-     * Gestion d'une erreur de requête à la base de données.
-     *
-     * A appeler impérativement quand un appel de mysqli_query() échoue
-     * Appelle la fonction fd_bd_erreurExit() qui affiche un message d'erreur puis termine le script
-     *
-     * @param mysqli $bd Connecteur sur la bd ouverte
-     * @param string $sql requête SQL provoquant l'erreur
-     */
-    function requestError(mysqli $bd, string $sql)
-    {
-        $errNum = mysqli_errno($bd);
-        $errTxt = mysqli_error($bd);
-
-        // Collecte des informations facilitant le debugage
-        $msg = '<h4>Erreur de requête</h4>'
-            . "<pre><b>Erreur mysql :</b> $errNum"
-            . "<br> $errTxt"
-            . "<br><br><b>Requête :</b><br> $sql"
-            . '<br><br><b>Pile des appels de fonction</b></pre>';
-
-        // Récupération de la pile des appels de fonction
-        $msg .= '<table>'
-            . '<tr><td>Fonction</td><td>Appelée ligne</td>'
-            . '<td>Fichier</td></tr>';
-
-        $appels = debug_backtrace();
-        for ($i = 0, $iMax = count($appels); $i < $iMax; $i++) {
-            $msg .= '<tr style="text-align: center;"><td>'
-                . $appels[$i]['function'] . '</td><td>'
-                . $appels[$i]['line'] . '</td><td>'
-                . $appels[$i]['file'] . '</td></tr>';
-        }
-
-        $msg .= '</table>';
-
-        self::errorExit($msg);    // => ARRET DU SCRIPT
-    }
-
 
     /**
      *    Protection des sorties (code HTML généré à destination du client).
