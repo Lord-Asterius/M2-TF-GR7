@@ -11,6 +11,7 @@ include_once("src/controllers/ControllerEtudiantList.php");
 include_once("src/controllers/ControllerEtudiantEdit.php");
 include_once("src/controllers/ControllerEnseignantList.php");
 include_once("src/controllers/ControllerEnseignantEdit.php");
+include_once("src/controllers/ControllerAlert.php");
 
 
 
@@ -77,6 +78,11 @@ else if($requestedPage === PAGE_ID_ENSEGNANT_LIST) {
 }
 else if($requestedPage === PAGE_ID_ENSEIGNANT_EDIT) {
     $controller = new ControllerEnseignantEdit();
+    $controller->handleRequest($sanitizedGet);
+}
+else if ($requestedPage === PAGE_ID_ALERT)
+{
+    $controller = new ControllerAlert();
     $controller->handleRequest($sanitizedGet);
 }
 

@@ -1,0 +1,44 @@
+<div class="container">
+    <br>
+    <input class="form-control mb-4" id="tableSearch" type="text"
+           placeholder="Chercher une alerte">
+
+    <table class="table table-bordered table-striped">
+        <thead>
+        <tr>
+            <th>Etudiant</th>
+            <th>Nombre d'alerte</th>
+            <th>Mail d'alerte</th>
+        </tr>
+        </thead>
+        <tbody id="alertTable">
+        <?php foreach($context["alert"] as $alert): ?>
+        <tr>
+            <td>
+                <a href="index.php?page=<?= PAGE_ID_ABSENSE_DETAIL ?>&studentId=<?= $alert[2] ?>"> <?= $alert[0] ?> </a>
+            </td>
+            <td>
+                <?= $alert[1] ?>
+            </td>
+            <td>
+                <a href=#>
+                    <input type="image" src="images/bootstrap-icons/forward-fill.svg" alt="" title="Envoyer alerte">
+                </a>
+            </td>
+        </tr>
+        <?php endforeach; ?>
+        </tbody>
+    </table>
+</div>
+
+
+<script>
+    $(document).ready(function(){
+        $("#tableSearch").on("keyup", function() {
+            var value = $(this).val().toLowerCase();
+            $("#alertTable tr").filter(function() {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+    });
+</script>
