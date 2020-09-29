@@ -1,0 +1,16 @@
+
+<div class="container" style="padding-top: 3em">
+    <a href="index.php?page=<?= PAGE_ID_ENSEIGNANT_EDIT ?>"> <input type="image" src="images/bootstrap-icons/plus.svg" alt="" class="float-right" width="32" height="32" title="Ajouter un étudiant"></a>
+    <ul class="list-group">
+        <?php foreach($context["enseignants"] as $enseignant): ?>
+            <li class="list-group-item"> <a href="index.php?page=<?= PAGE_ID_ETUDIANT_LIST ?>&enseignant=<?= $enseignant ?>"> <?= $enseignant ?> </a>
+
+                    <div class="float-right">
+                    <a class="navbar-brand" href="index.php"  >
+                        <img src="images/bootstrap-icons/trash.svg"  alt="" width="32" height="32" title="Bootstrap">
+                    </a>
+                    </div>
+            </li>
+        <?php endforeach; ?>
+    </ul>
+</div>

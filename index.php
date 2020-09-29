@@ -7,6 +7,10 @@ include_once("src/controllers/ControllerConnection.php");
 include_once("src/views/ViewHelloWorld.php");
 include_once("src/controllers/ControllerAbsenceDetails.php");
 include_once("src/controllers/ControllerAbsenceList.php");
+include_once("src/controllers/ControllerEtudiantList.php");
+include_once("src/controllers/ControllerEtudiantEdit.php");
+include_once("src/controllers/ControllerEnseignantList.php");
+include_once("src/controllers/ControllerEnseignantEdit.php");
 
 
 
@@ -61,3 +65,20 @@ else if($requestedPage === PAGE_ID_ABSENSE_DETAIL) {
     $controller = new ControllerAbsenceDetails();
     $controller->handleRequest($sanitizedGet); 
 }
+else if($requestedPage === PAGE_ID_ETUDIANT_LIST) {
+    $controller = new ControllerEtudiantList();
+    $controller->handleRequest($sanitizedGet);
+}
+else if($requestedPage === PAGE_ID_ETUDIANT_EDIT) {
+    $controller = new ControllerEtudiantEdit();
+    $controller->handleRequest($sanitizedGet);
+}
+else if($requestedPage === PAGE_ID_ENSEGNANT_LIST) {
+    $controller = new ControllerEnseignantList();
+    $controller->handleRequest($sanitizedGet);
+}
+else if($requestedPage === PAGE_ID_ENSEIGNANT_EDIT) {
+    $controller = new ControllerEnseignantEdit();
+    $controller->handleRequest($sanitizedGet);
+}
+
