@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : db
--- Généré le : mar. 29 sep. 2020 à 14:32
+-- Généré le : mar. 29 sep. 2020 à 16:55
 -- Version du serveur :  5.7.31
 -- Version de PHP : 7.4.10
 
@@ -33,8 +33,9 @@ CREATE TABLE `absence` (
   `key` int(11) NOT NULL,
   `reason` text COLLATE utf8_bin NOT NULL,
   `etudiant_key` int(11) NOT NULL,
-  `comment` text COLLATE utf8_bin NOT NULL
+  `comment` text COLLATE utf8_bin
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
 
 -- --------------------------------------------------------
 
@@ -76,6 +77,7 @@ CREATE TABLE `user` (
   `date_naissance` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
+
 -- --------------------------------------------------------
 
 --
@@ -86,6 +88,7 @@ CREATE TABLE `user_module` (
   `user_key` int(11) NOT NULL,
   `module_key` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
 
 --
 -- Index pour les tables déchargées
@@ -132,19 +135,23 @@ ALTER TABLE `user_module`
 -- AUTO_INCREMENT pour la table `absence`
 --
 ALTER TABLE `absence`
-  MODIFY `key` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `key` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT pour la table `module`
 --
 ALTER TABLE `module`
-  MODIFY `key` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `key` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT pour la table `user`
 --
 ALTER TABLE `user`
-  MODIFY `key` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `key` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- Contraintes pour les tables déchargées
+--
 
 --
 -- Contraintes pour la table `absence`
@@ -158,7 +165,6 @@ ALTER TABLE `absence`
 ALTER TABLE `enseigant_referent`
   ADD CONSTRAINT `enseigant_referent_ibfk_1` FOREIGN KEY (`enseigant_key`) REFERENCES `user` (`key`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `enseigant_referent_ibfk_2` FOREIGN KEY (`module_key`) REFERENCES `module` (`key`) ON DELETE CASCADE ON UPDATE CASCADE;
-
 
 --
 -- Contraintes pour la table `user_module`
