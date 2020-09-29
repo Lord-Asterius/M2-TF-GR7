@@ -12,9 +12,9 @@ class ControllerConnection
         $this->c_viewConnection= new ViewConnection();
     }
 
-    public function handleRequest($getParameters)
+    public function connection($getParameters)
     {
-        //TODO
+
         $this->c_viewConnection->render();
     }
 }

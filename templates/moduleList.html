@@ -1,7 +1,23 @@
 <div class="container" style="padding-top: 3em">
-    <ul class="list-group">
+    <input class="form-control" id="listSearch" type="text" placeholder="Rechercher un module">
+    <br>
+    <ul class="list-group" id="moduleList">
         <?php foreach($context["modulesNames"] as $moduleName): ?>
-            <li class="list-group-item"> <a href="index.php?page=<?= PAGE_ID_MODULE ?>&module=<?= $moduleName ?>"> <?= $moduleName ?> </a></li>
+        <li class="list-group-item"><a
+                href="index.php?page=<?= PAGE_ID_MODULE ?>&module=<?= $moduleName ?>"> <?= $moduleName ?> </a></li>
         <?php endforeach; ?>
     </ul>
 </div>
+
+
+
+<script>
+    $(document).ready(function () {
+    $("#listSearch").on("keyup", function () {
+        var value = $(this).val().toLowerCase();
+        $("#moduleList li").filter(function () {
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        });
+    });
+});
+</script>

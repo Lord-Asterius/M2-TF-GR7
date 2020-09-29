@@ -22,10 +22,8 @@ foreach ($_GET as $key => $value)
 }
 
 
-// Retrieve the requested page, Hello world is set as the default page for now
-//$requestedPage = PAGE_ID_HELLO_WORLD;
 
-//Test with the Connection page as the default page
+//the Connection page as the default page
 $requestedPage = PAGE_ID_CONNECTION;
 
 if (isset($sanitizedGet["page"]))
@@ -43,7 +41,7 @@ if ($requestedPage === PAGE_ID_HELLO_WORLD)
 else if ($requestedPage === PAGE_ID_CONNECTION)
 {
     $controller = new ControllerConnection();
-    $controller->handleRequest($sanitizedGet);
+    $controller->connection($sanitizedGet);
 }
 else if ($requestedPage === PAGE_ID_MODULE_LIST)
 {
