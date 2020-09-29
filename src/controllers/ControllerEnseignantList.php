@@ -14,8 +14,7 @@ class ControllerEnseignantList
 
     public function handleRequest($getParameters)
     {
-                    print_r($getParameters);
-                    $this->m_viewEnseignantList->setEnseignantList(["Dupont Jean", "Emilie", "Alexandre"]);
+                    $this->m_viewEnseignantList->setEnseignantList(["Bouque Fabrice", "Fabien Peureux", "Autre Enseignant"]);
                     $this->m_viewEnseignantList->render();
 }
 }

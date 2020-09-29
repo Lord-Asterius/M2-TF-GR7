@@ -14,7 +14,6 @@ class ControllerEtudiantList
 
     public function handleRequest($getParameters)
     {
-                    print_r($getParameters);
                     $this->m_viewEtudiantList->setEtudiantList(["Dupont Jean", "Emilie", "Alexandre"]);
                     $this->m_viewEtudiantList->render();
 }

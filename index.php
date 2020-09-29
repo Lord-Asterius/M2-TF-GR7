@@ -73,7 +73,7 @@ else if($requestedPage === PAGE_ID_ETUDIANT_EDIT) {
     $controller = new ControllerEtudiantEdit();
     $controller->handleRequest($sanitizedGet);
 }
-else if($requestedPage === PAGE_ID_ENSEGNANT_LIST) {
+else if($requestedPage === PAGE_ID_ENSEIGNANT_LIST) {
     $controller = new ControllerEnseignantList();
     $controller->handleRequest($sanitizedGet);
 }
