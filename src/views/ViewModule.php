@@ -28,4 +28,6 @@ class ViewModule
     {
         $this->m_canvas->renderTemplate("module", $this->m_context);
     }
+
+    
 }
