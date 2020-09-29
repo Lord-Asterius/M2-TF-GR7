@@ -153,10 +153,6 @@ ALTER TABLE `user`
   MODIFY `key` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- Contraintes pour les tables déchargées
---
-
---
 -- Contraintes pour la table `absence`
 --
 ALTER TABLE `absence`
@@ -169,11 +165,6 @@ ALTER TABLE `enseigant_referent`
   ADD CONSTRAINT `enseigant_referent_ibfk_1` FOREIGN KEY (`enseigant_key`) REFERENCES `user` (`key`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `enseigant_referent_ibfk_2` FOREIGN KEY (`module_key`) REFERENCES `module` (`key`) ON DELETE CASCADE ON UPDATE CASCADE;
 
---
--- Contraintes pour la table `user`
---
-ALTER TABLE `user`
-  ADD CONSTRAINT `user_ibfk_1` FOREIGN KEY (`key`) REFERENCES `etudiant_module` (`etudiant_key`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Contraintes pour la table `user_module`
