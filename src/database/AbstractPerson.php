@@ -1,7 +1,7 @@
 <?php
 
 
-abstract class AbstractPerson
+class User
 {
     private $key;
     private $id;
@@ -9,11 +9,24 @@ abstract class AbstractPerson
     private $first_name;
     private $last_name;
     private $mail;
+    private $module;
+    private $moduleRefere;
+    private $abscence;
+    private $date;
 
 
-    public abstract function __construct($id, $password, $first_name, $last_name, $key);
-    public abstract function commit();
-    public static abstract function getCreateAllPerson();
+    public function __construct($id, $password, $first_name, $last_name, $key){
+        
+    }
+    
+    public function commit(){
+        
+    }
+    
+    public static function getCreateAllPerson(){
+        
+    }
+    
     public function getId()
     {
         return $this->id;
