@@ -1,0 +1,35 @@
+
+<div class="container" style="padding-top: 3em">
+    <h1>Ajouter un étudiant</h1>
+    <form>
+        <div class="row">
+            <div class="col">
+              <input type="text" class="form-control" placeholder="Prénom">
+            </div>
+            <div class="col">
+              <input type="text" class="form-control" placeholder="Nom">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="exampleInputEmail1">Date de naissance</label>
+                    
+        <input id="datepicker" width="276" />
+        <script>
+            $('#datepicker').datepicker({
+                uiLibrary: 'bootstrap4'
+            });
+        </script>
+            </div>
+
+        <div class="form-group">
+          <label for="exampleInputEmail1">Adresse email</label>
+          <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Adresse email">
+        </div>
+        <div class="form-group">
+          <label for="exampleInputPassword1">Mot de passe</label>
+          <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Mot de passe">
+        </div>
+        <button type="submit" class="btn btn-primary">envoyer</button>
+      </form>
+
+</div>
