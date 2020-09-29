@@ -6,8 +6,9 @@
     <table class="table table-bordered table-striped">
         <thead>
         <tr>
-            <th>Etudiant</th>
-            <th>Nombre d'alerte</th>
+            <th>Numéro étudiant</th>
+            <th>Nom</th>
+            <th>Nombre d'absences injustifiées</th>
             <th>Mail d'alerte</th>
         </tr>
         </thead>
@@ -15,10 +16,13 @@
         <?php foreach($context["alert"] as $alert): ?>
         <tr>
             <td>
-                <a href="index.php?page=<?= PAGE_ID_ABSENSE_DETAIL ?>&studentId=<?= $alert[2] ?>"> <?= $alert[0] ?> </a>
+                <?= $alert[0] ?>
             </td>
             <td>
-                <?= $alert[1] ?>
+                <a href="index.php?page=<?= PAGE_ID_ABSENSE_DETAIL ?>&studentId=<?= $alert[3] ?>"> <?= $alert[1] ?> </a>
+            </td>
+            <td>
+                <?= $alert[2] ?>
             </td>
             <td>
                 <a href=#>
