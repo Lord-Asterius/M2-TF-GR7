@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : db
--- Généré le : mar. 29 sep. 2020 à 12:42
+-- Généré le : mar. 29 sep. 2020 à 16:55
 -- Version du serveur :  5.7.31
 -- Version de PHP : 7.4.10
 
@@ -33,8 +33,9 @@ CREATE TABLE `absence` (
   `key` int(11) NOT NULL,
   `reason` text COLLATE utf8_bin NOT NULL,
   `etudiant_key` int(11) NOT NULL,
-  `comment` text COLLATE utf8_bin NOT NULL
+  `comment` text COLLATE utf8_bin
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
 
 -- --------------------------------------------------------
 
@@ -50,28 +51,6 @@ CREATE TABLE `enseigant_referent` (
 -- --------------------------------------------------------
 
 --
--- Structure de la table `enseignant_module`
---
-
-CREATE TABLE `enseignant_module` (
-  `enseignant_key` int(11) NOT NULL,
-  `module_key` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
-
--- --------------------------------------------------------
-
---
--- Structure de la table `etudiant_module`
---
-
-CREATE TABLE `etudiant_module` (
-  `etudiant_key` int(11) NOT NULL,
-  `module_key` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
-
--- --------------------------------------------------------
-
---
 -- Structure de la table `module`
 --
 
@@ -80,12 +59,6 @@ CREATE TABLE `module` (
   `name` varchar(1024) COLLATE utf8_bin NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
---
--- Déchargement des données de la table `module`
---
-
-INSERT INTO `module` (`key`, `name`) VALUES
-(2, 'module');
 
 -- --------------------------------------------------------
 
@@ -103,6 +76,19 @@ CREATE TABLE `user` (
   `role` enum('ENSEIGNANT','EQUIPE_ADMINISTRATIVE','ADMINISTRATEUR','ETUDIANT','') COLLATE utf8_bin NOT NULL,
   `date_naissance` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `user_module`
+--
+
+CREATE TABLE `user_module` (
+  `user_key` int(11) NOT NULL,
+  `module_key` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
 
 --
 -- Index pour les tables déchargées
@@ -123,20 +109,6 @@ ALTER TABLE `enseigant_referent`
   ADD KEY `module_key` (`module_key`);
 
 --
--- Index pour la table `enseignant_module`
---
-ALTER TABLE `enseignant_module`
-  ADD KEY `enseignant_key` (`enseignant_key`),
-  ADD KEY `module_key` (`module_key`);
-
---
--- Index pour la table `etudiant_module`
---
-ALTER TABLE `etudiant_module`
-  ADD KEY `etudiant_key` (`etudiant_key`),
-  ADD KEY `module_key` (`module_key`);
-
---
 -- Index pour la table `module`
 --
 ALTER TABLE `module`
@@ -149,6 +121,13 @@ ALTER TABLE `user`
   ADD PRIMARY KEY (`key`);
 
 --
+-- Index pour la table `user_module`
+--
+ALTER TABLE `user_module`
+  ADD KEY `module_key` (`module_key`),
+  ADD KEY `user_key` (`user_key`);
+
+--
 -- AUTO_INCREMENT pour les tables déchargées
 --
 
@@ -156,19 +135,19 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT pour la table `absence`
 --
 ALTER TABLE `absence`
-  MODIFY `key` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `key` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT pour la table `module`
 --
 ALTER TABLE `module`
-  MODIFY `key` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `key` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT pour la table `user`
 --
 ALTER TABLE `user`
-  MODIFY `key` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `key` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Contraintes pour les tables déchargées
@@ -188,24 +167,11 @@ ALTER TABLE `enseigant_referent`
   ADD CONSTRAINT `enseigant_referent_ibfk_2` FOREIGN KEY (`module_key`) REFERENCES `module` (`key`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Contraintes pour la table `enseignant_module`
+-- Contraintes pour la table `user_module`
 --
-ALTER TABLE `enseignant_module`
-  ADD CONSTRAINT `enseignant_module_ibfk_1` FOREIGN KEY (`enseignant_key`) REFERENCES `user` (`key`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `enseignant_module_ibfk_2` FOREIGN KEY (`module_key`) REFERENCES `module` (`key`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Contraintes pour la table `etudiant_module`
---
-ALTER TABLE `etudiant_module`
-  ADD CONSTRAINT `etudiant_module_ibfk_1` FOREIGN KEY (`etudiant_key`) REFERENCES `etudiant` (`key`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `etudiant_module_ibfk_2` FOREIGN KEY (`module_key`) REFERENCES `module` (`key`);
-
---
--- Contraintes pour la table `user`
---
-ALTER TABLE `user`
-  ADD CONSTRAINT `user_ibfk_1` FOREIGN KEY (`key`) REFERENCES `etudiant_module` (`etudiant_key`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `user_module`
+  ADD CONSTRAINT `user_module_ibfk_1` FOREIGN KEY (`user_key`) REFERENCES `user` (`key`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `user_module_ibfk_2` FOREIGN KEY (`module_key`) REFERENCES `module` (`key`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
