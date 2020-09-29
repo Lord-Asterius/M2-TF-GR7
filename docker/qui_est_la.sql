@@ -58,12 +58,6 @@ CREATE TABLE `module` (
   `name` varchar(1024) COLLATE utf8_bin NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
---
--- Déchargement des données de la table `module`
---
-
-INSERT INTO `module` (`key`, `name`) VALUES
-(2, 'module');
 
 -- --------------------------------------------------------
 
