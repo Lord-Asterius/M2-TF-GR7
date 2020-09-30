@@ -1,3 +1,24 @@
+<?php if($context["toastSuccess"] === true || $context["toastError"] === true): ?>
+    <div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-autohide="true" data-delay="15000"
+         style="position: absolute; top: 1em; right: 1em; background-color: white">
+
+        <div class="toast-header">
+            <?php if($context["toastSuccess"] === true): ?>
+                <strong class="mr-auto text-success">Succès</strong>
+            <?php elseif($context["toastError"] === true): ?>
+                <strong class="mr-auto text-danger">Erreur</strong>
+            <?php endif; ?>
+            <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="toast-body">
+            <?= $context["toastMessage"] ?>
+        </div>
+
+    </div>
+<?php endif; ?>
+
 <div class="card text-center" style="padding-top: 1em">
     <div class="card-header">
         <h4> <?= $context["moduleName"] ?> </h4>
@@ -46,6 +67,10 @@
                     <input id="datepicker" name="absenceDate" width="276"/>
                 </div>
                 <div class="form-group">
+                    <label for="absenceTime">Heure de l'absence</label>
+                    <input class="form-control" type="time" id="absenceTime" name="absenceTime"/>
+                </div>
+                <div class="form-group">
                     <label for="textAreaReason">Motif</label>
                     <textarea class="form-control" id="textAreaReason" name="reason" rows="3"></textarea>
                 </div>
@@ -83,5 +108,15 @@
         });
 
         $('#datepicker').datepicker().value(dateFormatted);
+
+        var hours = (dateNow.getHours() < 10) ? '0' + dateNow.getHours() : dateNow.getHours();
+        var minutes = (dateNow.getMinutes() < 10) ? '0' + dateNow.getMinutes() : dateNow.getMinutes();
+
+        $('#absenceTime').val(hours + ":" + minutes);
     })
+
+    $(document).ready( function ()
+    {
+        $('.toast').toast('show');
+    });
 </script>
