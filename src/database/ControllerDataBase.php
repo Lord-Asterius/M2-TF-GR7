@@ -4,16 +4,25 @@ class ControllerDataBase
 {
 
 
-    private static $data_base_connector;
-
+    private static $dataBaseConnector;
+    private static $insertUser;
+    private static $insertModule;
+    private static $insertAbsence;
+    private static $selectAllUser;
+    private static $selectAllTeacher;
+    private static $selectAllAdminStaff;
+    private static $selectAllAllAdmin;
+    private static $selectAllAllStudent;
+    private static $selectAllSpecificUser;
+    private static $selectAllAbsence;
 
     public static function connectToDatabase()
     {
         try {
             if (IS_RELEASE) {
-                self::$data_base_connector = new PDO('mysql:host=' . SERVER_RELEASE . ';dbname=' . DB . 'qui_est_la', USER_RELEASE, PASS_RELEASE);
+                self::$dataBaseConnector = new PDO('mysql:host=' . SERVER_RELEASE . ';dbname=' . DB . 'qui_est_la', USER_RELEASE, PASS_RELEASE);
             } else {
-                self::$data_base_connector = new PDO('mysql:host=' . SERVER . ';dbname=' . DB, USER, PASS);
+                self::$dataBaseConnector = new PDO('mysql:host=' . SERVER . ';dbname=' . DB, USER, PASS);
             }
 
         } catch (PDOException $e) {
@@ -26,7 +35,133 @@ class ControllerDataBase
         }
     }
 
+    public static function disconnectFromDataBase()
+    {
+        self::$dataBaseConnector = null;
+    }
+
+    public static function prepareAll()
+    {
+        self::prepareInsertUser();
+        self::prepareInsertAbsence();
+        self::prepareInsertModule();
+        self::prepareSelectAllAbsence();
+        self::prepareSelectAllAdmin();
+        self::prepareSelectAllAdminStaff();
+        self::prepareSelectAllStudent();
+        self::prepareSelectAllTeacher();
+        self::prepareSelectAllUser();
+        self::prepareSelectSpecificUser();
+
+    }
+
+    private static function prepareInsertUser()
+    {
+        self::$insertUser = self::$dataBaseConnector->prepare("INSERT INTO user(id, password, first_name, last_name, mail, role, date_naissance) VALUES (:id, :password, :first_name, :last_name, :mail, :role, :date_naissance)");
+    }
+
+    private static function prepareInsertModule()
+    {
+        self::$insertModule = self::$dataBaseConnector->prepare("INSERT INTO module(name) VALUES (:name)");
+    }
+
+    private static function prepareInsertAbsence()
+    {
+        self::$insertAbsence = self::$dataBaseConnector->prepare("INSERT INTO absence(reason, etudiant_key, comment) VALUES (:reason, :etudiant_key, :comment)");
+    }
+
+    private static function prepareSelectAllUser()
+    {
+        self::$selectAllUser = self::$dataBaseConnector->prepare("SELECT * FROM user LEFT JOIN user_module ON user.key = user_module.user_key LEFT JOIN module ON user_module.module_key = module.key LEFT JOIN absence ON user.key = absence.etudiant_key");
+    }
+
+    private static function prepareSelectAllTeacher()
+    {
+        self::$selectAllTeacher = self::$dataBaseConnector->prepare("SELECT * FROM user LEFT JOIN user_module ON user.key = user_module.user_key LEFT JOIN module ON user_module.module_key = module.key WHERE user.role = 'ENSEIGNANT' ");
+    }
+
+    private static function prepareSelectAllAdminStaff()
+    {
+        self::$selectAllAdminStaff = self::$dataBaseConnector->prepare("SELECT * FROM user LEFT JOIN user_module ON user.key = user_module.user_key LEFT JOIN module ON user_module.module_key = module.key WHERE user.role = 'EQUIPE_ADMINISTRATIVE' ");
+    }
+
+    private static function prepareSelectAllAdmin()
+    {
+        self::$selectAllAllAdmin = self::$dataBaseConnector->prepare("SELECT * FROM user LEFT JOIN user_module ON user.key = user_module.user_key LEFT JOIN module ON user_module.module_key = module.key LEFT JOIN absence ON user.key = absence.etudiant_key WHERE user.role = 'ADMINISTRATEUR' ");
+    }
+
+    private static function prepareSelectAllStudent()
+    {
+        self::$selectAllAllStudent = self::$dataBaseConnector->prepare("SELECT * FROM user LEFT JOIN user_module ON user.key = user_module.user_key LEFT JOIN module ON user_module.module_key = module.key LEFT JOIN absence ON user.key = absence.etudiant_key WHERE user.role = 'ETUDIANT' ");
+    }
+
+    private static function prepareSelectSpecificUser()
+    {
+        self::$selectAllSpecificUser = self::$dataBaseConnector->prepare("SELECT * FROM user LEFT JOIN user_module ON user.key = user_module.user_key LEFT JOIN module ON user_module.module_key = module.key LEFT JOIN absence ON user.key = absence.etudiant_key WHERE user.id = ? AND user.password = ? ");
+    }
+
+    private static function prepareSelectAllAbsence()
+    {
+        self::$selectAllAbsence = self::$dataBaseConnector->prepare("SELECT * FROM absence");
+    }
+
+    public static function getDataBaseConnector()
+    {
+        return self::$dataBaseConnector;
+    }
+
+    public static function getInsertModule()
+    {
+        return self::$insertModule;
+    }
+
+    public static function getInsertAbsence()
+    {
+        return self::$insertAbsence;
+    }
+
+    public static function getSelectAllUser()
+    {
+        return self::$selectAllUser;
+    }
+
+    public static function getSelectAllTeacher()
+    {
+        return self::$selectAllTeacher;
+    }
+
+    public static function getSelectAllAdminStaff()
+    {
+        return self::$selectAllAdminStaff;
+    }
+
+    public static function getSelectAllAllAdmin()
+    {
+        return self::$selectAllAllAdmin;
+    }
+
+    public static function getSelectAllAllStudent()
+    {
+        return self::$selectAllAllStudent;
+    }
+
+    public static function getSelectSpecificUser()
+    {
+        return self::$selectAllSpecificUser;
+    }
+
+    public static function getSelectAllAbsence()
+    {
+        return self::$selectAllAbsence;
+    }
+
+    public static function getInsertUser()
+    {
+        return self::$insertUser;
+    }
+
 //____________________________________________________________________________
+
 
     /**
      * Arrêt du script si erreur base de données
@@ -48,10 +183,7 @@ class ControllerDataBase
         '</body></html>';
     }
 
-
 //____________________________________________________________________________
-
-//SELECT * FROM enseignant, enseignant_module, module WHERE enseignant.key = enseignant_module.enseignant_key AND enseignant_module.module_key = module.key
 
 
     /**
@@ -65,9 +197,9 @@ class ControllerDataBase
      * @param string $sql
      * @return mixed
      */
-    function query(string $sql)
+    public static function query(string $sql)
     {
-        return self::$data_base_connector->query($sql);
+        return self::$dataBaseConnector->query($sql);
     }
 
     /**
@@ -78,9 +210,9 @@ class ControllerDataBase
      * @param string $sql
      * @return mixed nb of line affected
      */
-    function exec(string $sql)
+    public static function exec(string $sql)
     {
-        return self::$data_base_connector->exec($sql);
+        return self::$dataBaseConnector->exec($sql);
     }
 
     /**
