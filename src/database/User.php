@@ -11,22 +11,65 @@ class User
     private $mail;
     private $module;
     private $moduleRefere;
-    private $abscence;
+    private $absence;
     private $date;
 
 
-    public function __construct($id, $password, $first_name, $last_name, $key){
-        
+    public function __construct($id, $password, $first_name, $last_name, $mail, $module, $moduleRefere, $absence, $date)
+    {
+        $this->id = $id;
+        $this->password = $password;
+        $this->first_name = $first_name;
+        $this->last_name = $last_name;
+        $this->mail = $mail;
+        $this->module = $module;
+        $this->moduleRefere = $moduleRefere;
+        $this->absence = $absence;
+        $this->date = $date;
     }
-    
-    public function commit(){
-        
+
+
+    public static function lookForUser($id, $password)
+    {
+
+        return new User();
     }
-    
-    public static function getCreateAllPerson(){
-        
+
+    public function commit()
+    {
+
     }
-    
+
+    public static function getCreateAllPerson()
+    {
+
+    }
+
+    public function getModule()
+    {
+        return $this->module;
+    }
+
+    public function getModuleRefere()
+    {
+        return $this->moduleRefere;
+    }
+
+    public function getAbsence()
+    {
+        return $this->absence;
+    }
+
+    public function getDate()
+    {
+        return $this->date;
+    }
+
+    public function setDate($date): void
+    {
+        $this->date = $date;
+    }
+
     public function getId()
     {
         return $this->id;
@@ -113,10 +156,5 @@ class User
     public function isSamePassword(string $password)
     {
         return password_verify($password, $this->password);
-    }
-
-    public function getKey()
-    {
-        return $this->key;
     }
 }
