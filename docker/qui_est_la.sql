@@ -34,7 +34,7 @@ CREATE TABLE `absence` (
   `reason` text COLLATE utf8_bin NOT NULL,
   `etudiant_key` int(11) NOT NULL,
   `comment` text COLLATE utf8_bin,
-  'date' date NOT NULL
+  `date` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 
