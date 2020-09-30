@@ -54,7 +54,7 @@ class ControllerAbsenceDetails extends ControllerDataBase
 
 
         // https://www.w3schools.com/php/php_json.asp
-        // $data = [
+        // $data = ["
         //             ["name"=>"fabrice", "module"=>"English", "date"=>"1st June", "studentId"=>1],
         //             ["name"=>"fabien", "module"=>"English", "date"=>"1st June", "studentId" => 2],
         //             ["name"=>"Aurav", "module"=>"English", "date"=>"1st June", "studentId" => 3],
