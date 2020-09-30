@@ -54,7 +54,7 @@ else if ($requestedPage === PAGE_ID_MODULE)
     $controller = new ControllerModule();
     $controller->handleRequest($sanitizedGet);
 }
-##by Khadija
+
 else if($requestedPage === PAGE_ID_ABSENCE_LIST) {
     $controller = new ControllerAbsenceList();
     $controller->handleRequest($sanitizedGet);   

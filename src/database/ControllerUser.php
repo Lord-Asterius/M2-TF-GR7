@@ -12,29 +12,43 @@ class ControllerUser
     public function __construct($user)
     {
         $this->user = $user;
+    }
+
+    private function bindInsertUser()
+    {
+        $id = $this->user->getId();
+        ControllerDataBase::getInsertUser()->bindParam(':id', $id);
+        $password = $this->user->getPassword();
+        ControllerDataBase::getInsertUser()->bindParam(':password', $password);
+        $firstName = $this->user->getFirstName();
+        ControllerDataBase::getInsertUser()->bindParam(':first_name', $firstName);
+        $lastName = $this->user->getLastName();
+        ControllerDataBase::getInsertUser()->bindParam(':last_name', $lastName);
+        $mail = $this->user->getMail();
+        ControllerDataBase::getInsertUser()->bindParam(':mail', $mail);
+        $role = $this->user->getRole();
+        ControllerDataBase::getInsertUser()->bindParam(':role', $role);
+        $dateNaissance = $this->user->getDate();
+        ControllerDataBase::getInsertUser()->bindParam(':date_naissance', $dateNaissance);
+    }
+
+    public function commit()
+    {
+        ControllerDataBase::prepareInsertUser();
         $this->bindInsertUser();
-    }
-
-    private function bindInsertUser(){
-        ControllerDataBase::getInsertUser()->bindParam(':id', $this->user->id);
-        ControllerDataBase::getInsertUser()->bindParam(':password', $this->user->password);
-        ControllerDataBase::getInsertUser()->bindParam(':first_name', $this->user->first_name);
-        ControllerDataBase::getInsertUser()->bindParam(':last_name', $this->user->last_name);
-        ControllerDataBase::getInsertUser()->bindParam(':mail', $this->user->mail);
-        ControllerDataBase::getInsertUser()->bindParam(':role', $this->user->role);
-        ControllerDataBase::getInsertUser()->bindParam(':date_naissance', $this->user->date_naissance);
-    }
-
-    public function commit() {
         ControllerDataBase::getInsertUser()->execute();
     }
 
     public static function lookForUser($id, $password)
     {
-        if (ControllerDataBase::getSelectSpecificUser()->execute(array($id, $password))) {
+        ControllerDataBase::prepareSelectSpecificUser();
+        if (ControllerDataBase::getSelectSpecificUser()->execute(array($id))) {
             $row = ControllerDataBase::getSelectSpecificUser()->fetch();
-            return new User($row['password'], $row['first_name'], $row['last_name'], $row['mail'], $row['module'],
-                $row['moduleRefere'], $row['absence'], $row['date']);
+            if ($row && password_verify($password, $row['password'])) {
+                $user = new User($row['password'], $row['first_name'], $row['last_name'], $row['mail'], $row['date_naissance'], 'ENSEIGNANT');
+                $user->forceSetPassword($row['password']);
+                return $user;
+            }
         }
 
         return null;

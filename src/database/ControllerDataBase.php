@@ -40,69 +40,116 @@ class ControllerDataBase
         self::$dataBaseConnector = null;
     }
 
-    public static function prepareAll()
+    private static function setPrepareToNull()
     {
-        self::prepareInsertUser();
-        self::prepareInsertAbsence();
-        self::prepareInsertModule();
-        self::prepareSelectAllAbsence();
-        self::prepareSelectAllAdmin();
-        self::prepareSelectAllAdminStaff();
-        self::prepareSelectAllStudent();
-        self::prepareSelectAllTeacher();
-        self::prepareSelectAllUser();
-        self::prepareSelectSpecificUser();
+        self::$insertUser = null;
+        self::$insertModule = null;
+        self::$insertAbsence = null;
+        self::$selectAllUser = null;
+        self::$selectAllTeacher = null;
+        self::$selectAllAdminStaff = null;
+        self::$selectAllAllAdmin = null;
+        self::$selectAllAllStudent = null;
+        self::$selectAllSpecificUser = null;
+        self::$selectAllAbsence = null;
+    }
+
+    public static function prepareInsertUser()
+    {
+        if (self::$insertUser == null) {
+            self::setPrepareToNull();
+            self::$insertUser = self::$dataBaseConnector->prepare("INSERT INTO user(id, password, first_name, last_name, mail, role, date_naissance) VALUES (:id, :password, :first_name, :last_name, :mail, :role, :date_naissance)");
+            return self::$insertUser;
+        }
+        return true;
+    }
+
+    public static function prepareInsertModule()
+    {
+        if (self::$insertModule == null) {
+            self::setPrepareToNull();
+            return self::$insertModule = self::$dataBaseConnector->prepare("INSERT INTO module(name) VALUES (:name)");
+        }
+        return true;
+    }
+
+    public static function prepareInsertAbsence()
+    {
+        if (self::$insertModule == null) {
+            self::setPrepareToNull();
+            return self::$insertAbsence = self::$dataBaseConnector->prepare("INSERT INTO absence(reason, etudiant_key, comment) VALUES (:reason, :etudiant_key, :comment)");
+        }
+        return true;
+    }
+
+    //TODO: séparé les appels à user et à leurs modules pour discriminer les
+    public static function prepareSelectAllUser()
+    {
+        if (self::$insertModule == null) {
+            self::setPrepareToNull();
+            return self::$selectAllUser = self::$dataBaseConnector->prepare("SELECT * FROM user LEFT JOIN user_module ON user.key = user_module.user_key LEFT JOIN module ON user_module.module_key = module.key LEFT JOIN absence ON user.key = absence.etudiant_key");
+        }
+        return true;
+    }
+
+    public static function prepareSelectAllTeacher()
+    {
+        if (self::$insertModule == null) {
+            self::setPrepareToNull();
+            return self::$selectAllTeacher = self::$dataBaseConnector->prepare("SELECT * FROM user LEFT JOIN user_module ON user.key = user_module.user_key LEFT JOIN module ON user_module.module_key = module.key WHERE user.role = 'ENSEIGNANT' ");
+        }
+        return true;
 
     }
 
-    private static function prepareInsertUser()
+    public static function prepareSelectAllAdminStaff()
     {
-        self::$insertUser = self::$dataBaseConnector->prepare("INSERT INTO user(id, password, first_name, last_name, mail, role, date_naissance) VALUES (:id, :password, :first_name, :last_name, :mail, :role, :date_naissance)");
+        if (self::$insertModule == null) {
+            self::setPrepareToNull();
+            return self::$selectAllAdminStaff = self::$dataBaseConnector->prepare("SELECT * FROM user LEFT JOIN user_module ON user.key = user_module.user_key LEFT JOIN module ON user_module.module_key = module.key WHERE user.role = 'EQUIPE_ADMINISTRATIVE' ");
+        }
+        return true;
+
     }
 
-    private static function prepareInsertModule()
+    public static function prepareSelectAllAdmin()
     {
-        self::$insertModule = self::$dataBaseConnector->prepare("INSERT INTO module(name) VALUES (:name)");
+        if (self::$insertModule == null) {
+            self::setPrepareToNull();
+            return self::$selectAllAllAdmin = self::$dataBaseConnector->prepare("SELECT * FROM user LEFT JOIN user_module ON user.key = user_module.user_key LEFT JOIN module ON user_module.module_key = module.key LEFT JOIN absence ON user.key = absence.etudiant_key WHERE user.role = 'ADMINISTRATEUR' ");
+        }
+        return true;
+
     }
 
-    private static function prepareInsertAbsence()
+    public static function prepareSelectAllStudent()
     {
-        self::$insertAbsence = self::$dataBaseConnector->prepare("INSERT INTO absence(reason, etudiant_key, comment) VALUES (:reason, :etudiant_key, :comment)");
+        if (self::$insertModule == null) {
+            self::setPrepareToNull();
+            return self::$selectAllAllStudent = self::$dataBaseConnector->prepare("SELECT * FROM user LEFT JOIN user_module ON user.key = user_module.user_key LEFT JOIN module ON user_module.module_key = module.key LEFT JOIN absence ON user.key = absence.etudiant_key WHERE user.role = 'ETUDIANT' ");
+        }
+        return true;
+
     }
 
-    private static function prepareSelectAllUser()
+    public static function prepareSelectSpecificUser()
     {
-        self::$selectAllUser = self::$dataBaseConnector->prepare("SELECT * FROM user LEFT JOIN user_module ON user.key = user_module.user_key LEFT JOIN module ON user_module.module_key = module.key LEFT JOIN absence ON user.key = absence.etudiant_key");
+        if (self::$insertModule == null) {
+            self::setPrepareToNull();
+            return self::$selectAllSpecificUser = self::$dataBaseConnector->prepare("SELECT * FROM user LEFT JOIN user_module ON user.key = user_module.user_key LEFT JOIN module ON user_module.module_key = module.key LEFT JOIN absence ON user.key = absence.etudiant_key WHERE user.id = ?");
+        }
+        return true;
+
     }
 
-    private static function prepareSelectAllTeacher()
+    public static function prepareSelectAllAbsence()
     {
-        self::$selectAllTeacher = self::$dataBaseConnector->prepare("SELECT * FROM user LEFT JOIN user_module ON user.key = user_module.user_key LEFT JOIN module ON user_module.module_key = module.key WHERE user.role = 'ENSEIGNANT' ");
-    }
+        if (self::$insertModule == null) {
+            self::setPrepareToNull();
+            return self::$selectAllAbsence = self::$dataBaseConnector->prepare("SELECT * FROM absence");
+        }
+        return true;
 
-    private static function prepareSelectAllAdminStaff()
-    {
-        self::$selectAllAdminStaff = self::$dataBaseConnector->prepare("SELECT * FROM user LEFT JOIN user_module ON user.key = user_module.user_key LEFT JOIN module ON user_module.module_key = module.key WHERE user.role = 'EQUIPE_ADMINISTRATIVE' ");
-    }
-
-    private static function prepareSelectAllAdmin()
-    {
-        self::$selectAllAllAdmin = self::$dataBaseConnector->prepare("SELECT * FROM user LEFT JOIN user_module ON user.key = user_module.user_key LEFT JOIN module ON user_module.module_key = module.key LEFT JOIN absence ON user.key = absence.etudiant_key WHERE user.role = 'ADMINISTRATEUR' ");
-    }
-
-    private static function prepareSelectAllStudent()
-    {
-        self::$selectAllAllStudent = self::$dataBaseConnector->prepare("SELECT * FROM user LEFT JOIN user_module ON user.key = user_module.user_key LEFT JOIN module ON user_module.module_key = module.key LEFT JOIN absence ON user.key = absence.etudiant_key WHERE user.role = 'ETUDIANT' ");
-    }
-
-    private static function prepareSelectSpecificUser()
-    {
-        self::$selectAllSpecificUser = self::$dataBaseConnector->prepare("SELECT * FROM user LEFT JOIN user_module ON user.key = user_module.user_key LEFT JOIN module ON user_module.module_key = module.key LEFT JOIN absence ON user.key = absence.etudiant_key WHERE user.id = ? AND user.password = ? ");
-    }
-
-    private static function prepareSelectAllAbsence()
-    {
-        self::$selectAllAbsence = self::$dataBaseConnector->prepare("SELECT * FROM absence");
     }
 
     public static function getDataBaseConnector()
@@ -229,7 +276,7 @@ class ControllerDataBase
      * @param string $str la chaine à protéger
      * @return string    la chaîne protégée
      */
-    function protectSortie(string $str)
+    function protectXss(string $str)
     {
         $str = trim($str);
         return htmlentities($str, ENT_QUOTES, 'UTF-8');
