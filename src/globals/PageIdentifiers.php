@@ -6,6 +6,7 @@ define("PAGE_ID_CONNECTION", "connection");
 define("PAGE_ID_MODULE", "module");
 define("PAGE_ID_ABSENCE_LIST", "absenceList");
 define('PAGE_ID_ABSENSE_DETAIL',"absenceDetails");
+define('PAGE_ID_ALERT',"alert");
 
 //Release
 define('IS_RELEASE', false);
