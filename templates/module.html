@@ -8,9 +8,18 @@
             <?php foreach($context["enrolledUsers"] as $enrolledUser): ?>
                 <li class="list-group-item text-left">
                     <?= $enrolledUser->name ?>
-                    <input type="image" src="images/bootstrap-icons/pencil-square.svg" alt="" class="float-right" width="32" height="32" title="Modifier les absences">
-                    <input type="image" src="images/bootstrap-icons/plus.svg" data-toggle="modal" data-target="#editModal" data-name="<?= $enrolledUser->name ?>"
-                           data-id="<?= $enrolledUser->userId ?>" alt="" class="float-right" width="32" height="32" title="Ajouter une absence">
+                    <?php if($context["hasEditRights"] === true): ?>
+                        <a class="float-right" href="index.php?page=absenceDetails&studentId=<?= $enrolledUser->userId ?>">
+                            <img src="images/bootstrap-icons/pencil-square.svg" alt="" width="32" height="32" title="Modifier les absences">
+                        </a>
+                        <input type="image" src="images/bootstrap-icons/plus.svg" data-toggle="modal" data-target="#editModal" data-name="<?= $enrolledUser->name ?>"
+                               data-id="<?= $enrolledUser->userId ?>" alt="" class="float-right" width="32" height="32" title="Ajouter une absence">
+                        <?php if($enrolledUser->absenceCount >= 3): ?>
+                            <p class="float-right badge badge-danger" style="margin-right: 1em;margin-top: 6px">Absences : <?= $enrolledUser->absenceCount ?> </p>
+                        <?php else: ?>
+                            <p class="float-right badge badge-dark" style="margin-right: 1em;margin-top: 6px">Absences : <?= $enrolledUser->absenceCount ?> </p>
+                        <?php endif;?>
+                    <?php endif; ?>
                 </li>
             <?php endforeach; ?>
         </ul>

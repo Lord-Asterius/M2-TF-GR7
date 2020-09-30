@@ -19,6 +19,11 @@ class ViewModule
         $this->m_context["moduleName"] = $moduleName;
     }
 
+    public function setHasEditRights($hasEditRights)
+    {
+        $this->m_context["hasEditRights"] = $hasEditRights;
+    }
+
     public function setEnrolledUsers($enrolledUsers)
     {
         $this->m_context["enrolledUsers"] = $enrolledUsers;
@@ -28,4 +33,6 @@ class ViewModule
     {
         $this->m_canvas->renderTemplate("module", $this->m_context);
     }
+
+    
 }
