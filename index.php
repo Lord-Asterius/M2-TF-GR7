@@ -80,9 +80,4 @@ else if($requestedPage === PAGE_ID_ENSEIGNANT_EDIT) {
     $controller = new ControllerEnseignantEdit();
     $controller->handleRequest($sanitizedGet);
 }
-else if ($requestedPage === PAGE_ID_ALERT)
-{
-    $controller = new ControllerAlert();
-    $controller->handleRequest($sanitizedGet);
-}
 
