@@ -44,6 +44,9 @@ class ControllerModule
                      new ControllerModuleEnrolledInformation("Jean Dupont", 8, 1),];
 
         $this->m_viewModule->setEnrolledUsers($fakeData);
+
+        // TODO Retrieve rights from the session
+        $this->m_viewModule->setHasEditRights(true);
         $this->m_viewModule->render();
     }
 }
