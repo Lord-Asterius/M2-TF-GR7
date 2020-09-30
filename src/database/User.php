@@ -6,30 +6,46 @@ class User
     private $key;
     private $id;
     private $password;
-    private $first_name;
-    private $last_name;
+    private $firstName;
+    private $lastName;
     private $mail;
     private $module;
     private $moduleRefere;
     private $absence;
     private $date;
+    private $role; //'ENSEIGNANT','EQUIPE_ADMINISTRATIVE','ADMINISTRATEUR','ETUDIANT',''
 
+    public function getRole()
+    {
+        return $this->role;
+    }
 
-    public function __construct($password, $first_name, $last_name, $mail, $module, $moduleRefere, $absence, $date)
+    public function setRole($role): void
+    {
+        $this->role = $role;
+    }
+
+    public function __construct($password, $first_name, $last_name, $mail, $date, $role)
     {
         $this->setPassword($password);
-        $this->first_name = $first_name;
-        $this->last_name = $last_name;
+        $this->firstName = $first_name;
+        $this->lastName = $last_name;
         $this->setId();
         $this->mail = $mail;
         $this->setMail($mail);
         $this->module = array();
-        $this->module = $module;
         $this->moduleRefere = array();
-        $this->moduleRefere = $moduleRefere;
         $this->absence = array();
-        $this->absence = $absence;
         $this->date = $date;
+        $this->role = $role;
+    }
+
+    /**
+     * Don't use that if you want to Insert inside the DB
+     * @param $hashedPassword
+     */
+    public function forceSetPassword($hashedPassword) {
+        $this->password = $hashedPassword;
     }
 
     public function getModule()
@@ -67,30 +83,30 @@ class User
         return $this->id == $id;
     }
 
-
     public function setId(): void
     {
-        $this->id = substr($this->first_name, 0, 1) . $this->last_name;
+        $this->id = substr($this->firstName, 0, 1) . $this->lastName;
     }
+
 
     public function getFirstName()
     {
-        return $this->first_name;
+        return $this->firstName;
     }
 
-    public function setFirstName(string $first_name): void
+    public function setFirstName(string $firstName): void
     {
-        $this->first_name = $first_name;
+        $this->firstName = $firstName;
     }
 
     public function getLastName()
     {
-        return $this->last_name;
+        return $this->lastName;
     }
 
-    public function setLastName(string $last_name): void
+    public function setLastName(string $lastName): void
     {
-        $this->last_name = $last_name;
+        $this->lastName = $lastName;
     }
 
     public function getMail()
@@ -118,7 +134,7 @@ class User
             $errors[] = "Password should be min 8 characters and max 16 characters";
         }
         if (!preg_match("/\d/", $password)) {
-            $errors[] = "Password should contain at least one digit";
+            $errors[] = "Password should contain at least one digigett";
         }
         if (!preg_match("/[A-Z]/", $password)) {
             $errors[] = "Password should contain at least one Capital Letter";
@@ -133,7 +149,7 @@ class User
             $errors[] = "Password should not contain any white space";
         }
         if (count($errors) == 0) {
-            $this->password = password_hash($password, PASSWORD_DEFAULT);;
+            $this->password = password_hash($password, PASSWORD_DEFAULT);
         }
 
         return $errors;
@@ -152,6 +168,11 @@ class User
     public function addModuleRefere(Module $module)
     {
         $this->moduleRefere[] = $module;
+    }
+
+    public function getPassword()
+    {
+        return $this->password;
     }
 
     public function isSamePassword(string $password)

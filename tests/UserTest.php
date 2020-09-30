@@ -19,12 +19,12 @@ class UserTest extends testCase
     {
         ControllerDataBase::connectToDatabase();
         TestUtils::cleanTables();
-        self::$user = new User('Az12@4567', 'Pat', 'ateee', 'mon@mail.com',
-            array(), array(), array(), '2020-09-01');
+        self::$user = new User('Az12@4567', 'Pat', 'ateee', 'mon@mail.com', '2020-09-01', 'ENSEIGNANT');
     }
 
     public static function tearDownAfterClass(): void
     {
+        TestUtils::cleanTables();
         ControllerDataBase::disconnectFromDataBase();
     }
 
@@ -73,4 +73,7 @@ class UserTest extends testCase
         $this->assertEquals('2020-09-01', self::$user->getDate());
     }
 
+    public function testCreateUserRole(){
+        $this->assertEquals('ENSEIGNANT', self::$user->getRole());
+    }
 }
