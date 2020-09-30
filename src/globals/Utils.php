@@ -13,6 +13,7 @@ class Utils
         $formattedGetParameters = "";
         foreach ($getParameters as $key => $value)
         {
+            $value = rawurlencode($value);
             $formattedGetParameters = $formattedGetParameters . "&$key=$value";
         }
 

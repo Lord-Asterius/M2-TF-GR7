@@ -12,6 +12,9 @@ class ViewModule
     {
         $this->m_canvas = new GlobalCanvas("Module", PAGE_ID_MODULE);
         $this->m_context = [];
+
+        $this->m_context["toastSuccess"] = false;
+        $this->m_context["toastError"] = false;
     }
 
     public function setModuleName($moduleName)
@@ -27,6 +30,18 @@ class ViewModule
     public function setEnrolledUsers($enrolledUsers)
     {
         $this->m_context["enrolledUsers"] = $enrolledUsers;
+    }
+
+    public function setSuccessToast($message)
+    {
+        $this->m_context["toastSuccess"] = true;
+        $this->m_context["toastMessage"] = $message;
+    }
+
+    public function setErrorToast($message)
+    {
+        $this->m_context["toastError"] = true;
+        $this->m_context["toastMessage"] = $message;
     }
 
     public function render()
