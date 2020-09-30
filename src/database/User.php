@@ -15,34 +15,21 @@ class User
     private $date;
 
 
-    public function __construct($id, $password, $first_name, $last_name, $mail, $module, $moduleRefere, $absence, $date)
+    public function __construct($password, $first_name, $last_name, $mail, $module, $moduleRefere, $absence, $date)
     {
-        $this->id = $id;
-        $this->password = $password;
+        $this->setPassword($password);
         $this->first_name = $first_name;
         $this->last_name = $last_name;
+        $this->setId();
         $this->mail = $mail;
+        $this->setMail($mail);
+        $this->module = array();
         $this->module = $module;
+        $this->moduleRefere = array();
         $this->moduleRefere = $moduleRefere;
+        $this->absence = array();
         $this->absence = $absence;
         $this->date = $date;
-    }
-
-
-    public static function lookForUser($id, $password)
-    {
-
-        return new User();
-    }
-
-    public function commit()
-    {
-
-    }
-
-    public static function getCreateAllPerson()
-    {
-
     }
 
     public function getModule()
@@ -81,47 +68,47 @@ class User
     }
 
 
-    public function setId(string $id): void
+    public function setId(): void
     {
-        $this->id = $id;
+        $this->id = substr($this->first_name, 0, 1) . $this->last_name;
     }
-
 
     public function getFirstName()
     {
         return $this->first_name;
     }
 
-
     public function setFirstName(string $first_name): void
     {
         $this->first_name = $first_name;
     }
-
 
     public function getLastName()
     {
         return $this->last_name;
     }
 
-
     public function setLastName(string $last_name): void
     {
         $this->last_name = $last_name;
     }
-
 
     public function getMail()
     {
         return $this->mail;
     }
 
-
-    public function setMail(string $mail): void
+    public function setMail(string $mail): array
     {
-        $this->mail = $mail;
-    }
+        $emailErr = array();
+        if (!filter_var($mail, FILTER_VALIDATE_EMAIL)) {
+            $emailErr[] = "Invalid email format";
+        } else {
+            $this->mail = $mail;
+        }
 
+        return $emailErr;
+    }
 
     public function setPassword(string $password): array
     {
@@ -145,12 +132,26 @@ class User
         if (preg_match("/\s/", $password)) {
             $errors[] = "Password should not contain any white space";
         }
-        if (count($errors) != 0) {
+        if (count($errors) == 0) {
             $this->password = password_hash($password, PASSWORD_DEFAULT);;
         }
 
         return $errors;
+    }
 
+    public function addModule(Module $module)
+    {
+        $this->module[] = $module;
+    }
+
+    public function addAbsence(Absence $absence)
+    {
+        $this->absence[] = $absence;
+    }
+
+    public function addModuleRefere(Module $module)
+    {
+        $this->moduleRefere[] = $module;
     }
 
     public function isSamePassword(string $password)
