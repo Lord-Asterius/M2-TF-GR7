@@ -34,18 +34,21 @@ class ControllerUserDataBase
 
     public function commit()
     {
-        //TODO check id doesn't exist.
-        ControllerDataBase::prepareInsertUser();
-        $this->bindInsertUser();
-        ControllerDataBase::getInsertUser()->execute();
+
+        if (!self::lookForUser(self::getUser()->getName())) {
+            ControllerDataBase::prepareInsertUser();
+            $this->bindInsertUser();
+            ControllerDataBase::getInsertUser()->execute();
+        }
+        return false; //the user already exist
     }
 
-    public static function lookForUser($id, $password)
+    public static function lookForUser($id)
     {
         ControllerDataBase::prepareSelectSpecificUser();
         if (ControllerDataBase::getSelectSpecificUser()->execute(array($id))) {
             $row = ControllerDataBase::getSelectSpecificUser()->fetch();
-            if ($row && password_verify($password, $row['password'])) {
+            if ($row) {
                 $user = new User($row['0'], $row['password'], $row['first_name'], $row['last_name'], $row['mail'], $row['date_naissance'], 'ENSEIGNANT');
                 $user->forceSetPassword($row['password']);
                 return $user;
@@ -70,18 +73,18 @@ class ControllerUserDataBase
     }
 
 
-    public static function addModuleUser(User $user, Module $module){
+    public function addModuleUser(Module $module){
         ControllerDataBase::prepareInsertUserModule();
         $moduleKey = $module->getKey();
-        $userKey = $user->getKey();
+        $userKey = $this->user->getKey();
         if(ControllerDataBase::getInsertUserModule()->execute(array($userKey, $moduleKey))){
-            $user->addModule($module);
+            $this->user->addModule($module);
             return true;
         }
         return false;
     }
 
-    public static function addModuleReferent(User $user, Module $module){
+    public function addModuleReferent(User $user, Module $module){
         ControllerDataBase::prepareInsertReferentModule();
         $moduleKey = $module->getKey();
         $referentKey = $user->getKey();

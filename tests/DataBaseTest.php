@@ -42,7 +42,7 @@ class DataBaseTest extends TestCase
         $controllerUser = new ControllerUserDataBase($user);
         $controllerUser->commit();
 
-        $userFetched = ControllerUserDataBase::lookForUser('Pateee', 'Az12@4567');
+        $userFetched = ControllerUserDataBase::lookForUser('Pateee');
         $this->assertTrue($userFetched->isSameId('Pateee'));
         $this->assertTrue($userFetched->isSamePassword('Az12@4567'));
         $this->assertEquals('Pat', $userFetched->getFirstName());
@@ -77,7 +77,15 @@ class DataBaseTest extends TestCase
 
     public function testAddmoduleToUser()
     {
+        $user = ControllerUserDataBase::lookForUser('GMendufric');
+        $controllerUser = new ControllerUserDataBase($user);
+        $module = ControllerModuleDataBase::lookForModule('test pas vraiment fonctionnelle');
 
+        $controllerUser->addModuleUser($module);
+
+        $userTest = ControllerUserDataBase::lookForUser($user->getId());
+        $this->assertTrue($userTest->isSameId('GMendufric'));
+        $this->assertEquals($user->getModule()[0], $module);
     }
 
 
