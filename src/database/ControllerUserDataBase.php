@@ -64,7 +64,21 @@ class ControllerUserDataBase
         if (ControllerDataBase::getSelectSpecificUserModule()->execute(array($id))) {
             $row = ControllerDataBase::getSelectSpecificUserModule()->fetch();
             if ($row) {
-                $user = new User($row['$key'], $row['password'], $row['first_name'], $row['last_name'], $row['mail'], $row['date_naissance'], 'ENSEIGNANT');
+                $user = new User($row['key'], $row['password'], $row['first_name'], $row['last_name'], $row['mail'], $row['date_naissance'], 'ENSEIGNANT');
+                $user->forceSetPassword($row['password']);
+                return $user;
+            }
+        }
+        return null;
+    }
+
+    public static function lookForSpecificReferentModule($id)
+    {
+        ControllerDataBase::prepareSelectSpecificReferentModule();
+        if (ControllerDataBase::getSelectSpecificReferentModule()->execute(array($id))) {
+            $row = ControllerDataBase::getSelectSpecificReferentModule()->fetch();
+            if ($row) {
+                $user = new User($row['key'], $row['password'], $row['first_name'], $row['last_name'], $row['mail'], $row['date_naissance'], 'ENSEIGNANT');
                 $user->forceSetPassword($row['password']);
                 return $user;
             }
@@ -84,12 +98,12 @@ class ControllerUserDataBase
         return false;
     }
 
-    public function addModuleReferent(User $user, Module $module){
+    public function addModuleReferent(Module $module){
         ControllerDataBase::prepareInsertReferentModule();
         $moduleKey = $module->getKey();
-        $referentKey = $user->getKey();
+        $referentKey = $this->user->getKey();
         if(ControllerDataBase::getInsertReferentModule()->execute(array($referentKey, $moduleKey))){
-            $user->addModuleRefere($module);
+            $this->user->addModuleRefere($module);
             return true;
         }
         return false;

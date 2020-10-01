@@ -83,9 +83,22 @@ class DataBaseTest extends TestCase
 
         $controllerUser->addModuleUser($module);
 
-        $userTest = ControllerUserDataBase::lookForUser($user->getId());
+        $userTest = ControllerUserDataBase::lookForSpecificUserModule($user->getId());
         $this->assertTrue($userTest->isSameId('GMendufric'));
         $this->assertEquals($user->getModule()[0], $module);
+    }
+
+    public function testAddmoduleToReferent()
+    {
+        $user = ControllerUserDataBase::lookForUser('GMendufric');
+        $controllerUser = new ControllerUserDataBase($user);
+        $module = ControllerModuleDataBase::lookForModule('test pas vraiment fonctionnelle');
+
+        $controllerUser->addModuleReferent($module);
+
+        $userTest = ControllerUserDataBase::lookForSpecificReferentModule($user->getId());
+        $this->assertTrue($userTest->isSameId('GMendufric'));
+        $this->assertEquals($user->getModuleRefere()[0], $module);
     }
 
 

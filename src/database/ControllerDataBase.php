@@ -20,6 +20,7 @@ class ControllerDataBase
     private static $insertUserModule;
     private static $insertReferentModule;
     private static $selectSpecificModule;
+    private static $selectSpecificReferentModule;
 
 
     public static function connectToDatabase()
@@ -63,6 +64,7 @@ class ControllerDataBase
         self::$insertUserModule = null;
         self::$insertReferentModule = null;
         self::$selectSpecificModule = null;
+        self::$selectSpecificReferentModule = null;
     }
 
     public static function prepareInsertUser()
@@ -154,9 +156,18 @@ class ControllerDataBase
 
     public static function prepareSelectSpecificUserModule()
     {
-        if (self::$selectSpecificUser == null) {
+        if (self::$selectSpecificUserModule == null) {
             self::setPrepareToNull();
             return self::$selectSpecificUserModule = self::$dataBaseConnector->prepare("SELECT * FROM module LEFT JOIN user_module ON module.`key` = user_module.module_key LEFT JOIN user ON user_module.user_key = user.`key` WHERE user.id = ?");
+        }
+        return true;
+    }
+
+    public static function prepareSelectSpecificReferentModule()
+    {
+        if (self::$selectSpecificReferentModule == null) {
+            self::setPrepareToNull();
+            return self::$selectSpecificReferentModule = self::$dataBaseConnector->prepare("SELECT * FROM module LEFT JOIN enseigant_referent ON module.`key` = enseigant_referent.module_key LEFT JOIN user ON enseigant_referent.enseigant_key = user.`key` WHERE user.id = ?");
         }
         return true;
     }
@@ -295,6 +306,14 @@ class ControllerDataBase
         return self::$insertReferentModule;
     }
 
+    /**
+     * @return mixed
+     */
+    public static function getSelectSpecificReferentModule()
+    {
+        return self::$selectSpecificReferentModule;
+    }
+
 
 
 
@@ -353,6 +372,7 @@ class ControllerDataBase
     {
         return self::$dataBaseConnector->exec($sql);
     }
+
 
 
     /**
