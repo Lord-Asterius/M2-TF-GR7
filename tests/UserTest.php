@@ -6,7 +6,7 @@ use function PHPUnit\assertTrue;
 
 include_once(__DIR__ . '/../src/database/ControllerDataBase.php');
 include_once(__DIR__ . '/../src/database/User.php');
-include_once(__DIR__ . '/../src/database/ControllerUser.php');
+include_once(__DIR__ . '/../src/database/ControllerUserDataBase.php');
 include_once(__DIR__ . '/../src/globals/PageIdentifiers.php');
 include_once(__DIR__ . '/TestUtils.php');
 
