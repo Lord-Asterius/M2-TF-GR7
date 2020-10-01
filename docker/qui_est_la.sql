@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : db
--- Généré le : mar. 29 sep. 2020 à 16:55
+-- Généré le : jeu. 01 oct. 2020 à 09:23
 -- Version du serveur :  5.7.31
 -- Version de PHP : 7.4.10
 
@@ -34,9 +34,8 @@ CREATE TABLE `absence` (
   `reason` text COLLATE utf8_bin NOT NULL,
   `etudiant_key` int(11) NOT NULL,
   `comment` text COLLATE utf8_bin,
-  `date` date NOT NULL
+  `date_time` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
-
 
 -- --------------------------------------------------------
 
@@ -60,7 +59,6 @@ CREATE TABLE `module` (
   `name` varchar(1024) COLLATE utf8_bin NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
-
 -- --------------------------------------------------------
 
 --
@@ -78,7 +76,6 @@ CREATE TABLE `user` (
   `date_naissance` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
-
 -- --------------------------------------------------------
 
 --
@@ -89,7 +86,6 @@ CREATE TABLE `user_module` (
   `user_key` int(11) NOT NULL,
   `module_key` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
-
 
 --
 -- Index pour les tables déchargées
@@ -148,7 +144,7 @@ ALTER TABLE `module`
 -- AUTO_INCREMENT pour la table `user`
 --
 ALTER TABLE `user`
-  MODIFY `key` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `key` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
 -- Contraintes pour les tables déchargées
