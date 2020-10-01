@@ -3,12 +3,14 @@
 
 class Absence
 {
+    private $key;
     private $reason;
     private $students;
     private $comment;
 
-    public function __construct($reason, $comment)
+    public function __construct($key, $reason, $comment)
     {
+        $this->key = $key;
         $this->reason = $reason;
         $this->comment = $comment;
         $this->students = array();
