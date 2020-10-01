@@ -3,13 +3,17 @@
   <head>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="styles/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="styles/gijgo/css/gijgo.css" />
+    <link rel="stylesheet" href="styles/bootstrap-select/css/bootstrap-select.css">
+
+    <!-- Usually scripts are put at the end of the body, but with our template system we need scripts to be loaded before
+         the inclusion of any template -->
     <script src="styles/bootstrap/js/jquery.js"></script>
     <script src="styles/bootstrap/js/popper.js"></script>
     <script src="styles/bootstrap/js/bootstrap.min.js"></script>
-
-    <script src="styles/gijgo/js/gijgo.js" type="text/javascript"></script>
+    <script src="styles/bootstrap-select/js/bootstrap-select.js"></script>
+    <script src="styles/gijgo/js/gijgo.js"></script>
     <script src="styles/gijgo/js/messages/messages.fr-fr.js" type="text/javascript"></script>
-    <link href="styles/gijgo/css/gijgo.css" rel="stylesheet" type="text/css" />
 
     <title><?= $this->m_pageTitle ?></title>
   </head>
@@ -23,7 +27,6 @@
                     <a class="nav-item nav-link <?= $this->getActiveStatusForPage(PAGE_ID_MODULE_LIST) ?>" href="index.php?page=<?= PAGE_ID_MODULE_LIST ?>">Modules</a>
                     <a class="nav-item nav-link <?= $this->getActiveStatusForPage(PAGE_ID_ABSENCE_LIST) ?>" href="index.php?page=<?= PAGE_ID_ABSENCE_LIST ?>">Absences</a>
                     <a class="nav-item nav-link <?= $this->getActiveStatusForPage(PAGE_ID_ETUDIANT_LIST) ?>" href="index.php?page=<?= PAGE_ID_ETUDIANT_LIST ?>&action=EtudiantList">Etudiants</a>
-                    <a class="nav-item nav-link <?= $this->getActiveStatusForPage(PAGE_ID_ALERT) ?>" href="index.php?page=<?= PAGE_ID_ALERT ?>">Alertes</a>
                 </div>
             </div>
             <div class="nav justify-content-end">
@@ -32,5 +35,7 @@
         </nav>
 
         <?php include("$templatePath"); ?>
+
+        <script src="styles/script.js"></script>
     </body>
 </html>
