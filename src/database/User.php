@@ -25,8 +25,17 @@ class User
         $this->role = $role;
     }
 
-    public function __construct($password, $first_name, $last_name, $mail, $date, $role)
+    /**
+     * @return mixed
+     */
+    public function getKey()
     {
+        return $this->key;
+    }
+
+    public function __construct($key, $password, $first_name, $last_name, $mail, $date, $role)
+    {
+        $this->key = $key;
         $this->setPassword($password);
         $this->firstName = $first_name;
         $this->lastName = $last_name;
