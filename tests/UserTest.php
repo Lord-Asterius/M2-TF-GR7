@@ -60,7 +60,7 @@ class UserTest extends testCase
 
     public function testCreateUserModuleRefere()
     {
-        $this->assertTrue(sizeof(self::$user->getModuleRefere()) == 0);
+        $this->assertTrue(sizeof(self::$user->getModuleReferent()) == 0);
     }
 
     public function testCreateUserAbsence()

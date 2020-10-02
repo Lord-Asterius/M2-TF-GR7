@@ -90,7 +90,7 @@ class ControllerDataBase
     {
         if (self::$insertAbsence == null) {
             self::setPrepareToNull();
-            return self::$insertAbsence = self::$dataBaseConnector->prepare("INSERT INTO absence(reason, etudiant_key, comment) VALUES (:reason, :etudiant_key, :comment)");
+            return self::$insertAbsence = self::$dataBaseConnector->prepare("INSERT INTO absence(reason, etudiant_key, comment, date_time) VALUES (?, ?, ?, ?)");
         }
         return true;
     }
@@ -149,7 +149,7 @@ class ControllerDataBase
     {
         if (self::$selectSpecificUser == null) {
             self::setPrepareToNull();
-            return self::$selectSpecificUser = self::$dataBaseConnector->prepare("SELECT * FROM user LEFT JOIN user_module ON user.key = user_module.user_key LEFT JOIN module ON user_module.module_key = module.key LEFT JOIN enseigant_referent on user.`key` = enseigant_referent.enseigant_key LEFT JOIN absence ON user.key = absence.etudiant_key WHERE user.id = ?");
+            return self::$selectSpecificUser = self::$dataBaseConnector->prepare("SELECT * FROM user LEFT JOIN user_module ON user.key = user_module.user_key LEFT JOIN module ON user_module.module_key = module.key LEFT JOIN enseigant_referent on user.`key` = enseigant_referent.enseigant_key LEFT JOIN module as module_ref ON enseigant_referent.module_key = module_ref.key LEFT JOIN absence ON user.key = absence.etudiant_key WHERE user.id = ?");
         }
         return true;
     }

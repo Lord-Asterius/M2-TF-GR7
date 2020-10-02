@@ -5,15 +5,16 @@ class Absence
 {
     private $key;
     private $reason;
-    private $students;
     private $comment;
+    private $date;
 
-    public function __construct($key, $reason, $comment)
+
+    public function __construct($key, $reason, $comment, $date)
     {
         $this->key = $key;
         $this->reason = $reason;
         $this->comment = $comment;
-        $this->students = array();
+        $this->date = $date;
     }
 
     /**
@@ -24,13 +25,6 @@ class Absence
         return $this->reason;
     }
 
-    /**
-     * @return array
-     */
-    public function getStudents(): array
-    {
-        return $this->students;
-    }
 
     /**
      * @return mixed
@@ -40,9 +34,15 @@ class Absence
         return $this->comment;
     }
 
-    public function addStudent(User $user){
-        $this->students[] = $user;
+    /**
+     * @return mixed
+     */
+    public function getDate()
+    {
+        return $this->date;
     }
+
+
 
 
 }

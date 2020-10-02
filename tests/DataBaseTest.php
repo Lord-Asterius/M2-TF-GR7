@@ -8,6 +8,7 @@ include_once(__DIR__ . '/../src/database/Module.php');
 include_once(__DIR__ . '/../src/globals/PageIdentifiers.php');
 include_once(__DIR__ . '/../src/database/ControllerUserDataBase.php');
 include_once(__DIR__ . '/../src/database/ControllerModuleDataBase.php');
+include_once(__DIR__ . '/../src/database/Absence.php');
 include_once(__DIR__ . '/TestUtils.php');
 
 class DataBaseTest extends TestCase
@@ -36,20 +37,73 @@ class DataBaseTest extends TestCase
         ControllerDataBase::disconnectFromDataBase();
     }
 
+    public function testSelectSpecificUser()
+    {
+        $userFetched = ControllerUserDataBase::lookForSpecificUser('GMendufric');
+        $this->assertEquals($userFetched->getId(), 'GMendufric');
+        $this->assertTrue($userFetched->isSamePassword('Az12@4567'));
+        $this->assertEquals('Gerard', $userFetched->getFirstName());
+        $this->assertEquals('Mendufric', $userFetched->getLastName());
+        $this->assertEquals('Gerard.Mendufric@mail.com', $userFetched->getMail());
+        $this->assertTrue(sizeof($userFetched->getModule()) == 2);
+        $this->assertTrue(sizeof($userFetched->getModuleReferent()) == 0);
+        $this->assertTrue(sizeof($userFetched->getAbsence()) == 0);
+        $this->assertEquals('2020-09-01', $userFetched->getDate());
+        $this->assertEquals('ENSEIGNANT', $userFetched->getRole());
+    }
+
+    public function testSelectSpecificUserModule()
+    {
+        $userFetched = ControllerUserDataBase::lookForSpecificUser('GMendufric');
+        $this->assertTrue(sizeof($userFetched->getModule()) == 2);
+        $this->assertTrue(sizeof($userFetched->getModuleReferent()) == 0);
+        $this->assertTrue(sizeof($userFetched->getAbsence()) == 0);
+
+        $this->assertTrue(in_array(new Module('1', 'test pas vraiment fonctionnelle'), $userFetched->getModule()));
+        $this->assertTrue(in_array(new Module('2', 'etude de trucs'), $userFetched->getModule()));
+    }
+
+    public function testSelectSpecificUserModuleRefere()
+    {
+        $userFetched = ControllerUserDataBase::lookForSpecificUser('JTarien');
+        $this->assertTrue(sizeof($userFetched->getModule()) == 1);
+        $this->assertTrue(sizeof($userFetched->getModuleReferent()) == 1);
+        $this->assertTrue(sizeof($userFetched->getAbsence()) == 0);
+
+        $this->assertTrue(in_array(new Module('1', 'test pas vraiment fonctionnelle'), $userFetched->getModuleReferent()));
+        $this->assertTrue(in_array(new Module('2', 'etude de trucs'), $userFetched->getModule()));
+    }
+
+    public function testSelectSpecificUserAbsence()
+    {
+        $userFetched = ControllerUserDataBase::lookForSpecificUser('DDormi');
+        $this->assertTrue(sizeof($userFetched->getModule()) == 1);
+        $this->assertTrue(sizeof($userFetched->getModuleReferent()) == 0);
+        $this->assertTrue(sizeof($userFetched->getAbsence()) == 4);
+
+        $this->assertTrue(in_array(new Module('1', 'test pas vraiment fonctionnelle'), $userFetched->getModule()));
+
+        $this->assertTrue(in_array(new Absence('2', 'Aqua poney', 'gnugnu', '2020-10-15 13:31:47'), $userFetched->getAbsence()));
+        $this->assertTrue(in_array(new Absence('3', '', '', '2020-10-15 13:31:47'), $userFetched->getAbsence()));
+        $this->assertTrue(in_array(new Absence('4', '', '', '2020-10-15 13:31:47'), $userFetched->getAbsence()));
+        $this->assertTrue(in_array(new Absence('5', '', '', '2020-10-15 13:31:47'), $userFetched->getAbsence()));
+    }
+
+
     public function testInsertUser()
     {
         $user = new User(9, 'Az12@4567', 'Pat', 'ateee', 'mon@mail.com', '2020-09-01', 'ENSEIGNANT');
         $controllerUser = new ControllerUserDataBase($user);
         $controllerUser->commit();
 
-        $userFetched = ControllerUserDataBase::lookForUser('Pateee');
+        $userFetched = ControllerUserDataBase::lookForSpecificUser('Pateee');
         $this->assertTrue($userFetched->isSameId('Pateee'));
         $this->assertTrue($userFetched->isSamePassword('Az12@4567'));
         $this->assertEquals('Pat', $userFetched->getFirstName());
         $this->assertEquals('ateee', $userFetched->getLastName());
         $this->assertEquals('mon@mail.com', $userFetched->getMail());
         $this->assertTrue(sizeof($userFetched->getModule()) == 0);
-        $this->assertTrue(sizeof($userFetched->getModuleRefere()) == 0);
+        $this->assertTrue(sizeof($userFetched->getModuleReferent()) == 0);
         $this->assertTrue(sizeof($userFetched->getAbsence()) == 0);
         $this->assertEquals('2020-09-01', $userFetched->getDate());
         $this->assertEquals('ENSEIGNANT', $userFetched->getRole());
@@ -77,7 +131,7 @@ class DataBaseTest extends TestCase
 
     public function testAddmoduleToUser()
     {
-        $user = ControllerUserDataBase::lookForUser('GMendufric');
+        $user = ControllerUserDataBase::lookForSpecificUser('GMendufric');
         $controllerUser = new ControllerUserDataBase($user);
         $module = ControllerModuleDataBase::lookForModule('test pas vraiment fonctionnelle');
 
@@ -90,7 +144,7 @@ class DataBaseTest extends TestCase
 
     public function testAddmoduleToReferent()
     {
-        $user = ControllerUserDataBase::lookForUser('GMendufric');
+        $user = ControllerUserDataBase::lookForSpecificUser('GMendufric');
         $controllerUser = new ControllerUserDataBase($user);
         $module = ControllerModuleDataBase::lookForModule('test pas vraiment fonctionnelle');
 
@@ -98,8 +152,21 @@ class DataBaseTest extends TestCase
 
         $userTest = ControllerUserDataBase::lookForSpecificReferentModule($user->getId());
         $this->assertTrue($userTest->isSameId('GMendufric'));
-        $this->assertEquals($user->getModuleRefere()[0], $module);
+        $this->assertEquals($user->getModuleReferent()[0], $module);
     }
 
+    public function testAddAbsenceUser()
+    {
+        $user = ControllerUserDataBase::lookForSpecificUser('GHotine');
+        $controllerUser = new ControllerUserDataBase($user);
+
+        $absence = new Absence('0', 'piscine', 'c\'est qui', '2020-10-15 13:31:47');
+
+        $controllerUser->addAbsence($absence);
+
+        $userTest = ControllerUserDataBase::lookForSpecificUser($user->getId());
+
+        $this->assertEquals($absence->getReason(), $userTest->getAbsence()[1]->getReason());
+    }
 
 }

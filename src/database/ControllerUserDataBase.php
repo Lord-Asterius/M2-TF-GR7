@@ -35,7 +35,7 @@ class ControllerUserDataBase
     public function commit()
     {
 
-        if (!self::lookForUser(self::getUser()->getName())) {
+        if (!self::lookForSpecificUser(self::getUser()->getId())) {
             ControllerDataBase::prepareInsertUser();
             $this->bindInsertUser();
             ControllerDataBase::getInsertUser()->execute();
@@ -43,7 +43,7 @@ class ControllerUserDataBase
         return false; //the user already exist
     }
 
-    public static function lookForUser($id)
+    public static function lookForSpecificUser($id)
     {
         ControllerDataBase::prepareSelectSpecificUser();
         if (ControllerDataBase::getSelectSpecificUser()->execute(array($id))) {
@@ -51,6 +51,22 @@ class ControllerUserDataBase
             if ($row) {
                 $user = new User($row['0'], $row['password'], $row['first_name'], $row['last_name'], $row['mail'], $row['date_naissance'], 'ENSEIGNANT');
                 $user->forceSetPassword($row['password']);
+                do {
+                    if ($row['12']) {
+                        $moduleRefere = new Module($row['12'], $row['15']);
+                        $user->addModuleReferent($moduleRefere);
+                    }
+                    if ($row['9']) {
+                        $module = new Module($row['9'], $row['11']);
+                        $user->addModule($module);
+                    }
+                    if ($row['16']) {
+                        $absence = new Absence($row['16'], $row['reason'], $row['comment'], $row['date_time']);
+                        $user->addAbsence($absence);
+                    }
+                } while ($row = ControllerDataBase::getSelectSpecificUser()->fetch());
+
+
                 return $user;
             }
         }
@@ -87,23 +103,25 @@ class ControllerUserDataBase
     }
 
 
-    public function addModuleUser(Module $module){
+    public function addModuleUser(Module $module)
+    {
         ControllerDataBase::prepareInsertUserModule();
         $moduleKey = $module->getKey();
         $userKey = $this->user->getKey();
-        if(ControllerDataBase::getInsertUserModule()->execute(array($userKey, $moduleKey))){
+        if (ControllerDataBase::getInsertUserModule()->execute(array($userKey, $moduleKey))) {
             $this->user->addModule($module);
             return true;
         }
         return false;
     }
 
-    public function addModuleReferent(Module $module){
+    public function addModuleReferent(Module $module)
+    {
         ControllerDataBase::prepareInsertReferentModule();
         $moduleKey = $module->getKey();
         $referentKey = $this->user->getKey();
-        if(ControllerDataBase::getInsertReferentModule()->execute(array($referentKey, $moduleKey))){
-            $this->user->addModuleRefere($module);
+        if (ControllerDataBase::getInsertReferentModule()->execute(array($referentKey, $moduleKey))) {
+            $this->user->addModuleReferent($module);
             return true;
         }
         return false;
@@ -112,6 +130,16 @@ class ControllerUserDataBase
     public function getUser()
     {
         return $this->user;
+    }
+
+    public function addAbsence(Absence $absence)
+    {
+        ControllerDataBase::prepareInsertAbsence();
+        if(!ControllerDataBase::getInsertAbsence()->execute(array($absence->getReason(), $this->user->getKey(), $absence->getComment(), $absence->getDate()))) {
+            return false;
+        }
+        $this->user->addAbsence($absence);
+        return true;
     }
 
 }

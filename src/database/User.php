@@ -10,7 +10,7 @@ class User
     private $lastName;
     private $mail;
     private $module;
-    private $moduleRefere;
+    private $moduleReferent;
     private $absence;
     private $date;
     private $role; //'ENSEIGNANT','EQUIPE_ADMINISTRATIVE','ADMINISTRATEUR','ETUDIANT',''
@@ -43,7 +43,7 @@ class User
         $this->mail = $mail;
         $this->setMail($mail);
         $this->module = array();
-        $this->moduleRefere = array();
+        $this->moduleReferent = array();
         $this->absence = array();
         $this->date = $date;
         $this->role = $role;
@@ -62,9 +62,9 @@ class User
         return $this->module;
     }
 
-    public function getModuleRefere()
+    public function getModuleReferent()
     {
-        return $this->moduleRefere;
+        return $this->moduleReferent;
     }
 
     public function getAbsence()
@@ -166,17 +166,23 @@ class User
 
     public function addModule(Module $module)
     {
-        $this->module[] = $module;
+        if (!in_array($module, $this->module)){
+            $this->module[] = $module;
+        }
     }
 
     public function addAbsence(Absence $absence)
     {
-        $this->absence[] = $absence;
+        if (!in_array($absence, $this->absence)){
+            $this->absence[] = $absence;
+        }
     }
 
-    public function addModuleRefere(Module $module)
+    public function addModuleReferent(Module $module)
     {
-        $this->moduleRefere[] = $module;
+        if (!in_array($module, $this->moduleReferent)){
+            $this->moduleReferent[] = $module;
+        }
     }
 
     public function getPassword()
