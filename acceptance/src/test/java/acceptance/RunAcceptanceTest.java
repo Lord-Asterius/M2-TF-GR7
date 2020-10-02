@@ -11,7 +11,7 @@ import org.junit.runner.RunWith;
                             "json:target/test-report/acceptance.json",
                             "junit:target/test-report/acceptance.xml",
                            },
-                 features = "src/test/specs/resources")
+                 features = "src/test/resources")
 public class RunAcceptanceTest
 {
 }
