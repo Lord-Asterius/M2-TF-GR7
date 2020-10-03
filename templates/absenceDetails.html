@@ -1,181 +1,186 @@
-<div class="container" style="padding-top: 3em">
-  <div class="modal fade" id="addAbsenceModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Ajouter une absence</h5>
-        <button
-        type="button"
-        class="close"
-        data-dismiss="modal"
-        aria-label="Close"
-        >
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    <div class="modal-body">
-      <form action="index.php?page=<?= PAGE_ID_ABSENSE_DETAIL ?>&studentId=<?= $_GET['studentId'] ?>&method=add" id="addAbsenceForm">
-        <input type="hidden" name="id" value="<?php echo $_GET['studentId'] ?>">
-        <div class="form-group">
-          <label for="student-name" class="col-form-label">Nom etudiant:</label>
-          <select class="form-control selectpicker" id="name" name="name" data-live-search="true">
-            <option data-tokens="soufiane dqw">SOUFIANE DQW</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label for="date" class="col-form-label">date:</label>
-          <input type="date" class="form-control" id="date" name="date" />
-        </div>
-        <div class="form-group">
-          <label for="subject" class="col-form-label">module:</label>
-          <select class="form-control selectpicker" id="subject" name="subject" data-live-search="true">
-            <option data-tokens="test fonctionnel ">Test fonctionnel</option>
-            <option data-tokens="pam">PAM</option>
-            <option data-tokens="réseaux avancé">Réseaux avancé</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label for="reason" class="col-form-label">Motif d'absence:</label>
-          <textarea class="form-control" id="reason" name="reason"></textarea>
-        </div>
-    </div>
-    <div class="modal-footer">
-      <button type="button" class="btn btn-secondary" data-dismiss="modal">
-        Annuler
-      </button>
-      <button type="submit"  class="btn btn-primary">Valider</button>
-    </div>
-      </form>
-  </div>
-</div>
-</div>
-
-<div class="modal fade" id="editAbsenceModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Ajouter une absence</h5>
-        <button
-        type="button"
-        class="close"
-        data-dismiss="modal"
-        aria-label="Close"
-        >
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    <div class="modal-body">
-      <form action="" id="addAbsenceForm">
-        <input type="hidden" name="id" value="<?php echo $_GET['studentId'] ?>">
-        <div class="form-group">
-          <label for="student-name" class="col-form-label"
-          >Nom etudiant:</label
-          >
-          <input type="text" class="form-control" id="student-name" />
-        </div>
-        <div class="form-group">
-          <label for="date" class="col-form-label">date:</label>
-          <input type="date" class="form-control" id="date" />
-        </div>
-        <div class="form-group">
-          <label for="subject" class="col-form-label">module:</label>
-          <textarea class="form-control" id="subject"></textarea>
-        </div>
-        <div class="form-group">
-          <label for="reason" class="col-form-label">Motif d'absence:</label>
-          <textarea class="form-control" id="reason"></textarea>
-        </div>
-      </form>
-    </div>
-    <div class="modal-footer">
-      <button type="button" class="btn btn-secondary" data-dismiss="modal">
-        Annuler
-      </button>
-      <button type="button" id="addAbsenceBtn" class="btn btn-primary">Valider</button>
-    </div>
-  </div>
-</div>
-</div>
+<?php $student_id= $_GET['studentId']; ?>
+<script>
+  var selected_user_id="<?php echo $student_id; ?>";
+  
+</script>
+<script type="text/javascript" src="styles/jquery-2.2.1.min.js"></script>
+<script type="text/javascript" src="styles/absenceDetails.js"></script>
 
 
 
 
-
-
-
-<div>
-  <div class="dropdown">
-    <button
-    class="btn btn-primary dropdown-toggle"
-    type="button"
-    data-toggle="dropdown"
+<div class="container" style="padding-top: 3em">  
+  
+    <div
+      class="modal fade"
+      id="exampleModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
     >
-    Dropdown Example <span class="caret"></span>
-  </button>
-  <ul class="dropdown-menu">
-    <li><a href="#">HTML</a></li>
-    <li><a href="#">CSS</a></li>
-    <li><a href="#">JavaScript</a></li>
-  </ul>
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Ajouter une absence</h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form>              
+                 <!-- <select>
+                  
+                   <?php
+for($i = 0;$i < count($students);$i++){
+  $id = $students[$i]["key"];
+  $first_name = $students[$i]["first_name"]; 
+  $last_name = $students[$i]["last_name"]; 
+  print_r($students);die("dfdf");      
+  echo '<option value="'.$id.'">'.$first_name.' '.last_name.'</option>';
+}
+                   ?>
+             
+                </select>
+  --> 
   
-  <button class="btn btn-primary" style="align-self: flex-end"
-  type="button"
-  class="btn btn-primary"
-  data-toggle="modal"
-  data-target="#addAbsenceModal">
-  Add
-</button>
-</div>
-</div>
-
-<table class="table table-bordered">
-  <thead>
-    <th>Name</th>
-    <th>Module</th>
-    <th>Date</th>
-    <th>Reason</th>
-    <th>Delete</th>
-  </thead>
+  <div class="form-group">
+            <label for="student-name" class="col-form-label">student-name:</label>
+            <input type="text" class="form-control" id="student-name" readonly/>
+          </div>   
   
-  <?php foreach($context["attendanceData"] as $moduleName): ?>
+          <div class="form-group">
+            <label for="subject" class="col-form-label">Date:</label>
+            <input type="date" class="form-control" id="date" />
+          </div>        
+
+              <div class="form-group">
+                <label for="subject" class="col-form-label">Comment:</label>
+                <textarea class="form-control" id="subject"></textarea>
+              </div>
+              <div class="form-group">
+                <label for="reason" class="col-form-label">Motif d'absence:</label>
+                <textarea class="form-control" id="reason"></textarea>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">
+              Annuler
+            </button>
+            <button type="button" class="btn btn-primary" onclick="javascript:addStudent();">Valider</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    
+    <div
+      class="modal fade"
+      id="edit"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="edit"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Ajouter une modification</h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form>     
+                  <input type="hidden" id="id_absence" value="" />
+                <input type="hidden" id="id_student" value="" />
+                 <!-- <select>
+                  
+                   <?php
+for($i = 0;$i < count($students);$i++){
+  $id = $students[$i]["key"];
+  $first_name = $students[$i]["first_name"]; 
+  $last_name = $students[$i]["last_name"]; 
+  print_r($students);die("dfdf");      
+  echo '<option value="'.$id.'">'.$first_name.' '.last_name.'</option>';
+}
+                   ?>
+             
+                </select>
+  --> 
   
-  <tr>
-    <td>
-      <a
-      href="index.php?page=<?= PAGE_ID_ABSENSE_DETAIL ?>&studentId=<?= $moduleName['studentId'] ?>"
-      ><?= $moduleName["name"] ?></a>
+  <div class="form-group">
+            <label for="student-name" class="col-form-label">student-name:</label>
+            <input type="text" class="form-control" id="student-name" readonly/>
+          </div>   
+  
+          <div class="form-group">
+            <label for="subject" class="col-form-label">Date:</label>
+            <input type="text" class="form-control" id="date" type="date" />
+          </div>        
 
-    </td>
-    <td><?= $moduleName["module"] ?></td>
-    <td><?= $moduleName["date"] ?></td>
-    <td></td>
-    <td>
-      <p data-placement="top" data-toggle="tooltip" title="Delete">
-        <a
-        href="index.php?page=<?= PAGE_ID_ABSENSE_DETAIL ?>&studentId=<?= $moduleName['studentId'] ?>&deleteId=<?= $moduleName['entryid'] ?>"
-        ><button
-        class="btn btn-danger btn-xs"
-        data-title="Delete"
-        data-toggle="modal"
-        data-target="#delete"
-        >
-        <span class="glyphicon glyphicon-trash">Delete</span>
-      </button>
-    </a>
-
-
-    <button class="btn btn-primary" style="align-self: flex-end"
-    type="button"
-    class="btn btn-primary"
-    data-toggle="modal"
-    data-target="#editAbsenceModal">
-    Edit
-  </button>
-</p>
-</td>
-</tr>
-
-<?php endforeach; ?>
-</table>
-</div>
-</div>
+              <div class="form-group">
+                <label for="subject" class="col-form-label">Comment:</label>
+                <textarea class="form-control" id="subject"></textarea>
+              </div>
+              <div class="form-group">
+                <label for="reason" class="col-form-label">Motif d'absence:</label>
+                <textarea class="form-control" id="reason"></textarea>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">
+              Annuler
+            </button>
+            <button type="button" class="btn btn-primary" onclick="javascript:modify();">Modifique</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+  
+      <div>
+        <div class="dropdown">
+          <button
+            class="btn btn-primary dropdown-toggle"
+            type="button"
+            data-toggle="dropdown"
+          >
+            Dropdown Example <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu">
+            <li><a href="#">HTML</a></li>
+            <li><a href="#">CSS</a></li>
+            <li><a href="#">JavaScript</a></li>
+          </ul>
+  
+          <button class="btn btn-primary" style="align-self: flex-end"
+            type="button"
+            class="btn btn-primary"
+            data-toggle="modal"
+            data-target="#exampleModal" 
+            >
+            Add
+          </button>
+        </div>
+      </div>
+  
+      <table class="table table-bordered" id="table_data">
+        
+  
+      </table>
+    </div>
+  </div>
+  

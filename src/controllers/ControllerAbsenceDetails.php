@@ -1,70 +1,62 @@
 <?php
 
-include_once(dirname(__FILE__) . "/../views/ViewAbsenseDetails.php");
-include_once(dirname(__FILE__) . "/../database/ControllerDataBase.php");
+$path=$_SERVER['DOCUMENT_ROOT']."/project/src";
+include_once($path . "/views/ViewAbsenseDetails.php");
+include_once($path . "/models/ModelAbsenceDetails.php");
 
 
-class ControllerAbsenceDetails extends ControllerDataBase
+class ControllerAbsenceDetails
 {
     private $m_viewAbsence;
+    private $model;
 
     public function __construct()
     {
         $this->m_viewAbsence = new ViewAbsenceDetails();
+        $this->model = new ModelAbsenceDetails();
     }
+
     public function handleRequest($getParameters)
     {
-        $this->connectToDatabase();
-        if(isset($getParameters["deleteId"]) && $getParameters["deleteId"]!=""){
-           echo $sql="delete from absence where `key`=".$getParameters["deleteId"];
-            $sth1=$this->query($sql);
-            header('Location: index.php?page=absenceDetails&studentId='.$getParameters['studentId']);
-        }
-       $etudiant_key=$getParameters['studentId'];
-       $sql="select a.key as id,a.reason as reason,a.comment as comment,a.date as date,e.first_name as first_name, e.last_name as last_name,m.name as module_name,a.etudiant_key as etudiant_key from absence a,user e,module m where a.etudiant_key=e.key and a.etudiant_key=$etudiant_key";
-       $sth=$this->query($sql);
-       $data=[];
-       while($res = $sth->fetch(PDO::FETCH_ASSOC)){
-          $dt=date("d M y", strtotime($res['date'])); 
-           array_push($data,array("name"=>$res['first_name']." ".$res['last_name'], "module"=>$res['module_name'], "date"=>$dt, "entryid"=>$res["id"],"studentId"=>$res['etudiant_key']));
-       }
-       $this->m_viewAbsence->setAttendanceData($data);
-       $this->m_viewAbsence->render();
-   }
 
-   public function AddRequest($getParameters)
-   {
-      $studentId = $getParameters['studentId'];
-      $name = $_POST['name'];
-      $date = $_POST['date'];
-      $subject = $_POST['subject'];
-      $reason = $_POST['reason'];
-      $this->connectToDatabase();
+        // https://www.w3schools.com/php/php_json.asp
+      /*  $data = [
+                    ["first_name"=>"fabrice", "name"=>"English", "comment"=>"1st June", "reason"=>"Personal problem"],
+                    ["first_name"=>"fabrice", "name"=>"English", "comment"=>"1st June", "reason"=>"Personal problem"],
+                    ["first_name"=>"fabrice", "name"=>"English", "comment"=>"1st June", "reason"=>"Personal problem"],
+                ];*/
 
-   }
-
-    public function EditRequest($getParameters)
-    {
-        $this->connectToDatabase();
-        if(isset($getParameters["editId"]) && $getParameters["editId"]!=""){
-           echo $sql="select * from absence where `key`=".$getParameters["editId"];
-            $sth1=$this->query($sql);
-            header('Location: index.php?page=absenceDetails&studentId='.$getParameters['studentId']);
-        }
-       $etudiant_key=$getParameters['studentId'];
-      // $sql="select a.key as id,a.reason as reason,a.comment as comment,a.created as created,e.first_name as first_name, e.last_name as last_name,m.name as module_name,a.etudiant_key as etudiant_key  from absence a,etudiant e,module m where a.etudiant_key=e.key and a.module_key=m.key and a.etudiant_key=$etudiant_key";
-      $sql="select * from absence where `key`=".$getParameters["editId"];
-      $sth=$this->query($sql);
-       $data=[];
-       while($res = $sth->fetch(PDO::FETCH_ASSOC)){
-        //  $dt=date("d M y", strtotime($res['created'])); 
-           array_push($data,array("reason"=>$res['reason']."comment".$res['comment'], "time"=>$res['created']));
-       }
-
-
-        
         //TODO Get the list of module the current user have access to
-        $this->m_viewAbsence->setAttendanceData($data);
+        //$this->m_viewAbsence->setAttendanceData();
+        $student['student_id']= $_GET['studentId'];
+        $students = $this->model->get_student($_GET['studentId']);   
+        //print_r($students);  
+        $this->m_viewAbsence->setAttendanceData($students);
         $this->m_viewAbsence->render();
     }
+
+    public function reload(){    
+            $student_id= $_GET['student_id'];
+            //echo $student_id;
+            $result = $this->model->reload($student_id);            
+
+            echo json_encode($result);            
+     }
+
+
+    public function add_student(){       
+            $student_id= $_POST['student_id'];
+           $this->model->add_student($student_id);
+           echo "Absence added succesfully";
+    }
+
+    public function modify_student(){      
+            $this->model->modify_student();
+            echo "Absence modified succesfully";
+     }
+     public function delete_student(){        
+            $this->model->delete_student();
+            echo "Absence deleted succesfully";
+     }
+
 }
