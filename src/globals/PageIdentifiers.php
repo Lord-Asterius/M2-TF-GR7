@@ -21,13 +21,15 @@ define("PAGE_ID_ENSEIGNANT_EDIT", "enseignantEdit");
 define('IS_RELEASE', false);
 
 //DataBase
-define('SERVER', 'localhost');
-define('SERVER_RELEASE', 'localhost:8080/phpmyadmin');
+define('SERVER', '127.0.0.1');
+define('SERVER_RELEASE', 'm2gl.deptinfo-st.univ-fcomte.fr/phpmyadmin');
 define('DB', 'qui_est_la');
 define('USER', 'root');
-define('USER_RELEASE', '');
-define('PASS', '');
-define('PASS_RELEASE', '');
+define('USER_RELEASE', 'm2test7');
+define('PASS', 'password');
+define('PASS_RELEASE', 'm2test7');
 define('PORT', '8080');
 
-
+define("PAGE_ID_ETUDIANT_LIST", "etudiantList");
+define("PAGE_ID_ETUDIANT_EDIT", "etudiantEdit");
+define("PAGE_ID_ENSEIGNANT_EDIT", "enseignantEdit");
