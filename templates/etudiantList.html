@@ -1,7 +1,9 @@
 
 <div class="container" style="padding-top: 3em">
     <a href="index.php?page=<?= PAGE_ID_ETUDIANT_EDIT ?>"> <input type="image" src="images/bootstrap-icons/plus.svg" alt="" class="float-right" width="32" height="32" title="Ajouter un étudiant"></a>
-    <ul class="list-group">
+    <input class="form-control" id="listSearch" type="text" placeholder="Rechercher un étudiant">
+    <br>
+    <ul class="list-group" id="studentList">
         <?php foreach($context["etudiants"] as $etudiant): ?>
             <li class="list-group-item"> <a href="index.php?page=<?= PAGE_ID_ETUDIANT_LIST ?>&etudiant=<?= $etudiant ?>"> <?= $etudiant ?> </a>
 
@@ -14,3 +16,16 @@
         <?php endforeach; ?>
     </ul>
 </div>
+
+
+
+<script>
+    $(document).ready(function () {
+        $("#listSearch").on("keyup", function () {
+            var value = $(this).val().toLowerCase();
+            $("#studentList li").filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+    });
+</script>
