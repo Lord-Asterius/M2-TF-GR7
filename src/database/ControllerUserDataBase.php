@@ -102,6 +102,20 @@ class ControllerUserDataBase
         return null;
     }
 
+    public static function lookForAllStudentInModule($moduleId)
+    {
+        ControllerDataBase::prepareSelectAllStudentInModule();
+        $users = array();
+        if (ControllerDataBase::getSelectAllStudentInModule()->execute(array($moduleId))) {
+            while ($row = ControllerDataBase::getSelectAllStudentInModule()->fetch()) {
+                    $user = new User($row['key'], $row['password'], $row['first_name'], $row['last_name'], $row['mail'], $row['date_naissance'], 'ENSEIGNANT');
+                    $user->forceSetPassword($row['password']);
+                    $users[] = $user;
+            }
+        }
+        return $users;
+    }
+
 
     public function addModuleUser(Module $module)
     {
