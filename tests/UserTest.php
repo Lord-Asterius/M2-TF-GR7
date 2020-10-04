@@ -19,7 +19,7 @@ class UserTest extends testCase
     {
         ControllerDataBase::connectToDatabase();
         TestUtils::cleanTables();
-        self::$user = new User('Az12@4567', 'Pat', 'ateee', 'mon@mail.com', '2020-09-01', 'ENSEIGNANT');
+        self::$user = new User(0, 'Az12@4567', 'Pat', 'ateee', 'mon@mail.com', '2020-09-01', 'ENSEIGNANT');
     }
 
     public static function tearDownAfterClass(): void
