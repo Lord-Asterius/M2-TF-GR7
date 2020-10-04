@@ -1,6 +1,4 @@
 .idea
-/acceptance/.idea/
-/acceptance/target/
+/.phpunit.result.cache
 *.DS_Store
 *.iml
-

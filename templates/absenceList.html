@@ -1,8 +1,16 @@
 <div class="container" style="padding-top: 3em">
+    <!-- <ul class="list-group">
+      <?php foreach($context["attendanceData"] as $moduleName): ?>
+      <li class="list-group-item">
+        <a href="index.php?page=<?= PAGE_ID_MODULE ?>&module=<?= $moduleName ?>">
+          <?= $moduleName ?>
+        </a>
+      </li>
+      <?php endforeach; ?>
+    </ul>
+  </div> -->
+  
     <div class="container" style="padding-top: 3em">
-      <h3 class="text-center text-secondary">Liste d'absence</h3>
-      <input class="form-control" id="listSearch" type="text" placeholder="Rechercher un module">
-      <br>
       <table class="table table-bordered">
         <thead>
           <th>Name</th>
@@ -27,17 +35,4 @@
       </table>
     </div>
   </div>
-
-  <script>
-    $(document).ready(function () {
-    $("#listSearch").on("keyup", function () {
-        var value = $(this).val().toLowerCase();
-        $("#moduleList li").filter(function () {
-            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-        });
-    });
-});
-</script>
-
- 
   
