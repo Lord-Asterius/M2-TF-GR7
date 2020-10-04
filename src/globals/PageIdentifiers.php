@@ -29,3 +29,7 @@ define('USER_RELEASE', 'm2test7');
 define('PASS', 'password');
 define('PASS_RELEASE', 'm2test7');
 define('PORT', '8080');
+
+define("PAGE_ID_ETUDIANT_LIST", "etudiantList");
+define("PAGE_ID_ETUDIANT_EDIT", "etudiantEdit");
+define("PAGE_ID_ENSEIGNANT_EDIT", "enseignantEdit");

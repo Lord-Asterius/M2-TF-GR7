@@ -142,17 +142,7 @@ class DataBaseTest extends TestCase
         $this->assertEquals($user->getModule()[0], $module);
     }
 
-    public function testSelectAllStudentInModule() {
-        $users = ControllerUserDataBase::lookForAllStudentInModule('test pas vraiment fonctionnelle');
-        $this->assertEquals(2, sizeof($users));
-
-        $this->assertEquals('GHotine', $users[0]->getId());
-        $this->assertEquals('DDormi', $users[1]->getId());
-
-    }
-
-
-    public function testAddModuleToReferent()
+    public function testAddmoduleToReferent()
     {
         $user = ControllerUserDataBase::lookForSpecificUser('GMendufric');
         $controllerUser = new ControllerUserDataBase($user);
