@@ -23,6 +23,9 @@ class ControllerDataBase
     private static $selectSpecificReferentModule;
     private static $selectAllStudentInModule;
     private static $DeleteModule;
+    private static $DeleteUser;
+    private static $removeUserModule;
+    private static $removeUserReferentModule;
 
 
     public static function connectToDatabase()
@@ -69,7 +72,11 @@ class ControllerDataBase
         self::$selectSpecificReferentModule = null;
         self::$selectAllStudentInModule = null;
         self::$DeleteModule = null;
+        self::$DeleteUser = null;
+        self::$removeUserModule = null;
+        self::$removeUserReferentModule = null;
     }
+
 
     public static function prepareInsertUser()
     {
@@ -195,6 +202,25 @@ class ControllerDataBase
         return true;
     }
 
+    public static function prepareRemoveUserModule()
+    {
+        if (self::$removeUserModule == null) {
+            self::setPrepareToNull();
+            return self::$removeUserModule = self::$dataBaseConnector->prepare("DELETE FROM user_module WHERE user_key = ? AND module_key = ?");
+        }
+        return true;
+    }
+
+
+    public static function prepareRemoveUserReferentModule()
+    {
+        if (self::$removeUserReferentModule == null) {
+            self::setPrepareToNull();
+            return self::$removeUserReferentModule = self::$dataBaseConnector->prepare("DELETE FROM enseigant_referent WHERE enseigant_key = ? AND module_key = ?");
+        }
+        return true;
+    }
+
     public static function prepareInsertReferentModule()
     {
         if (self::$insertReferentModule == null) {
@@ -203,7 +229,6 @@ class ControllerDataBase
         }
         return true;
     }
-
 
     public static function prepareSelectAllAbsence()
     {
@@ -236,11 +261,19 @@ class ControllerDataBase
     {
         if (self::$DeleteModule == null) {
             self::setPrepareToNull();
-            return self::$DeleteModule = self::$dataBaseConnector->prepare("DELETE FROM module WHERE `key` = ?");
+            return self::$DeleteModule = self::$dataBaseConnector->prepare("DELETE FROM module WHERE `name` = ?");
         }
         return true;
     }
 
+    public static function prepareDeleteUser()
+    {
+        if (self::$DeleteUser == null) {
+            self::setPrepareToNull();
+            return self::$DeleteUser = self::$dataBaseConnector->prepare("DELETE FROM user WHERE `id` = ?");
+        }
+        return true;
+    }
 
     public static function getDataBaseConnector()
     {
@@ -282,9 +315,20 @@ class ControllerDataBase
         return self::$selectAllAllStudent;
     }
 
+    public static function getDeleteUser()
+    {
+        return self::$DeleteUser;
+    }
+
     public static function getSelectSpecificUser()
     {
         return self::$selectSpecificUser;
+    }
+
+
+    public static function getRemoveUserModule()
+    {
+        return self::$removeUserModule;
     }
 
     public static function getSelectAllAbsence()
@@ -292,16 +336,17 @@ class ControllerDataBase
         return self::$selectAllAbsence;
     }
 
+
     public static function getInsertUser()
     {
         return self::$insertUser;
     }
 
+
     public static function getSelectSpecificUserModule()
     {
         return self::$selectSpecificUserModule;
     }
-
 
     public static function getSelectAllModule()
     {
@@ -322,7 +367,6 @@ class ControllerDataBase
         return self::$selectSpecificModule;
     }
 
-
     public static function getInsertReferentModule()
     {
         return self::$insertReferentModule;
@@ -336,6 +380,10 @@ class ControllerDataBase
         return self::$selectSpecificReferentModule;
     }
 
+
+
+
+
     /**
      * @return mixed
      */
@@ -344,6 +392,7 @@ class ControllerDataBase
         return self::$selectAllStudentInModule;
     }
 
+
     /**
      * @return mixed
      */
@@ -351,10 +400,6 @@ class ControllerDataBase
     {
         return self::$DeleteModule;
     }
-
-
-
-
 
 //____________________________________________________________________________
 
@@ -380,7 +425,6 @@ class ControllerDataBase
     }
 
 //____________________________________________________________________________
-
 
     /**
      * TODO: tmp function too be removed

@@ -25,9 +25,6 @@ class User
         $this->role = $role;
     }
 
-    /**
-     * @return mixed
-     */
     public function getKey()
     {
         return $this->key;
@@ -167,7 +164,20 @@ class User
     public function addModule(Module $module)
     {
         if (!in_array($module, $this->module)){
-            $this->module[] = $module;
+            $this->module[$module->getKey()] = $module;
+        }
+    }
+
+    public function addModuleReferent(Module $module)
+    {
+        if (!in_array($module, $this->moduleReferent)){
+            $this->moduleReferent[$module->getKey()] = $module;
+        }
+    }
+    
+    public function removeModule(Module $module) {
+        if (!in_array($module, $this->moduleReferent)){
+            unset($this->module[$module->getKey()]);
         }
     }
 
@@ -178,19 +188,12 @@ class User
         }
     }
 
-    public function addModuleReferent(Module $module)
-    {
-        if (!in_array($module, $this->moduleReferent)){
-            $this->moduleReferent[] = $module;
-        }
-    }
-
     public function getPassword()
     {
         return $this->password;
     }
 
-    public function isSamePassword(string $password)
+    public function isSamePassword(string $password) :bool
     {
         return password_verify($password, $this->password);
     }

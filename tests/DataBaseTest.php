@@ -63,6 +63,55 @@ class DataBaseTest extends TestCase
         $this->assertTrue(in_array(new Module('2', 'etude de trucs'), $userFetched->getModule()));
     }
 
+
+    public function testRemoveModuleToUser()
+    {
+        $user = ControllerUserDataBase::lookForSpecificUser('GMendufric');
+        $controllerUser = new ControllerUserDataBase($user);
+        $module = ControllerModuleDataBase::lookForModule('test pas vraiment fonctionnelle');
+        $controllerUser->removeModuleUser($module);
+
+        $this->assertTrue(sizeof($controllerUser->getUser()->getModule()) == 1);
+        $this->assertTrue(sizeof($controllerUser->getUser()->getModuleReferent()) == 0);
+        $this->assertTrue(sizeof($controllerUser->getUser()->getAbsence()) == 0);
+
+        $this->assertTrue(!in_array(new Module('1', 'test pas vraiment fonctionnelle'), $controllerUser->getUser()->getModule()));
+        $this->assertTrue(in_array(new Module('2', 'etude de trucs'), $controllerUser->getUser()->getModule()));
+
+        $userTest = ControllerUserDataBase::lookForSpecificUser($user->getId());
+
+        $this->assertTrue(sizeof($userTest->getModule()) == 1);
+        $this->assertTrue(sizeof($userTest->getModuleReferent()) == 0);
+        $this->assertTrue(sizeof($userTest->getAbsence()) == 0);
+
+        $this->assertTrue(!in_array(new Module('1', 'test pas vraiment fonctionnelle'), $userTest->getModule()));
+        $this->assertTrue(in_array(new Module('2', 'etude de trucs'), $userTest->getModule()));
+    }
+
+    public function testRemoveModuleToUserReferent()
+    {
+        $user = ControllerUserDataBase::lookForSpecificUser('GMendufric');
+        $controllerUser = new ControllerUserDataBase($user);
+        $module = ControllerModuleDataBase::lookForModule('test pas vraiment fonctionnelle');
+        $controllerUser->removeModuleUserReferent($module);
+
+        $this->assertTrue(sizeof($controllerUser->getUser()->getModule()) == 1);
+        $this->assertTrue(sizeof($controllerUser->getUser()->getModuleReferent()) == 0);
+        $this->assertTrue(sizeof($controllerUser->getUser()->getAbsence()) == 0);
+
+        $this->assertTrue(!in_array(new Module('1', 'test pas vraiment fonctionnelle'), $controllerUser->getUser()->getModule()));
+        $this->assertTrue(in_array(new Module('2', 'etude de trucs'), $controllerUser->getUser()->getModule()));
+
+        $userTest = ControllerUserDataBase::lookForSpecificUser($user->getId());
+
+        $this->assertTrue(sizeof($userTest->getModule()) == 1);
+        $this->assertTrue(sizeof($userTest->getModuleReferent()) == 0);
+        $this->assertTrue(sizeof($userTest->getAbsence()) == 0);
+
+        $this->assertTrue(!in_array(new Module('1', 'test pas vraiment fonctionnelle'), $userTest->getModule()));
+        $this->assertTrue(in_array(new Module('2', 'etude de trucs'), $userTest->getModule()));
+    }
+
     public function testSelectSpecificUserModuleRefere()
     {
         $userFetched = ControllerUserDataBase::lookForSpecificUser('JTarien');
@@ -129,7 +178,7 @@ class DataBaseTest extends TestCase
         $this->assertFalse($result);
     }
 
-    public function testAddmoduleToUser()
+    public function testAddModuleToUser()
     {
         $user = ControllerUserDataBase::lookForSpecificUser('GMendufric');
         $controllerUser = new ControllerUserDataBase($user);
@@ -142,6 +191,7 @@ class DataBaseTest extends TestCase
         $this->assertEquals($user->getModule()[0], $module);
     }
 
+
     public function testSelectAllStudentInModule()
     {
         $users = ControllerUserDataBase::lookForAllStudentInModule('test pas vraiment fonctionnelle');
@@ -149,6 +199,16 @@ class DataBaseTest extends TestCase
 
         $this->assertEquals('GHotine', $users[0]->getId());
         $this->assertEquals('DDormi', $users[1]->getId());
+
+    }
+
+    public function testSelectAllModule()
+    {
+        $modules = ControllerModuleDataBase::lookForAllModule();
+        $this->assertEquals(2, sizeof($modules));
+
+        $this->assertEquals('test pas vraiment fonctionnelle', $modules[0]->getId());
+        $this->assertEquals('etude de trucs', $modules[1]->getId());
 
     }
 
@@ -186,7 +246,20 @@ class DataBaseTest extends TestCase
         $res = ControllerModuleDataBase::deleteModule('test pas vraiment fonctionnelle');
         $this->assertTrue($res);
         $modulefetched = ControllerModuleDataBase::lookForModule('test pas vraiment fonctionnelle');
-        $this->assertEquals('test pas vraiment fonctionnelle', $modulefetched->getName());
+        $this->assertFalse($modulefetched);
     }
 
+    public function testDeleteUser()
+    {
+        $res = ControllerUserDataBase::deleteUser('JTarien');
+        $this->assertTrue($res);
+        $userfetched = ControllerUserDataBase::lookForSpecificUser('JTarien');
+        $this->assertNull($userfetched);
+    }
+
+    public function testLookForAllModule() {
+        $modules = ControllerModuleDataBase::lookForAllModule();
+        $this->assertCount(2, $modules);
+
+    }
 }

@@ -43,10 +43,13 @@ class ControllerModuleDataBase
 
     public static function lookForAllModule()
     {
+        $modules = array();
         ControllerDataBase::prepareSelectAllModule();
         if (ControllerDataBase::getSelectAllModule()->execute()) {
-            $row = ControllerDataBase::getSelectAllModule()->fetch();
-            return new Module($row['key'], $row['name']);
+            while ($row = ControllerDataBase::getSelectAllModule()->fetch()) {
+                $modules [$row['key']] = new Module($row['key'], $row['name']);
+            }
+            return $modules;
         }
         return null;
     }
@@ -57,9 +60,9 @@ class ControllerModuleDataBase
         return $this->module;
     }
 
-    public static function deleteModule($moduleKey)
+    public static function deleteModule($moduleName)
     {
         ControllerDataBase::prepareDeleteModule();
-        return ControllerDataBase::getDeleteModule()->execute(array($moduleKey));
+        return ControllerDataBase::getDeleteModule()->execute(array($moduleName));
     }
 }

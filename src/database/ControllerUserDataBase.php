@@ -70,7 +70,6 @@ class ControllerUserDataBase
                 return $user;
             }
         }
-
         return null;
     }
 
@@ -108,9 +107,9 @@ class ControllerUserDataBase
         $users = array();
         if (ControllerDataBase::getSelectAllStudentInModule()->execute(array($moduleId))) {
             while ($row = ControllerDataBase::getSelectAllStudentInModule()->fetch()) {
-                    $user = new User($row['key'], $row['password'], $row['first_name'], $row['last_name'], $row['mail'], $row['date_naissance'], 'ENSEIGNANT');
-                    $user->forceSetPassword($row['password']);
-                    $users[] = $user;
+                $user = new User($row['key'], $row['password'], $row['first_name'], $row['last_name'], $row['mail'], $row['date_naissance'], 'ENSEIGNANT');
+                $user->forceSetPassword($row['password']);
+                $users[] = $user;
             }
         }
         return $users;
@@ -149,13 +148,42 @@ class ControllerUserDataBase
     public function addAbsence(Absence $absence)
     {
         ControllerDataBase::prepareInsertAbsence();
-        if(!ControllerDataBase::getInsertAbsence()->execute(array($absence->getReason(), $this->user->getKey(), $absence->getComment(), $absence->getDate()))) {
+        if (!ControllerDataBase::getInsertAbsence()->execute(array($absence->getReason(), $this->user->getKey(), $absence->getComment(), $absence->getDate()))) {
             return false;
         }
         $this->user->addAbsence($absence);
         return true;
     }
 
+    public static function deleteUser($userId)
+    {
+        ControllerDataBase::prepareDeleteUser();
+        return ControllerDataBase::getDeleteUser()->execute(array($userId));
+    }
+
+    public function removeModuleUser(Module $module)
+    {
+        ControllerDataBase::prepareRemoveUserModule();
+        $moduleKey = $module->getKey();
+        $userKey = $this->user->getKey();
+        if (ControllerDataBase::getRemoveUserModule()->execute(array($userKey, $moduleKey))) {
+            $this->user->removeModule($module);
+            return true;
+        }
+        return false;
+    }
+
+    public function removeModuleUserReferent(Module $module)
+    {
+        ControllerDataBase::prepareRemoveUserReferentModule();
+        $moduleKey = $module->getKey();
+        $userKey = $this->user->getKey();
+        if (ControllerDataBase::getRemoveUserReferentModule()->execute(array($userKey, $moduleKey))) {
+            $this->user->removeModule($module);
+            return true;
+        }
+        return false;
+    }
 
 
 }

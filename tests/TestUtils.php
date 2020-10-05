@@ -12,6 +12,8 @@ class TestUtils
         ControllerDataBase::exec('DELETE FROM user_module');
     }
 
+
+    //password : Az12@4567   ->    $2y$10$dvPYMpa4mXt3CRz8vifbY.yJsTQnpGJDHJ6J5gB.XdhF6F1z322t6
     public static function CreateDataTestSet()
     {
         ControllerDataBase::exec('INSERT INTO `user` (`key`, `id`, `password`, `first_name`, `last_name`, `mail`, `role`, `date_naissance`) VALUES (\'1\', \'JTarien\', \'$2y$10$dvPYMpa4mXt3CRz8vifbY.yJsTQnpGJDHJ6J5gB.XdhF6F1z322t6\', \'Jean\', \'Tanrien\', \'Jean.Tanrien@mail.com\', \'ENSEIGNANT\', \'2020-09-01\') ');
