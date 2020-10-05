@@ -20,17 +20,20 @@
     <body>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <a class="navbar-brand" href="index.php"> <?= $this->m_siteTitle ?> </a>
-            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                <div class="navbar-nav">
-                    <a class="nav-item nav-link <?= $this->getActiveStatusForPage(PAGE_ID_MODULE_LIST) ?>" href="index.php?page=<?= PAGE_ID_MODULE_LIST ?>">Modules</a>
-                    <a class="nav-item nav-link <?= $this->getActiveStatusForPage(PAGE_ID_ABSENCE_LIST) ?>" href="index.php?page=<?= PAGE_ID_ABSENCE_LIST ?>">Absences</a>
-                    <a class="nav-item nav-link <?= $this->getActiveStatusForPage(PAGE_ID_ETUDIANT_LIST) ?>" href="index.php?page=<?= PAGE_ID_ETUDIANT_LIST ?>">Etudiants</a>
-                    <a class="nav-item nav-link <?= $this->getActiveStatusForPage(PAGE_ID_ENSEIGNANT_LIST) ?>" href="index.php?page=<?= PAGE_ID_ENSEIGNANT_LIST ?>">Enseignants</a>
+            <?php if(isset($_SESSION['user'])): ?>
+                <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                    <div class="navbar-nav">
+                        <a class="nav-item nav-link <?= $this->getActiveStatusForPage(PAGE_ID_MODULE_LIST) ?>" href="index.php?page=<?= PAGE_ID_MODULE_LIST ?>">Modules</a>
+                        <a class="nav-item nav-link <?= $this->getActiveStatusForPage(PAGE_ID_ABSENCE_LIST) ?>" href="index.php?page=<?= PAGE_ID_ABSENCE_LIST ?>">Absences</a>
+                        <a class="nav-item nav-link <?= $this->getActiveStatusForPage(PAGE_ID_ETUDIANT_LIST) ?>" href="index.php?page=<?= PAGE_ID_ETUDIANT_LIST ?>">Etudiants</a>
+                        <a class="nav-item nav-link <?= $this->getActiveStatusForPage(PAGE_ID_ENSEIGNANT_LIST) ?>" href="index.php?page=<?= PAGE_ID_ENSEIGNANT_LIST ?>">Enseignants</a>
+                    </div>
                 </div>
-            </div>
-            <div class="nav justify-content-end">
-                <a class="nav-item nav-link" href="#">Déconnexion</a>
-            </div>
+                <div class="nav justify-content-end">
+                    <a class="nav-item nav-link" href="index.php?page=<?= PAGE_ID_DISCONNECTION ?>">Déconnexion</a>
+                </div>
+            <?php endif; ?>
+
         </nav>
 
         <?php include("$templatePath"); ?>

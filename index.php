@@ -12,11 +12,13 @@ include_once("src/controllers/ControllerEtudiantEdit.php");
 include_once("src/controllers/ControllerEnseignantList.php");
 include_once("src/controllers/ControllerEnseignantEdit.php");
 include_once("src/controllers/ControllerAlert.php");
+include_once("src/controllers/ControllerDisconnection.php");
 
 $path=$_SERVER['DOCUMENT_ROOT']."/project/src";
 
 // We do a first sanitization pass by removing HTML tags
 $sanitizedGet = [];
+session_start();
 foreach ($_GET as $key => $value)
 {
     $sanitizedGet[$key] = filter_var($value, FILTER_SANITIZE_STRING);
@@ -42,7 +44,12 @@ if ($requestedPage === PAGE_ID_HELLO_WORLD)
 else if ($requestedPage === PAGE_ID_CONNECTION)
 {
     $controller = new ControllerConnection();
-    $controller->connection($sanitizedGet);
+    $controller->connection();
+}
+else if ($requestedPage === PAGE_ID_DISCONNECTION)
+{
+    $controller = new ControllerDisconnection();
+    $controller->disconnection();
 }
 else if ($requestedPage === PAGE_ID_MODULE_LIST)
 {

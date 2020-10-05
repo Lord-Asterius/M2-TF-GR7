@@ -4,6 +4,9 @@ include_once(dirname(__FILE__) . "/../views/ViewConnection.php");
 include_once(dirname(__FILE__) . "/../database/ControllerDataBase.php");
 include_once(dirname(__FILE__) . "/../database/ControllerUserDataBase.php");
 include_once(dirname(__FILE__) . "/../globals/Utils.php");
+include_once(dirname(__FILE__) . '/../database/User.php');
+include_once(dirname(__FILE__) . '/../database/Module.php');
+include_once(dirname(__FILE__) . '/../database/Absence.php');
 
 class ControllerConnection
 {
@@ -24,9 +27,13 @@ class ControllerConnection
                 if ($_SESSION['user']->isSamePassword($password)) {
                     switch ($_SESSION['user']->getRole()) {
                         case 'ENSEIGNANT':
-                        case 'ETUDIANT':
                             Utils::redirectTo(PAGE_ID_MODULE_LIST, []);
                             break;
+                        case 'ETUDIANT':
+                            $this->c_viewConnection->setErrorLogIn();
+                            Utils::redirectTo(PAGE_ID_CONNECTION, []);
+                            break;
+                        //                        break;
                         //                    case 'EQUIPE_ADMINISTRATIVE':
                         //                        Utils::redirectTo(PAGE_ID_, []);
                         //                        break;

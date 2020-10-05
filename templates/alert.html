@@ -1,3 +1,16 @@
+<script>
+    $(document).ready(function(){
+        $("#tableSearch").on("keyup", function() {
+            var value = $(this).val().toLowerCase();
+            $("#alertTable tr").filter(function() {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+    });
+</script>
+
+
+
 <div class="container">
     <br>
     <input class="form-control mb-4" id="tableSearch" type="text"
@@ -19,7 +32,7 @@
                 <?= $alert[0] ?>
             </td>
             <td>
-                <a href="index.php?page=<?= PAGE_ID_ABSENSE_DETAIL ?>&studentId=<?= $alert[3] ?>"> <?= $alert[1] ?> </a>
+                <a href="index.php?page=<?= PAGE_ID_ABSENCE_DETAIL ?>&studentId=<?= $alert[3] ?>"> <?= $alert[1] ?> </a>
             </td>
             <td>
                 <?= $alert[2] ?>
@@ -35,14 +48,3 @@
     </table>
 </div>
 
-
-<script>
-    $(document).ready(function(){
-        $("#tableSearch").on("keyup", function() {
-            var value = $(this).val().toLowerCase();
-            $("#alertTable tr").filter(function() {
-                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-            });
-        });
-    });
-</script>
