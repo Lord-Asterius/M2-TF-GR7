@@ -11,20 +11,18 @@ class ControllerConnection
 
     public function __construct()
     {
-        $this->c_viewConnection= new ViewConnection();
-        $_SESSION['tryConnection'] = false;
+        $this->c_viewConnection = new ViewConnection();
     }
 
-    public function connection($getParameters)
+    public function connection()
     {
-        if(isset($_POST['username']) && isset($_POST['password'])){
+        if (isset($_POST['username']) && isset($_POST['password'])) {
             $username = $_POST['username'];
             $password = $_POST['password'];
             ControllerDataBase::connectToDatabase();
-            $_SESSION['user'] = ControllerUserDataBase::lookForSpecificUser($username);
-            if($_SESSION['user']->isSamePassword($password)){
-                if(isset($_SESSION['user'])){
-                    switch($_SESSION['user']['role']){
+            if ($_SESSION['user'] = ControllerUserDataBase::lookForSpecificUser($username)) {
+                if ($_SESSION['user']->isSamePassword($password)) {
+                    switch ($_SESSION['user']->getRole()) {
                         case 'ENSEIGNANT':
                         case 'ETUDIANT':
                             Utils::redirectTo(PAGE_ID_MODULE_LIST, []);
@@ -36,9 +34,11 @@ class ControllerConnection
                         //                        Utils::redirectTo(PAGE_ID_, []);
                         //                        break;
                     }
+                } else {
+                    $this->c_viewConnection->setErrorLogIn();
                 }
-            }else{
-
+            } else {
+                $this->c_viewConnection->setErrorLogIn();
             }
         }
         $this->c_viewConnection->render();

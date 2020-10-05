@@ -1,3 +1,14 @@
+<script>
+    function myFunction() {
+        var x = document.getElementById("password");
+        if (x.type === "password") {
+            x.type = "text";
+        } else {
+            x.type = "password";
+        }
+    }
+</script>
+
 <body>
 <div id="login">
     <div class="container">
@@ -7,21 +18,26 @@
         <div id="login-row" class="row justify-content-center align-items-center">
             <div id="login-column" class="col-md-6">
                 <div id="login-box" class="col-md-12">
-                    <div class="alert alert-danger" role="alert">
-                        Identifiant ou mot de passe invalide !
-                    </div>
                     <form id="login-form" class="form" action="" method="post">
                         <h3 class="text-center text-secondary">Connexion</h3>
+                        <?php if($context["ErrorLogIn"] === true): ?>
+                        <div class="alert alert-danger" role="alert">
+                            Identifiant ou mot de passe invalide !
+                        </div>
+                        <?php endif; ?>
                         <div class="form-group">
                             <label for="username" class="text-secondary">Nom d'utilisateur :</label><br>
                             <input type="text" name="username" id="username" class="form-control">
                         </div>
                         <div class="form-group">
                             <label for="password" class="text-secondary">Mot de passe :</label><br>
-                            <input type="text" name="password" id="password" class="form-control">
+                            <input type="password" name="password" id="password" class="form-control">
+                            <br><input type="checkbox" onclick="myFunction()" class="text-secondary"><label
+                                class="text-secondary">Afficher le mot de passe</label>
                         </div>
                         <div class="form-group">
-                            <input type="submit" name="submit" class="btn btn-md btn-secondary btn-block" value="Se connecter">
+                            <input type="submit" name="submit" class="btn btn-md btn-secondary btn-block"
+                                   value="Se connecter">
                         </div>
                     </form>
                 </div>
@@ -30,6 +46,7 @@
     </div>
 </div>
 </body>
+
 
 
 

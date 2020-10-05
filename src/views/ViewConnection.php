@@ -11,8 +11,14 @@ class ViewConnection
     public function __construct()
     {
         $this->c_canvas = new GlobalCanvas("Connexion", PAGE_ID_CONNECTION);
-        $this->c_context = [];
+        $this->c_context["ErrorLogIn"] = false;
     }
+
+    public function setErrorLogIn()
+    {
+        $this->c_context["ErrorLogIn"] = true;
+    }
+
 
     public function render()
     {
