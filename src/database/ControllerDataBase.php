@@ -1,5 +1,12 @@
 <?php
 
+include_once(__DIR__ . '/ControllerDataBase.php');
+include_once(__DIR__ . '/User.php');
+include_once(__DIR__ . '/Module.php');
+include_once(__DIR__ . '/ControllerUserDataBase.php');
+include_once(__DIR__ . '/ControllerModuleDataBase.php');
+include_once(__DIR__ . '/Absence.php');
+
 class ControllerDataBase
 {
 
