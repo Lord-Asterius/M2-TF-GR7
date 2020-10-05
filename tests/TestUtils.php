@@ -16,7 +16,7 @@ class TestUtils
     //password : Az12@4567   ->    $2y$10$dvPYMpa4mXt3CRz8vifbY.yJsTQnpGJDHJ6J5gB.XdhF6F1z322t6
     public static function CreateDataTestSet()
     {
-        ControllerDataBase::exec('INSERT INTO `user` (`key`, `id`, `password`, `first_name`, `last_name`, `mail`, `role`, `date_naissance`) VALUES (\'1\', \'JTarien\', \'$2y$10$dvPYMpa4mXt3CRz8vifbY.yJsTQnpGJDHJ6J5gB.XdhF6F1z322t6\', \'Jean\', \'Tanrien\', \'Jean.Tanrien@mail.com\', \'ENSEIGNANT\', \'2020-09-01\') ');
+        ControllerDataBase::exec('INSERT INTO `user` (`key`, `id`, `password`, `first_name`, `last_name`, `mail`, `role`, `date_naissance`) VALUES (\'1\', \'JTanrien\', \'$2y$10$dvPYMpa4mXt3CRz8vifbY.yJsTQnpGJDHJ6J5gB.XdhF6F1z322t6\', \'Jean\', \'Tanrien\', \'Jean.Tanrien@mail.com\', \'ENSEIGNANT\', \'2020-09-01\') ');
         ControllerDataBase::exec('INSERT INTO `user` (`key`, `id`, `password`, `first_name`, `last_name`, `mail`, `role`, `date_naissance`) VALUES (\'2\', \'GMendufric\', \'$2y$10$dvPYMpa4mXt3CRz8vifbY.yJsTQnpGJDHJ6J5gB.XdhF6F1z322t6\', \'Gerard\', \'Mendufric\', \'Gerard.Mendufric@mail.com\', \'ENSEIGNANT\', \'2020-09-01\')');
 
         ControllerDataBase::exec('INSERT INTO `user` (`key`, `id`, `password`, `first_name`, `last_name`, `mail`, `role`, `date_naissance`) VALUES (\'3\', \'GHotine\', \'$2y$10$dvPYMpa4mXt3CRz8vifbY.yJsTQnpGJDHJ6J5gB.XdhF6F1z322t6\', \'Guy\', \'Hotine\', \'Guy.Hotine@mail.com\', \'ETUDIANT\', \'2020-09-01\')');

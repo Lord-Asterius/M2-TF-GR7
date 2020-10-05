@@ -325,6 +325,10 @@ class ControllerDataBase
         return self::$selectSpecificUser;
     }
 
+    public static function getRemoveUserReferentModule()
+    {
+        return self::$removeUserReferentModule;
+    }
 
     public static function getRemoveUserModule()
     {

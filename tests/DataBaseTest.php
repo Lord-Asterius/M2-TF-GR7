@@ -63,7 +63,6 @@ class DataBaseTest extends TestCase
         $this->assertTrue(in_array(new Module('2', 'etude de trucs'), $userFetched->getModule()));
     }
 
-
     public function testRemoveModuleToUser()
     {
         $user = ControllerUserDataBase::lookForSpecificUser('GMendufric');
@@ -90,7 +89,7 @@ class DataBaseTest extends TestCase
 
     public function testRemoveModuleToUserReferent()
     {
-        $user = ControllerUserDataBase::lookForSpecificUser('GMendufric');
+        $user = ControllerUserDataBase::lookForSpecificUser('JTanrien');
         $controllerUser = new ControllerUserDataBase($user);
         $module = ControllerModuleDataBase::lookForModule('test pas vraiment fonctionnelle');
         $controllerUser->removeModuleUserReferent($module);
@@ -114,7 +113,7 @@ class DataBaseTest extends TestCase
 
     public function testSelectSpecificUserModuleRefere()
     {
-        $userFetched = ControllerUserDataBase::lookForSpecificUser('JTarien');
+        $userFetched = ControllerUserDataBase::lookForSpecificUser('JTanrien');
         $this->assertTrue(sizeof($userFetched->getModule()) == 1);
         $this->assertTrue(sizeof($userFetched->getModuleReferent()) == 1);
         $this->assertTrue(sizeof($userFetched->getAbsence()) == 0);
@@ -251,9 +250,9 @@ class DataBaseTest extends TestCase
 
     public function testDeleteUser()
     {
-        $res = ControllerUserDataBase::deleteUser('JTarien');
+        $res = ControllerUserDataBase::deleteUser('JTanrien');
         $this->assertTrue($res);
-        $userfetched = ControllerUserDataBase::lookForSpecificUser('JTarien');
+        $userfetched = ControllerUserDataBase::lookForSpecificUser('JTanrien');
         $this->assertNull($userfetched);
     }
 

@@ -95,6 +95,7 @@ class User
     }
 
 
+
     public function getFirstName()
     {
         return $this->firstName;
@@ -174,12 +175,19 @@ class User
             $this->moduleReferent[$module->getKey()] = $module;
         }
     }
-    
+
     public function removeModule(Module $module) {
-        if (!in_array($module, $this->moduleReferent)){
+        if (in_array($module, $this->module)){
             unset($this->module[$module->getKey()]);
         }
     }
+
+    public function removeModuleReferent(Module $module) {
+        if (in_array($module, $this->moduleReferent)){
+            unset($this->moduleReferent[$module->getKey()]);
+        }
+    }
+
 
     public function addAbsence(Absence $absence)
     {
