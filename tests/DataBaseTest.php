@@ -187,7 +187,7 @@ class DataBaseTest extends TestCase
 
         $userTest = ControllerUserDataBase::lookForSpecificUserModule($user->getId());
         $this->assertTrue($userTest->isSameId('GMendufric'));
-        $this->assertEquals($user->getModule()[0], $module);
+        $this->assertEquals($user->getModule()[1], $module);
     }
 
 
@@ -206,8 +206,8 @@ class DataBaseTest extends TestCase
         $modules = ControllerModuleDataBase::lookForAllModule();
         $this->assertEquals(2, sizeof($modules));
 
-        $this->assertEquals('test pas vraiment fonctionnelle', $modules[0]->getId());
-        $this->assertEquals('etude de trucs', $modules[1]->getId());
+        $this->assertEquals('test pas vraiment fonctionnelle', $modules[1]->getName());
+        $this->assertEquals('etude de trucs', $modules[2]->getName());
 
     }
 
@@ -222,7 +222,7 @@ class DataBaseTest extends TestCase
 
         $userTest = ControllerUserDataBase::lookForSpecificReferentModule($user->getId());
         $this->assertTrue($userTest->isSameId('GMendufric'));
-        $this->assertEquals($user->getModuleReferent()[0], $module);
+        $this->assertEquals($user->getModuleReferent()[1], $module);
     }
 
     public function testAddAbsenceUser()
