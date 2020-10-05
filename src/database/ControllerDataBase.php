@@ -22,6 +22,7 @@ class ControllerDataBase
     private static $selectSpecificModule;
     private static $selectSpecificReferentModule;
     private static $selectAllStudentInModule;
+    private static $DeleteModule;
 
 
     public static function connectToDatabase()
@@ -67,6 +68,7 @@ class ControllerDataBase
         self::$selectSpecificModule = null;
         self::$selectSpecificReferentModule = null;
         self::$selectAllStudentInModule = null;
+        self::$DeleteModule = null;
     }
 
     public static function prepareInsertUser()
@@ -230,6 +232,16 @@ class ControllerDataBase
         return true;
     }
 
+    public static function prepareDeleteModule()
+    {
+        if (self::$DeleteModule == null) {
+            self::setPrepareToNull();
+            return self::$DeleteModule = self::$dataBaseConnector->prepare("DELETE FROM module WHERE `key` = ?");
+        }
+        return true;
+    }
+
+
     public static function getDataBaseConnector()
     {
         return self::$dataBaseConnector;
@@ -330,6 +342,14 @@ class ControllerDataBase
     public static function getSelectAllStudentInModule()
     {
         return self::$selectAllStudentInModule;
+    }
+
+    /**
+     * @return mixed
+     */
+    public static function getDeleteModule()
+    {
+        return self::$DeleteModule;
     }
 
 

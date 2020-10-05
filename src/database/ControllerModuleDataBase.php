@@ -56,4 +56,10 @@ class ControllerModuleDataBase
     {
         return $this->module;
     }
+
+    public static function deleteModule($moduleKey)
+    {
+        ControllerDataBase::prepareDeleteModule();
+        return ControllerDataBase::getDeleteModule()->execute(array($moduleKey));
+    }
 }

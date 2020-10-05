@@ -42,7 +42,4 @@ class Absence
         return $this->date;
     }
 
-
-
-
 }

@@ -142,7 +142,8 @@ class DataBaseTest extends TestCase
         $this->assertEquals($user->getModule()[0], $module);
     }
 
-    public function testSelectAllStudentInModule() {
+    public function testSelectAllStudentInModule()
+    {
         $users = ControllerUserDataBase::lookForAllStudentInModule('test pas vraiment fonctionnelle');
         $this->assertEquals(2, sizeof($users));
 
@@ -173,10 +174,19 @@ class DataBaseTest extends TestCase
         $absence = new Absence('0', 'piscine', 'c\'est qui', '2020-10-15 13:31:47');
 
         $controllerUser->addAbsence($absence);
+        $this->assertEquals($absence->getReason(), $user->getAbsence()[1]->getReason());
 
         $userTest = ControllerUserDataBase::lookForSpecificUser($user->getId());
 
         $this->assertEquals($absence->getReason(), $userTest->getAbsence()[1]->getReason());
+    }
+
+    public function testDeleteModule()
+    {
+        $res = ControllerModuleDataBase::deleteModule('test pas vraiment fonctionnelle');
+        $this->assertTrue($res);
+        $modulefetched = ControllerModuleDataBase::lookForModule('test pas vraiment fonctionnelle');
+        $this->assertEquals('test pas vraiment fonctionnelle', $modulefetched->getName());
     }
 
 }
