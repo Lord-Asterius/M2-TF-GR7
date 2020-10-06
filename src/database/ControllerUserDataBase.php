@@ -86,9 +86,9 @@ class ControllerUserDataBase
             $row = ControllerDataBase::getSelectAllUser()->fetch();
             $users = array();
             do {
-                    $user = new User($row['0'], $row['password'], $row['first_name'], $row['last_name'], $row['mail'], $row['date_naissance'], $row['role']);
-                    $user->forceSetPassword($row['password']);
-                    $users[] = $user;
+                $user = new User($row['0'], $row['password'], $row['first_name'], $row['last_name'], $row['mail'], $row['date_naissance'], $row['role']);
+                $user->forceSetPassword($row['password']);
+                $users[] = $user;
             } while ($row = ControllerDataBase::getSelectAllUser()->fetch());
             return $users;
         }
@@ -103,7 +103,7 @@ class ControllerUserDataBase
             $users = array();
             $user = null;
             do {
-                if (!isset($users[$row['id']])){
+                if (!isset($users[$row['id']])) {
                     $user = new User($row['0'], $row['password'], $row['first_name'], $row['last_name'], $row['mail'], $row['date_naissance'], $row['role']);
                     $user->forceSetPassword($row['password']);
                     $users[$user->getId()] = $user;
@@ -187,6 +187,16 @@ class ControllerUserDataBase
             return true;
         }
         return false;
+    }
+
+    public function modifyUser()
+    {
+        ControllerDataBase::prepareModifyUser();
+        return ControllerDataBase::getModifyUser()->execute(
+            array($this->user->getId(), $this->user->getPassword(),
+                $this->user->getFirstName(), $this->user->getLastName(),
+                $this->user->getMail(), $this->user->getRole(),
+                $this->user->getDate(), $this->user->getKey()));
     }
 
     public function getUser()

@@ -33,6 +33,7 @@ class ControllerDataBase
     private static $DeleteUser;
     private static $removeUserModule;
     private static $removeUserReferentModule;
+    private static $modifyUser;
 
 
     public static function connectToDatabase()
@@ -82,6 +83,7 @@ class ControllerDataBase
         self::$DeleteUser = null;
         self::$removeUserModule = null;
         self::$removeUserReferentModule = null;
+        self::$modifyUser=null;
     }
 
 
@@ -130,7 +132,15 @@ class ControllerDataBase
             return self::$selectAllTeacher = self::$dataBaseConnector->prepare("SELECT * FROM user LEFT JOIN user_module ON user.key = user_module.user_key LEFT JOIN module ON user_module.module_key = module.key WHERE user.role = 'ENSEIGNANT' ");
         }
         return true;
+    }
 
+    public static function prepareModifyUser()
+    {
+        if (self::$modifyUser == null) {
+            self::setPrepareToNull();
+            return self::$modifyUser = self::$dataBaseConnector->prepare("UPDATE user SET id = ?, password = ?, first_name = ?,  last_name = ?, mail = ?, role = ?, date_naissance = ? WHERE `key` = ?");
+        }
+        return true;
     }
 
     public static function prepareSelectAllAdminStaff()
@@ -352,6 +362,23 @@ class ControllerDataBase
     {
         return self::$insertUser;
     }
+
+    /**
+     * @return mixed
+     */
+    public static function getSelectAllAllStudent()
+    {
+        return self::$selectAllAllStudent;
+    }
+
+    /**
+     * @return mixed
+     */
+    public static function getModifyUser()
+    {
+        return self::$modifyUser;
+    }
+
 
 
     public static function getSelectSpecificUserModule()

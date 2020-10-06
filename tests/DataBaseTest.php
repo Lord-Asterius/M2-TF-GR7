@@ -175,6 +175,19 @@ class DataBaseTest extends TestCase
         $this->assertEquals('ENSEIGNANT', $userFetched->getRole());
     }
 
+    public function testModifyUser() {
+        $user = ControllerUserDataBase::lookForSpecificUser('JTanrien');
+        $controllerUser = new ControllerUserDataBase($user);
+        $user->setLastName('Chocapic');
+        $controllerUser->modifyUser();
+        $userFetched = ControllerUserDataBase::lookForSpecificUser('JTanrien');
+        $this->assertNull($userFetched);
+        $userFetched = ControllerUserDataBase::lookForSpecificUser('JChocapic');
+
+        $this->assertEquals('Chocapic', $userFetched->getLastName());
+        $this->assertEquals('JChocapic', $userFetched->getId());
+    }
+
     public function testInsertModule()
     {
         $module = new Module(9, 'test');
