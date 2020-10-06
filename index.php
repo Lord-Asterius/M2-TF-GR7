@@ -124,6 +124,11 @@ else if($requestedPage === AJAX_DELETE_ABSENCE_DETAILS) {
     $obj = new ControllerAbsenceDetails();
     $obj->delete_student();
 }
+else if ($requestedPage === PAGE_ID_ALERT)
+{
+    $controller = new ControllerAlert();
+    $controller->handleRequest();
+}
 
 
 
