@@ -3,6 +3,8 @@
 include_once(dirname(__FILE__) . "/../globals/PageIdentifiers.php");
 include_once(dirname(__FILE__) . "/../globals/Utils.php");
 include_once(dirname(__FILE__) . "/../views/ViewModule.php");
+include_once(dirname(__FILE__) . "/../database/ControllerModuleDataBase.php");
+include_once(dirname(__FILE__) . "/../database/ControllerUserDataBase.php");
 
 
 class ControllerModuleEnrolledInformation
@@ -23,6 +25,7 @@ class ControllerModule
 {
     private $m_viewModule;
     private $m_moduleName;
+    private $m_moduleInfo;
 
     public function __construct()
     {
@@ -31,7 +34,7 @@ class ControllerModule
 
     public function handleRequest($getParameters)
     {
-        //TODO
+        ControllerDataBase::connectToDatabase();
 
         if (!isset($getParameters["module"]) || !is_string($getParameters["module"]))
         {
@@ -39,8 +42,14 @@ class ControllerModule
             Utils::redirectTo(PAGE_ID_MODULE_LIST, []);
         }
 
-        // TODO Check if module exists, redirect if it's not the case
         $this->m_moduleName = $getParameters["module"];
+        $this->m_moduleInfo = ControllerModuleDataBase::lookForModule($this->m_moduleName);
+
+        if ($this->m_moduleInfo === false)
+        {
+            // Module not found, we stop the processing
+            Utils::redirectTo(PAGE_ID_MODULE_LIST, []);
+        }
 
         if (isset($getParameters["action"]) && $getParameters["action"] === "addAbsence")
         {
@@ -62,7 +71,7 @@ class ControllerModule
             Utils::redirectTo(PAGE_ID_MODULE, ["module" => $this->m_moduleName, "error" => "Impossible d'ajouter l'absence : formulaire invalide"]);
         }
 
-        if(!preg_match("/^\d\d\/\d\d\/\d\d\d\d$/", $getParameters["absenceDate"]))
+        if(!preg_match("/^\d\d\d\d\/\d\d\/\d\d\$/", $getParameters["absenceDate"]))
         {
             Utils::redirectTo(PAGE_ID_MODULE, ["module" => $this->m_moduleName, "error" => "Impossible d'ajouter l'absence : format de la date invalide"]);
         }
@@ -72,17 +81,23 @@ class ControllerModule
             Utils::redirectTo(PAGE_ID_MODULE, ["module" => $this->m_moduleName, "error" => "Impossible d'ajouter l'absence : format de l'heure invalide"]);
         }
 
-        if (!ctype_digit($getParameters["userId"]))
-        {
-            Utils::redirectTo(PAGE_ID_MODULE, ["module" => $this->m_moduleName, "error" => "Impossible d'ajouter l'absence : l'identifiant de l'utilisateur n'est pas un entier"]);
-        }
-
         // TODO Check that userId is valid and registered in this module, insert in the database
 
-        $userName = "Nom";
-        $date = $getParameters['absenceDate'];
-        $time =  $getParameters['absenceTime'];
+        $user = ControllerUserDataBase::lookForSpecificUser($getParameters["userId"]);
+        $userController = new ControllerUserDataBase($user);
+
+        if ($user == null)
+        {
+            Utils::redirectTo(PAGE_ID_MODULE, ["module" => $this->m_moduleName, "error" => "Impossible d'ajouter l'absence : user id invalide"]);
+        }
+
+        $userName = $user->getFirstName() . " " . $user->getLastName();
+        $date = str_replace("/", "-", $getParameters['absenceDate']);
+        $time =  $getParameters['absenceTime'] . ":00";
         $reason = $getParameters["reason"];
+
+        $absence = new Absence(null, $reason, "", $date . " " . $time);
+        $userController->addAbsence($absence);
 
         $successMessage = "Absence ajoutée pour $userName à la date du $date à $time avec le motif \"$reason\"";
 
@@ -91,14 +106,20 @@ class ControllerModule
 
     public function renderModule($getParameters)
     {
-        $this->m_viewModule->setModuleName($getParameters["module"]);
+        $this->m_viewModule->setModuleName($this->m_moduleName);
 
-        // TODO Retrieve users from the database
-        $fakeData = [new ControllerModuleEnrolledInformation("Fabrice Bouquet", 4, 0),
-                     new ControllerModuleEnrolledInformation("Fabien Peureux", 2, 3),
-                     new ControllerModuleEnrolledInformation("Jean Dupont", 8, 1),];
+        $enrolledUsersInformation = [];
 
-        $this->m_viewModule->setEnrolledUsers($fakeData);
+        $enrolledUsers = ControllerUserDataBase::lookForAllStudentInModule($this->m_moduleName);
+
+        foreach ($enrolledUsers as $user)
+        {
+            $user = ControllerUserDataBase::lookForSpecificUser($user->getId());
+            $enrolledUsersInformation[] = new ControllerModuleEnrolledInformation($user->getFirstName() . " " . $user->getLastName(),
+                                                                                  $user->getId(), count($user->getAbsence()));
+        }
+
+        $this->m_viewModule->setEnrolledUsers($enrolledUsersInformation);
 
         // TODO Retrieve rights from the session
         $this->m_viewModule->setHasEditRights(true);
