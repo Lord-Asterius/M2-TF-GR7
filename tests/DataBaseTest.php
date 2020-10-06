@@ -67,7 +67,7 @@ class DataBaseTest extends TestCase
     {
         $users = ControllerUserDataBase::lookForAllUser();
 
-        $this->assertCount(4, $users);
+        $this->assertCount(5, $users);
     }
 
     public function testAllStudent()
@@ -79,6 +79,25 @@ class DataBaseTest extends TestCase
         $this->assertArrayHasKey('GHotine', $users);
         $this->assertArrayHasKey('DDormi', $users);
         $this->assertCount('4', $users['DDormi']->getAbsence());
+    }
+
+    public function testSelectAllTeacher()
+    {
+        $teachers = ControllerUserDataBase::lookForAllTeacher();
+
+        $this->assertCount(2, $teachers);
+
+        $this->assertArrayHasKey('JTanrien', $teachers);
+        $this->assertArrayHasKey('GMendufric', $teachers);
+    }
+
+    public function testSelectAllAdminStaff()
+    {
+        $adminStaff = ControllerUserDataBase::lookForAllAdminStaff();
+
+        $this->assertCount(1, $adminStaff);
+
+        $this->assertArrayHasKey('CCépacaré', $adminStaff);
     }
 
     public function testRemoveModuleToUser()
@@ -173,6 +192,19 @@ class DataBaseTest extends TestCase
         $this->assertTrue(sizeof($userFetched->getAbsence()) == 0);
         $this->assertEquals('2020-09-01', $userFetched->getDate());
         $this->assertEquals('ENSEIGNANT', $userFetched->getRole());
+    }
+
+    public function testModifyUser() {
+        $user = ControllerUserDataBase::lookForSpecificUser('JTanrien');
+        $controllerUser = new ControllerUserDataBase($user);
+        $user->setLastName('Chocapic');
+        $controllerUser->modifyUser();
+        $userFetched = ControllerUserDataBase::lookForSpecificUser('JTanrien');
+        $this->assertNull($userFetched);
+        $userFetched = ControllerUserDataBase::lookForSpecificUser('JChocapic');
+
+        $this->assertEquals('Chocapic', $userFetched->getLastName());
+        $this->assertEquals('JChocapic', $userFetched->getId());
     }
 
     public function testInsertModule()

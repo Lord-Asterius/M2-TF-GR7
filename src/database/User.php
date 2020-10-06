@@ -104,6 +104,7 @@ class User
     public function setFirstName(string $firstName): void
     {
         $this->firstName = $firstName;
+        $this->setId();
     }
 
     public function getLastName()
@@ -114,6 +115,7 @@ class User
     public function setLastName(string $lastName): void
     {
         $this->lastName = $lastName;
+        $this->setId();
     }
 
     public function getMail()

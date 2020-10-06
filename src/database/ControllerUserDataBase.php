@@ -86,9 +86,9 @@ class ControllerUserDataBase
             $row = ControllerDataBase::getSelectAllUser()->fetch();
             $users = array();
             do {
-                    $user = new User($row['0'], $row['password'], $row['first_name'], $row['last_name'], $row['mail'], $row['date_naissance'], $row['role']);
-                    $user->forceSetPassword($row['password']);
-                    $users[] = $user;
+                $user = new User($row['0'], $row['password'], $row['first_name'], $row['last_name'], $row['mail'], $row['date_naissance'], $row['role']);
+                $user->forceSetPassword($row['password']);
+                $users[] = $user;
             } while ($row = ControllerDataBase::getSelectAllUser()->fetch());
             return $users;
         }
@@ -103,7 +103,7 @@ class ControllerUserDataBase
             $users = array();
             $user = null;
             do {
-                if (!isset($users[$row['id']])){
+                if (!isset($users[$row['id']])) {
                     $user = new User($row['0'], $row['password'], $row['first_name'], $row['last_name'], $row['mail'], $row['date_naissance'], $row['role']);
                     $user->forceSetPassword($row['password']);
                     $users[$user->getId()] = $user;
@@ -121,6 +121,54 @@ class ControllerUserDataBase
         }
         return null;
     }
+
+    public static function lookForAllTeacher()
+    {
+        ControllerDataBase::prepareSelectAllTeacher();
+        if (ControllerDataBase::getSelectAllTeacher()->execute()) {
+            $row = ControllerDataBase::getSelectAllTeacher()->fetch();
+            $teachers = array();
+            $teacher = null;
+            do {
+                if (!isset($teachers[$row['id']])) {
+                    $teacher = new User($row['0'], $row['password'], $row['first_name'], $row['last_name'], $row['mail'], $row['date_naissance'], $row['role']);
+                    $teacher->forceSetPassword($row['password']);
+                    $teachers[$teacher->getId()] = $teacher;
+                }
+                if ($row['9']) {
+                    $module = new Module($row['9'], $row['11']);
+                    $teacher->addModule($module);
+                }
+                if ($row['12']) {
+                    $absence = new Absence($row['16'], $row['reason'], $row['comment'], $row['date_time']);
+                    $teacher->addAbsence($absence);
+                }
+            } while ($row = ControllerDataBase::getSelectAllTeacher()->fetch());
+            return $teachers;
+        }
+        return null;
+    }
+
+    public static function lookForAllAdminStaff()
+    {
+        ControllerDataBase::prepareSelectAllAdminStaff();
+        if (ControllerDataBase::getSelectAllAdminStaff()->execute()) {
+            $row = ControllerDataBase::getSelectAllAdminStaff()->fetch();
+            $AdminStaffs = array();
+            $AdminStaff = null;
+            do {
+                if (!isset($AdminStaffs[$row['id']])) {
+                    $AdminStaff = new User($row['0'], $row['password'], $row['first_name'], $row['last_name'], $row['mail'], $row['date_naissance'], $row['role']);
+                    $AdminStaff->forceSetPassword($row['password']);
+                    $AdminStaffs[$AdminStaff->getId()] = $AdminStaff;
+                }
+            } while ($row = ControllerDataBase::getSelectAllAdminStaff()->fetch());
+            return $AdminStaffs;
+        }
+        return null;
+    }
+
+
 
     public static function lookForSpecificUserModule($id)
     {
@@ -187,6 +235,16 @@ class ControllerUserDataBase
             return true;
         }
         return false;
+    }
+
+    public function modifyUser()
+    {
+        ControllerDataBase::prepareModifyUser();
+        return ControllerDataBase::getModifyUser()->execute(
+            array($this->user->getId(), $this->user->getPassword(),
+                $this->user->getFirstName(), $this->user->getLastName(),
+                $this->user->getMail(), $this->user->getRole(),
+                $this->user->getDate(), $this->user->getKey()));
     }
 
     public function getUser()
