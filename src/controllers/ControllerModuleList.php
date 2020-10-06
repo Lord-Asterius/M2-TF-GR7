@@ -1,6 +1,7 @@
 <?php
 
 include_once(dirname(__FILE__) . "/../views/ViewModuleList.php");
+include_once(dirname(__FILE__) . "/../database/ControllerModuleDataBase.php");
 
 
 class ControllerModuleList
@@ -14,8 +15,17 @@ class ControllerModuleList
 
     public function handleRequest($getParameters)
     {
-        //TODO Get the list of module the current user have access to
-        $this->m_viewModuleList->setModulesNamesList(["Test fonctionnel", "PAM", "Réseaux avancé"]);
+        ControllerDataBase::connectToDatabase();
+
+        $moduleNames = [];
+        $modules = ControllerModuleDataBase::lookForAllModule();
+
+        foreach ($modules as $module)
+        {
+            $moduleNames[] = $module->getName();
+        }
+
+        $this->m_viewModuleList->setModulesNamesList($moduleNames);
         $this->m_viewModuleList->render();
     }
 }
