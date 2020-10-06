@@ -18,7 +18,7 @@ class ControllerDataBase
     private static $selectAllUser;
     private static $selectAllTeacher;
     private static $selectAllAdminStaff;
-    private static $selectAllAllAdmin;
+    private static $selectAllAdmin;
     private static $selectAllAllStudent;
     private static $selectSpecificUser;
     private static $selectAllAbsence;
@@ -68,7 +68,7 @@ class ControllerDataBase
         self::$selectAllUser = null;
         self::$selectAllTeacher = null;
         self::$selectAllAdminStaff = null;
-        self::$selectAllAllAdmin = null;
+        self::$selectAllAdmin = null;
         self::$selectAllAllStudent = null;
         self::$selectSpecificUser = null;
         self::$selectAllAbsence = null;
@@ -146,9 +146,9 @@ class ControllerDataBase
 
     public static function prepareSelectAllAdmin()
     {
-        if (self::$selectAllAllAdmin == null) {
+        if (self::$selectAllAdmin == null) {
             self::setPrepareToNull();
-            return self::$selectAllAllAdmin = self::$dataBaseConnector->prepare("SELECT * FROM user LEFT JOIN user_module ON user.key = user_module.user_key LEFT JOIN module ON user_module.module_key = module.key LEFT JOIN absence ON user.key = absence.etudiant_key WHERE user.role = 'ADMINISTRATEUR' ");
+            return self::$selectAllAdmin = self::$dataBaseConnector->prepare("SELECT * FROM user WHERE user.role = 'ADMINISTRATEUR' ");
         }
         return true;
 
@@ -322,9 +322,9 @@ class ControllerDataBase
         return self::$selectAllAdminStaff;
     }
 
-    public static function getSelectAllAllAdmin()
+    public static function getSelectAllAdmin()
     {
-        return self::$selectAllAllAdmin;
+        return self::$selectAllAdmin;
     }
 
     public static function getSelectAllStudent()

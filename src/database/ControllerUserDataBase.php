@@ -168,6 +168,25 @@ class ControllerUserDataBase
         return null;
     }
 
+    public static function lookForAllAdmin()
+    {
+        ControllerDataBase::prepareSelectAllAdmin();
+        if (ControllerDataBase::getSelectAllAdmin()->execute()) {
+            $row = ControllerDataBase::getSelectAllAdmin()->fetch();
+            $Admins = array();
+            $Admin = null;
+            do {
+                if (!isset($Admins[$row['id']])) {
+                    $Admin = new User($row['0'], $row['password'], $row['first_name'], $row['last_name'], $row['mail'], $row['date_naissance'], $row['role']);
+                    $Admin->forceSetPassword($row['password']);
+                    $Admins[$Admin->getId()] = $Admin;
+                }
+            } while ($row = ControllerDataBase::getSelectAllAdmin()->fetch());
+            return $Admins;
+        }
+        return null;
+    }
+
 
 
     public static function lookForSpecificUserModule($id)

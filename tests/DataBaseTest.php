@@ -91,6 +91,15 @@ class DataBaseTest extends TestCase
         $this->assertArrayHasKey('GMendufric', $teachers);
     }
 
+    public function testSelectAllAdmin()
+    {
+        $admin = ControllerUserDataBase::lookForAllAdmin();
+
+        $this->assertCount(1, $admin);
+
+        $this->assertArrayHasKey('AIstrateur', $admin);
+    }
+
     public function testSelectAllAdminStaff()
     {
         $adminStaff = ControllerUserDataBase::lookForAllAdminStaff();

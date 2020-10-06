@@ -24,7 +24,7 @@ class TestUtils
 
         ControllerDataBase::exec('INSERT INTO `user` (`key`, `id`, `password`, `first_name`, `last_name`, `mail`, `role`, `date_naissance`) VALUES (\'5\', \'CCépacaré\', \'$2y$10$dvPYMpa4mXt3CRz8vifbY.yJsTQnpGJDHJ6J5gB.XdhF6F1z322t6\', \'Cicéron\', \'Cépacaré\', \'Cicéron.Cépacaré@mail.com\', \'EQUIPE_ADMINISTRATIVE\', \'2020-09-01\')');
 
-        ControllerDataBase::exec('INSERT INTO `user` (`key`, `id`, `password`, `first_name`, `last_name`, `mail`, `role`, `date_naissance`) VALUES (\'5\', \'AIstrateur\', \'$2y$10$dvPYMpa4mXt3CRz8vifbY.yJsTQnpGJDHJ6J5gB.XdhF6F1z322t6\', \'Admin\', \'Istrateur\', \'Admin.Istrateur@mail.com\', \'ADMINISTRATEUR\', \'2020-09-01\')');
+        ControllerDataBase::exec('INSERT INTO `user` (`key`, `id`, `password`, `first_name`, `last_name`, `mail`, `role`, `date_naissance`) VALUES (\'6\', \'AIstrateur\', \'$2y$10$dvPYMpa4mXt3CRz8vifbY.yJsTQnpGJDHJ6J5gB.XdhF6F1z322t6\', \'Admin\', \'Istrateur\', \'Admin.Istrateur@mail.com\', \'ADMINISTRATEUR\', \'2020-09-01\')');
 
 
         ControllerDataBase::exec('INSERT INTO module (`key`, name) VALUES (\'1\', \'test pas vraiment fonctionnelle\')');
