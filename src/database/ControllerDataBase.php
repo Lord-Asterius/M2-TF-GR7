@@ -317,7 +317,7 @@ class ControllerDataBase
         return self::$selectAllAllAdmin;
     }
 
-    public static function getSelectAllAllStudent()
+    public static function getSelectAllStudent()
     {
         return self::$selectAllAllStudent;
     }
