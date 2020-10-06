@@ -28,9 +28,9 @@ class TestUtils
         ControllerDataBase::exec('INSERT INTO absence(`key`, reason, etudiant_key, comment, date_time) VALUES (\'1\', \'\', \'3\', \'\', \'2020-10-15 13:31:47\')');
 
         ControllerDataBase::exec('INSERT INTO absence(`key`, reason, etudiant_key, comment, date_time) VALUES (\'2\', \'Aqua poney\', \'4\', \'gnugnu\', \'2020-10-15 13:31:47\')');
-        ControllerDataBase::exec('INSERT INTO absence(`key`, reason, etudiant_key, comment, date_time) VALUES (\'3\', \'\', \'4\', \'\', \'2020-10-15 13:31:47\')');
-        ControllerDataBase::exec('INSERT INTO absence(`key`, reason, etudiant_key, comment, date_time) VALUES (\'4\', \'\', \'4\', \'\', \'2020-10-15 13:31:47\')');
-        ControllerDataBase::exec('INSERT INTO absence(`key`, reason, etudiant_key, comment, date_time) VALUES (\'5\', \'\', \'4\', \'\', \'2020-10-15 13:31:47\')');
+        ControllerDataBase::exec('INSERT INTO absence(`key`, reason, etudiant_key, comment, date_time) VALUES (\'3\', \'\', \'4\', \'gnu\', \'2020-10-15 13:31:47\')');
+        ControllerDataBase::exec('INSERT INTO absence(`key`, reason, etudiant_key, comment, date_time) VALUES (\'4\', \'\', \'4\', \'pat\', \'2020-10-15 13:31:47\')');
+        ControllerDataBase::exec('INSERT INTO absence(`key`, reason, etudiant_key, comment, date_time) VALUES (\'5\', \'\', \'4\', \'patate\', \'2020-10-15 13:31:47\')');
 
         ControllerDataBase::exec('INSERT INTO enseigant_referent(enseigant_key, module_key) VALUES (\'1\', \'1\')');
 

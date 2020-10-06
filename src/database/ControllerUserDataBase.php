@@ -86,10 +86,37 @@ class ControllerUserDataBase
             $row = ControllerDataBase::getSelectAllUser()->fetch();
             $users = array();
             do {
-                $user = new User($row['0'], $row['password'], $row['first_name'], $row['last_name'], $row['mail'], $row['date_naissance'], $row['role']);
-                $user->forceSetPassword($row['password']);
-                $users[$user->getId()] = $user;
+                    $user = new User($row['0'], $row['password'], $row['first_name'], $row['last_name'], $row['mail'], $row['date_naissance'], $row['role']);
+                    $user->forceSetPassword($row['password']);
+                    $users[] = $user;
             } while ($row = ControllerDataBase::getSelectAllUser()->fetch());
+            return $users;
+        }
+        return null;
+    }
+
+    public static function lookForAllStudents()
+    {
+        ControllerDataBase::prepareSelectAllStudent();
+        if (ControllerDataBase::getSelectAllStudent()->execute()) {
+            $row = ControllerDataBase::getSelectAllStudent()->fetch();
+            $users = array();
+            $user = null;
+            do {
+                if (!isset($users[$row['id']])){
+                    $user = new User($row['0'], $row['password'], $row['first_name'], $row['last_name'], $row['mail'], $row['date_naissance'], $row['role']);
+                    $user->forceSetPassword($row['password']);
+                    $users[$user->getId()] = $user;
+                }
+                if ($row['9']) {
+                    $module = new Module($row['9'], $row['11']);
+                    $user->addModule($module);
+                }
+                if ($row['12']) {
+                    $absence = new Absence($row['16'], $row['reason'], $row['comment'], $row['date_time']);
+                    $user->addAbsence($absence);
+                }
+            } while ($row = ControllerDataBase::getSelectAllStudent()->fetch());
             return $users;
         }
         return null;
