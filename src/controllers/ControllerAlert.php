@@ -22,6 +22,7 @@ class ControllerAlert
     {
         ControllerDataBase::connectToDatabase();
         $students = ControllerUserDataBase::lookForAllStudents();
+        $alerts = array();
         foreach ($students as $student){
             $nbAbsence = 0;
             foreach ($student->getAbsence() as $absence){
@@ -32,7 +33,9 @@ class ControllerAlert
             echo $nbAbsence;
             var_dump($student);
             if($nbAbsence >= 3){
-                $alerts[$student['key']] = array($student['id'], $student['firstName'], $student['lastName'], $nbAbsence, $student['mail']);
+                echo 'OK';
+                $alerts[$student->getKey()] = array($student->getId(), $student->getFirstName(), $student->getLastName(), $nbAbsence, $student->getMail());
+                var_dump($alerts);
             }
         }
         $this->m_viewAlert->setAlertList($alerts);
