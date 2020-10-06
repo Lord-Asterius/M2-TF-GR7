@@ -21,20 +21,16 @@ class ControllerAlert
     public function handleRequest()
     {
         ControllerDataBase::connectToDatabase();
-        echo '1';
         $students = ControllerUserDataBase::lookForAllStudents();
-        echo '2';
-        $alerts = array();
         foreach ($students as $student){
-            echo'3';
-            var_dump($student);
             $nbAbsence = 0;
-            foreach ($student['absence'] as $absence){
-                echo'4';
-                if($absence->getReason() != ''){
+            foreach ($student->getAbsence() as $absence){
+                if(!preg_match("/[a-zA-Z]/", $absence->getReason())){
                     $nbAbsence ++;
                 }
             }
+            echo $nbAbsence;
+            var_dump($student);
             if($nbAbsence >= 3){
                 $alerts[$student['key']] = array($student['id'], $student['firstName'], $student['lastName'], $nbAbsence, $student['mail']);
             }
