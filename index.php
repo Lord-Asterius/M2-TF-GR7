@@ -13,8 +13,10 @@ include_once("src/controllers/ControllerEnseignantList.php");
 include_once("src/controllers/ControllerEnseignantEdit.php");
 include_once("src/controllers/ControllerAlert.php");
 include_once("src/controllers/ControllerDisconnection.php");
+include_once("src/controllers/ControllerAdministration.php");
+include_once("src/controllers/ControllerAdminModuleList.php");
 
-$path=$_SERVER['DOCUMENT_ROOT']."/project/src";
+$path=$_SERVER['DOCUMENT_ROOT']."/M2-TF-GR7/src";
 
 // We do a first sanitization pass by removing HTML tags
 $sanitizedGet = [];
@@ -79,6 +81,10 @@ else if($requestedPage === PAGE_ID_ETUDIANT_EDIT) {
     $controller = new ControllerEtudiantEdit();
     $controller->handleRequest($sanitizedGet);
 }
+else if($requestedPage === PAGE_ID_MODULE_EDIT) {
+    $controller = new ControllerAdminModuleList();
+    $controller->editModule($sanitizedGet);
+}
 else if($requestedPage === PAGE_ID_ENSEIGNANT_LIST) {
     $controller = new ControllerEnseignantList();
     $controller->handleRequest($sanitizedGet);
@@ -125,5 +131,24 @@ else if($requestedPage === AJAX_DELETE_ABSENCE_DETAILS) {
     $obj->delete_student();
 }
 
-
+else if ($requestedPage === PAGE_ID_ADMINISTRATION)
+{
+    $controller = new ControllerAdministration();
+    $controller->handleRequest($sanitizedGet);
+}
+else if ($requestedPage === PAGE_ID_ADMIN_MODULE_LIST)
+{
+    $controller = new ControllerAdminModuleList();
+    $controller->handleRequest($sanitizedGet);
+}
+else if ($requestedPage === DELETE_ADMIN_MODULE)
+{
+    $controller = new ControllerAdminModuleList();
+    $controller->deleteModule($sanitizedGet);
+}
+else if ($requestedPage === ADD_ADMIN_MODULE)
+{
+    $controller = new ControllerAdminModuleList();
+    $controller->addAdminModule($sanitizedGet);
+}
 
