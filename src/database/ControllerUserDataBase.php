@@ -113,7 +113,7 @@ class ControllerUserDataBase
                     $user->addModule($module);
                 }
                 if ($row['12']) {
-                    $absence = new Absence($row['16'], $row['reason'], $row['comment'], $row['date_time']);
+                    $absence = new Absence($row['14'], $row['reason'], $row['comment'], $row['date_time']);
                     $user->addAbsence($absence);
                 }
             } while ($row = ControllerDataBase::getSelectAllStudent()->fetch());
@@ -140,7 +140,7 @@ class ControllerUserDataBase
                     $teacher->addModule($module);
                 }
                 if ($row['12']) {
-                    $absence = new Absence($row['16'], $row['reason'], $row['comment'], $row['date_time']);
+                    $absence = new Absence($row['14'], $row['reason'], $row['comment'], $row['date_time']);
                     $teacher->addAbsence($absence);
                 }
             } while ($row = ControllerDataBase::getSelectAllTeacher()->fetch());
