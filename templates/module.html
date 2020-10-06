@@ -98,13 +98,13 @@
         var dateNow = new Date();
         var day = (dateNow.getDate() < 10) ? '0' + dateNow.getDate() : dateNow.getDate();
         var month = ((dateNow.getMonth()+1) < 10) ? '0' + (dateNow.getMonth()+1) : (dateNow.getMonth()+1);
-        var dateFormatted = day + '/' + month + '/' + dateNow.getFullYear();
+        var dateFormatted = dateNow.getFullYear() + '/' + month + "/" + day;
 
         $('#datepicker').datepicker(
         {
             uiLibrary: 'bootstrap4',
             locale: 'fr-fr',
-            format: 'dd/mm/yyyy',
+            format: 'yyyy/mm/dd',
         });
 
         $('#datepicker').datepicker().value(dateFormatted);
