@@ -118,7 +118,7 @@ class ControllerDataBase
     {
         if (self::$selectAllUser == null) {
             self::setPrepareToNull();
-            return self::$selectAllUser = self::$dataBaseConnector->prepare("SELECT * FROM user");
+            return self::$selectAllUser = self::$dataBaseConnector->prepare("SELECT * FROM user LEFT JOIN user_module ON user.key = user_module.user_key LEFT JOIN module ON user_module.module_key = module.key LEFT JOIN absence ON user.key = absence.etudiant_key");
         }
         return true;
     }
@@ -130,6 +130,7 @@ class ControllerDataBase
             return self::$selectAllTeacher = self::$dataBaseConnector->prepare("SELECT * FROM user LEFT JOIN user_module ON user.key = user_module.user_key LEFT JOIN module ON user_module.module_key = module.key WHERE user.role = 'ENSEIGNANT' ");
         }
         return true;
+
     }
 
     public static function prepareSelectAllAdminStaff()
@@ -159,6 +160,7 @@ class ControllerDataBase
             return self::$selectAllAllStudent = self::$dataBaseConnector->prepare("SELECT * FROM user LEFT JOIN user_module ON user.key = user_module.user_key LEFT JOIN module ON user_module.module_key = module.key LEFT JOIN absence ON user.key = absence.etudiant_key WHERE user.role = 'ETUDIANT' ");
         }
         return true;
+
     }
 
     public static function prepareSelectAllStudentInModule()
