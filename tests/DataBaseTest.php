@@ -67,7 +67,7 @@ class DataBaseTest extends TestCase
     {
         $users = ControllerUserDataBase::lookForAllUser();
 
-        $this->assertCount(5, $users);
+        $this->assertCount(6, $users);
     }
 
     public function testAllStudent()
