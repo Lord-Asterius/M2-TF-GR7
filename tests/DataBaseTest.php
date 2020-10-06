@@ -67,7 +67,7 @@ class DataBaseTest extends TestCase
     {
         $users = ControllerUserDataBase::lookForAllUser();
 
-        $this->assertCount(5, $users);
+        $this->assertCount(6, $users);
     }
 
     public function testAllStudent()
@@ -78,7 +78,7 @@ class DataBaseTest extends TestCase
 
         $this->assertArrayHasKey('GHotine', $users);
         $this->assertArrayHasKey('DDormi', $users);
-        $this->assertCount('4', $users['DDormi']->getAbsence());
+        $this->assertCount('5', $users['DDormi']->getAbsence());
     }
 
     public function testSelectAllTeacher()
@@ -173,7 +173,7 @@ class DataBaseTest extends TestCase
         $userFetched = ControllerUserDataBase::lookForSpecificUser('DDormi');
         $this->assertTrue(sizeof($userFetched->getModule()) == 1);
         $this->assertTrue(sizeof($userFetched->getModuleReferent()) == 0);
-        $this->assertTrue(sizeof($userFetched->getAbsence()) == 4);
+        $this->assertTrue(sizeof($userFetched->getAbsence()) == 5);
 
         $this->assertTrue(in_array(new Module('1', 'test pas vraiment fonctionnelle'), $userFetched->getModule()));
 
@@ -292,11 +292,11 @@ class DataBaseTest extends TestCase
         $absence = new Absence('0', 'piscine', 'c\'est qui', '2020-10-15 13:31:47');
 
         $controllerUser->addAbsence($absence);
-        $this->assertEquals($absence->getReason(), $user->getAbsence()[1]->getReason());
+        $this->assertEquals($absence->getReason(), $user->getAbsence()[2]->getReason());
 
         $userTest = ControllerUserDataBase::lookForSpecificUser($user->getId());
 
-        $this->assertEquals($absence->getReason(), $userTest->getAbsence()[1]->getReason());
+        $this->assertEquals($absence->getReason(), $userTest->getAbsence()[2]->getReason());
     }
 
     public function testDeleteModule()

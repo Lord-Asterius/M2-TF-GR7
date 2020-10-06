@@ -109,12 +109,13 @@ class ControllerUserDataBase
                     $users[$user->getId()] = $user;
                 }
                 if ($row['9']) {
+
                     $module = new Module($row['9'], $row['11']);
-                    $user->addModule($module);
+                    $users[$user->getId()]->addModule($module);
                 }
                 if ($row['12']) {
-                    $absence = new Absence($row['14'], $row['reason'], $row['comment'], $row['date_time']);
-                    $user->addAbsence($absence);
+                    $absence = new Absence($row['12'], $row['reason'], $row['comment'], $row['date_time']);
+                    $users[$user->getId()]->addAbsence($absence);
                 }
             } while ($row = ControllerDataBase::getSelectAllStudent()->fetch());
             return $users;
@@ -137,11 +138,11 @@ class ControllerUserDataBase
                 }
                 if ($row['9']) {
                     $module = new Module($row['9'], $row['11']);
-                    $teacher->addModule($module);
+                    $teachers[$teacher->getId()]->addModule($module);
                 }
                 if ($row['12']) {
-                    $absence = new Absence($row['14'], $row['reason'], $row['comment'], $row['date_time']);
-                    $teacher->addAbsence($absence);
+                    $absence = new Absence($row['12'], $row['reason'], $row['comment'], $row['date_time']);
+                    $teachers[$teacher->getId()]->addAbsence($absence);
                 }
             } while ($row = ControllerDataBase::getSelectAllTeacher()->fetch());
             return $teachers;
