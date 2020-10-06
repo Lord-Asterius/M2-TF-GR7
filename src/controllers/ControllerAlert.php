@@ -21,8 +21,25 @@ class ControllerAlert
     public function handleRequest()
     {
         ControllerDataBase::connectToDatabase();
-
-        $this->m_viewAlert->setAlertList([["21300598", "Fabien Perreux", "3", "1"], ["21300599", "Fabrice Bouquet", "4", "2"], ["21300597", "Julien Bernard", "5", "3"]]);
+        echo '1';
+        $students = ControllerUserDataBase::lookForAllStudents();
+        echo '2';
+        $alerts = array();
+        foreach ($students as $student){
+            echo'3';
+            var_dump($student);
+            $nbAbsence = 0;
+            foreach ($student['absence'] as $absence){
+                echo'4';
+                if($absence->getReason() != ''){
+                    $nbAbsence ++;
+                }
+            }
+            if($nbAbsence >= 3){
+                $alerts[$student['key']] = array($student['id'], $student['firstName'], $student['lastName'], $nbAbsence, $student['mail']);
+            }
+        }
+        $this->m_viewAlert->setAlertList($alerts);
         $this->m_viewAlert->render();
     }
 }
