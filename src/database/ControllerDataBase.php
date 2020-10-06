@@ -125,15 +125,6 @@ class ControllerDataBase
         return true;
     }
 
-    public static function prepareSelectAllTeacher()
-    {
-        if (self::$selectAllTeacher == null) {
-            self::setPrepareToNull();
-            return self::$selectAllTeacher = self::$dataBaseConnector->prepare("SELECT * FROM user LEFT JOIN user_module ON user.key = user_module.user_key LEFT JOIN module ON user_module.module_key = module.key WHERE user.role = 'ENSEIGNANT' ");
-        }
-        return true;
-    }
-
     public static function prepareModifyUser()
     {
         if (self::$modifyUser == null) {
@@ -161,6 +152,15 @@ class ControllerDataBase
         }
         return true;
 
+    }
+
+    public static function prepareSelectAllTeacher()
+    {
+        if (self::$selectAllTeacher == null) {
+            self::setPrepareToNull();
+            return self::$selectAllTeacher = self::$dataBaseConnector->prepare("SELECT * FROM user LEFT JOIN user_module ON user.key = user_module.user_key LEFT JOIN module ON user_module.module_key = module.key LEFT JOIN absence ON user.key = absence.etudiant_key WHERE user.role = 'ENSEIGNANT' ");
+        }
+        return true;
     }
 
     public static function prepareSelectAllStudent()

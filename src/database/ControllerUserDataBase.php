@@ -122,6 +122,35 @@ class ControllerUserDataBase
         return null;
     }
 
+    public static function lookForAllTeacher()
+    {
+        ControllerDataBase::prepareSelectAllTeacher();
+        if (ControllerDataBase::getSelectAllTeacher()->execute()) {
+            $row = ControllerDataBase::getSelectAllTeacher()->fetch();
+            $teachers = array();
+            $teacher = null;
+            do {
+                if (!isset($teachers[$row['id']])) {
+                    $teacher = new User($row['0'], $row['password'], $row['first_name'], $row['last_name'], $row['mail'], $row['date_naissance'], $row['role']);
+                    $teacher->forceSetPassword($row['password']);
+                    $teachers[$teacher->getId()] = $teacher;
+                }
+                if ($row['9']) {
+                    $module = new Module($row['9'], $row['11']);
+                    $teacher->addModule($module);
+                }
+                if ($row['12']) {
+                    $absence = new Absence($row['16'], $row['reason'], $row['comment'], $row['date_time']);
+                    $teacher->addAbsence($absence);
+                }
+            } while ($row = ControllerDataBase::getSelectAllTeacher()->fetch());
+            return $teachers;
+        }
+        return null;
+    }
+
+
+
     public static function lookForSpecificUserModule($id)
     {
         ControllerDataBase::prepareSelectSpecificUserModule();

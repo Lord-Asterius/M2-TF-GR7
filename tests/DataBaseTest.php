@@ -81,6 +81,16 @@ class DataBaseTest extends TestCase
         $this->assertCount('4', $users['DDormi']->getAbsence());
     }
 
+    public function testSelectAllTeacher()
+    {
+        $teachers = ControllerUserDataBase::lookForAllTeacher();
+
+        $this->assertCount(2, $teachers);
+
+        $this->assertArrayHasKey('JTanrien', $teachers);
+        $this->assertArrayHasKey('GMendufric', $teachers);
+    }
+
     public function testRemoveModuleToUser()
     {
         $user = ControllerUserDataBase::lookForSpecificUser('GMendufric');
