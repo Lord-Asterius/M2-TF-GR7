@@ -17,7 +17,7 @@ class ControllerAbsenceList extends ControllerDataBase
     {
         $this->connectToDatabase();
         $sql="select a.key as id,a.reason as reason,a.comment as comment,
-        a.date_time as date,e.first_name as first_name, e.last_name as last_name,
+        a.date as date,e.first_name as first_name, e.last_name as last_name,
         m.name as module_name,a.etudiant_key as etudiant_key from absence a,user e
         ,module m where a.etudiant_key=e.key";
         $sth=$this->query($sql);

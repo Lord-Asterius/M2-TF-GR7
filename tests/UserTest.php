@@ -18,14 +18,14 @@ class UserTest extends testCase
     public static function setUpBeforeClass(): void
     {
         ControllerDataBase::connectToDatabase();
-        // TestUtils::cleanTables();
+        TestUtils::cleanTables();
         self::$user = new User(0, 'Az12@4567', 'Pat', 'ateee', 'mon@mail.com', '2020-09-01', 'ENSEIGNANT');
     }
 
     public static function tearDownAfterClass(): void
     {
-        // TestUtils::cleanTables();
-        // ControllerDataBase::disconnectFromDataBase();
+        TestUtils::cleanTables();
+        ControllerDataBase::disconnectFromDataBase();
     }
 
     public function testCreateUserId()

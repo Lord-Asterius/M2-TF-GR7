@@ -1,6 +1,6 @@
 <?php
 
-$path=$_SERVER['DOCUMENT_ROOT']."/M2-TF-GR7/src";
+$path=$_SERVER['DOCUMENT_ROOT']."/project/src";
 include_once($path . "/views/ViewAbsenseDetails.php");
 include_once($path . "/models/ModelAbsenceDetails.php");
 
