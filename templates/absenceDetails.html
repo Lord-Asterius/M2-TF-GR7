@@ -4,7 +4,7 @@
   
 </script>
 <script type="text/javascript" src="styles/jquery-2.2.1.min.js"></script>
-<script type="text/javascript" src="styles/absenceDetails.js"></script>
+<!-- <script type="text/javascript" src="styles/absenceDetails.js"></script> -->
 
 
 
@@ -33,23 +33,9 @@
             </button>
           </div>
           <div class="modal-body">
-            <form>              
-                 <!-- <select>
-                  
-                   <?php
-for($i = 0;$i < count($students);$i++){
-  $id = $students[$i]["key"];
-  $first_name = $students[$i]["first_name"]; 
-  $last_name = $students[$i]["last_name"]; 
-  print_r($students);die("dfdf");      
-  echo '<option value="'.$id.'">'.$first_name.' '.last_name.'</option>';
-}
-                   ?>
-             
-                </select>
-  --> 
+            <form action="index.php?page=add_absence_detai" method="post">              
   
-  <div class="form-group">
+  <div class="form-group" >
             <label for="student-name" class="col-form-label">student-name:</label>
             <input type="text" class="form-control" id="student-name" readonly/>
           </div>   
@@ -73,7 +59,7 @@ for($i = 0;$i < count($students);$i++){
             <button type="button" class="btn btn-secondary" data-dismiss="modal">
               Annuler
             </button>
-            <button type="button" class="btn btn-primary" onclick="javascript:addStudent();">Valider</button>
+            <input type="submit" class="btn btn-primary" >
           </div>
         </div>
       </div>
@@ -153,18 +139,7 @@ for($i = 0;$i < count($students);$i++){
   
       <div>
         <div class="dropdown">
-          <button
-            class="btn btn-primary dropdown-toggle"
-            type="button"
-            data-toggle="dropdown"
-          >
-            Dropdown Example <span class="caret"></span>
-          </button>
-          <ul class="dropdown-menu">
-            <li><a href="#">HTML</a></li>
-            <li><a href="#">CSS</a></li>
-            <li><a href="#">JavaScript</a></li>
-          </ul>
+         
   
           <button class="btn btn-primary" style="align-self: flex-end"
             type="button"
@@ -179,7 +154,29 @@ for($i = 0;$i < count($students);$i++){
   
       <table class="table table-bordered" id="table_data">
         
-  
+      
+      
+        <thead>
+          <th>Name</th>
+          <th>Module</th>
+          <th>Reason</th>
+          <th>Comment</th>
+          <th>Date</th>
+          <th>Action</th>
+        </thead>
+
+        <?php foreach($context["attendanceData"] as $attendanceData): ?>
+        <tr>
+          <td><?= $attendanceData["firstName"] ?></td>
+          <td><?= $attendanceData["moduleName"] ?></td>
+          <td><?= $attendanceData["reason"] ?></td>
+          <td><?= $attendanceData["comment"] ?></td>
+          <td><?= $attendanceData["date"] ?></td>
+          <td><button class="btn btn-success">Edit</button> <button class="btn btn-danger">Delete</button></td>
+        </tr>
+
+        <?php endforeach; ?>
+       
       </table>
     </div>
   </div>
