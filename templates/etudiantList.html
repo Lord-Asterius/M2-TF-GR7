@@ -6,13 +6,14 @@
     <ul class="list-group" id="studentList">
         <?php foreach($context["etudiants"] as $etudiant): ?>
             <li class="list-group-item"> <a href="index.php?page=<?= PAGE_ID_ETUDIANT_LIST ?>&etudiant=<?= $etudiant ?>"> <?= $etudiant ?> </a>
-
+                <?php if($_SESSION['role'] == 'ADMINISTRATEUR'){?>
                     <div class="float-right">
                     <a class="navbar-brand" href="index.php"  >
                         <img src="images/bootstrap-icons/trash.svg"  alt="" width="32" height="32" title="Bootstrap">
                     </a>
                     </div>
             </li>
+            <?php } ?>
         <?php endforeach; ?>
     </ul>
 </div>

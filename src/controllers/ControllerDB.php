@@ -11,7 +11,7 @@ class ControllerDB {
     function __construct() {
         $this->ip_server = "localhost";
         $this->user = "root";
-        $this->password = "";
+        $this->password = "password";
         $this->db_name = "qui_est_la";
     }
 

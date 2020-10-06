@@ -1,9 +1,10 @@
 <?php
-
+include_once("src/globals/Session.php");
 include_once("src/globals/PageIdentifiers.php");
 include_once("src/controllers/ControllerModuleList.php");
 include_once("src/controllers/ControllerModule.php");
 include_once("src/controllers/ControllerConnection.php");
+include_once("src/controllers/ControllerAdministration.php");
 include_once("src/views/ViewHelloWorld.php");
 include_once("src/controllers/ControllerAbsenceDetails.php");
 include_once("src/controllers/ControllerAbsenceList.php");
@@ -13,8 +14,9 @@ include_once("src/controllers/ControllerEnseignantList.php");
 include_once("src/controllers/ControllerEnseignantEdit.php");
 include_once("src/controllers/ControllerAlert.php");
 include_once("src/controllers/ControllerDisconnection.php");
+include_once("src/controllers/ControllerAdminModuleList.php");
 
-$path=$_SERVER['DOCUMENT_ROOT']."/project/src";
+$path=$_SERVER['DOCUMENT_ROOT']."/M2-TF-GR7/src";
 
 // We do a first sanitization pass by removing HTML tags
 $sanitizedGet = [];
@@ -23,14 +25,18 @@ foreach ($_GET as $key => $value)
 {
     $sanitizedGet[$key] = filter_var($value, FILTER_SANITIZE_STRING);
 }
+session_start();
 
-
+$session = new Session();
+$session->setSession("Admin","ADMINISTRATEUR");
+echo "role ".$session->getRole();
 
 //the Connection page as the default page
 $requestedPage = PAGE_ID_CONNECTION;
 
 if (isset($sanitizedGet["page"]))
 {
+
     $requestedPage = $sanitizedGet["page"];
 }
 //echo $requestedPage;
@@ -40,6 +46,16 @@ if ($requestedPage === PAGE_ID_HELLO_WORLD)
     // Hello world is a dummy page so no controller is needed
     $helloWorldView = new ViewHelloWorld();
     $helloWorldView->render();
+}
+else if ($requestedPage === PAGE_ID_ADMINISTRATION)
+{
+    $controller = new ControllerAdministration();
+    $controller->handleRequest($sanitizedGet);
+}
+else if ($requestedPage === PAGE_ID_ADMIN_MODULE_LIST)
+{
+    $controller = new ControllerAdminModuleList();
+    $controller->handleRequest($sanitizedGet);
 }
 else if ($requestedPage === PAGE_ID_CONNECTION)
 {
@@ -64,7 +80,7 @@ else if ($requestedPage === PAGE_ID_MODULE)
 
 else if($requestedPage === PAGE_ID_ABSENCE_LIST) {
     $controller = new ControllerAbsenceList();
-    $controller->handleRequest($sanitizedGet);   
+    $controller->handleRequest($sanitizedGet);    
 }
 
 else if($requestedPage === PAGE_ID_ABSENSE_DETAIL) {

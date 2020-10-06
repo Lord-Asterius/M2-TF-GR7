@@ -76,6 +76,7 @@ class ControllerUserDataBase
                 return $user;
             }
         }
+
         return null;
     }
 
