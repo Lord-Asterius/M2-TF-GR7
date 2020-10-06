@@ -63,13 +63,6 @@ class DataBaseTest extends TestCase
         $this->assertTrue(in_array(new Module('2', 'etude de trucs'), $userFetched->getModule()));
     }
 
-    public function testSelectAllUser()
-    {
-        $users = ControllerUserDataBase::lookForAllUser();
-
-        $this->assertCount(4, $users);
-    }
-
     public function testRemoveModuleToUser()
     {
         $user = ControllerUserDataBase::lookForSpecificUser('GMendufric');
@@ -263,8 +256,7 @@ class DataBaseTest extends TestCase
         $this->assertNull($userfetched);
     }
 
-    public function testLookForAllModule()
-    {
+    public function testLookForAllModule() {
         $modules = ControllerModuleDataBase::lookForAllModule();
         $this->assertCount(2, $modules);
 

@@ -80,22 +80,6 @@ class ControllerUserDataBase
         return null;
     }
 
-    public static function lookForAllUser()
-    {
-        ControllerDataBase::prepareSelectAllUser();
-        if (ControllerDataBase::getSelectAllUser()->execute()) {
-            $row = ControllerDataBase::getSelectAllUser()->fetch();
-            $users = array();
-            do {
-                $user = new User($row['0'], $row['password'], $row['first_name'], $row['last_name'], $row['mail'], $row['date_naissance'], $row['role']);
-                $user->forceSetPassword($row['password']);
-                $users[$user->getId()] = $user;
-            } while ($row = ControllerDataBase::getSelectAllUser()->fetch());
-            return $users;
-        }
-        return null;
-    }
-
     public static function lookForSpecificUserModule($id)
     {
         ControllerDataBase::prepareSelectSpecificUserModule();
