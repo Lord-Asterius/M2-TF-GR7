@@ -150,9 +150,9 @@ class DataBaseTest extends TestCase
         $this->assertTrue(in_array(new Module('1', 'test pas vraiment fonctionnelle'), $userFetched->getModule()));
 
         $this->assertTrue(in_array(new Absence('2', 'Aqua poney', 'gnugnu', '2020-10-15 13:31:47'), $userFetched->getAbsence()));
-        $this->assertTrue(in_array(new Absence('3', '', '', '2020-10-15 13:31:47'), $userFetched->getAbsence()));
-        $this->assertTrue(in_array(new Absence('4', '', '', '2020-10-15 13:31:47'), $userFetched->getAbsence()));
-        $this->assertTrue(in_array(new Absence('5', '', '', '2020-10-15 13:31:47'), $userFetched->getAbsence()));
+        $this->assertTrue(in_array(new Absence('3', '', 'gnu', '2020-10-15 13:31:47'), $userFetched->getAbsence()));
+        $this->assertTrue(in_array(new Absence('4', '', 'pat', '2020-10-15 13:31:47'), $userFetched->getAbsence()));
+        $this->assertTrue(in_array(new Absence('5', '', 'patate', '2020-10-15 13:31:47'), $userFetched->getAbsence()));
     }
 
 
