@@ -67,7 +67,7 @@ class DataBaseTest extends TestCase
     {
         $users = ControllerUserDataBase::lookForAllUser();
 
-        $this->assertCount(4, $users);
+        $this->assertCount(5, $users);
     }
 
     public function testAllStudent()
@@ -89,6 +89,15 @@ class DataBaseTest extends TestCase
 
         $this->assertArrayHasKey('JTanrien', $teachers);
         $this->assertArrayHasKey('GMendufric', $teachers);
+    }
+
+    public function testSelectAllAdminStaff()
+    {
+        $adminStaff = ControllerUserDataBase::lookForAllAdminStaff();
+
+        $this->assertCount(1, $adminStaff);
+
+        $this->assertArrayHasKey('CCépacaré', $adminStaff);
     }
 
     public function testRemoveModuleToUser()
