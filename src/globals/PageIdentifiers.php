@@ -27,6 +27,10 @@ define("PAGE_ID_ADMIN_ENSEIGNANT_LIST", "adminEnseignantList");
 
 define("DELETE_ADMIN_MODULE", "deleteAdminModule");
 define("ADD_ADMIN_MODULE", "addAdminModule");
+define('DELETE_ADMIN_ETUDIANT',"deleteAdminEtudiant");
+define('ADD_ADMIN_ETUDIANT','addAdminEtudiant');
+define('MODIFY_ADMIN_ETUDIANT',"modifyAdminEtudiant");
+
 
 
 
