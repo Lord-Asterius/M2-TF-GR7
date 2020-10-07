@@ -13,7 +13,7 @@ define('AJAX_ADD_ABSENCE_DETAILS',"add_absence_details");
 define('AJAX_EDIT_ABSENCE_DETAILS',"edit_absence_details");
 define('AJAX_DELETE_ABSENCE_DETAILS',"delete_absence_details");
 define('PAGE_ID_ALERT',"alert");
-
+// renommé avec la meme normalisation de nommage 
 define("PAGE_ID_ETUDIANT_LIST", "etudiantList");
 define("PAGE_ID_ETUDIANT_EDIT", "etudiantEdit");
 define("PAGE_ID_ENSEIGNANT_EDIT", "enseignantEdit");
@@ -26,6 +26,10 @@ define("PAGE_ID_ADMIN_ENSEIGNANT_LIST", "adminEnseignantList");
 
 define("DELETE_ADMIN_MODULE", "deleteAdminModule");
 define("ADD_ADMIN_MODULE", "addAdminModule");
+define('DELETE_ADMIN_ETUDIANT',"deleteAdminEtudiant");
+define('ADD_ADMIN_ETUDIANT','addAdminEtudiant');
+define('MODIFY_ADMIN_ETUDIANT',"modifyAdminEtudiant");
+
 
 
 

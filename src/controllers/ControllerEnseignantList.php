@@ -11,20 +11,24 @@ class ControllerEnseignantList
 
     public function __construct()
     {
+        ControllerDataBase::connectToDatabase();
+
         $this->m_viewEnseignantList = new viewEnseignantList();
     }
 
     public function handleRequest($getParameters)
     {
-        ControllerDataBase::connectToDatabase();
-        // $enseignants =ControllerUserDataBase::();
-        $enseignantsName=array();
-        foreach($enseignants as $enseignant){
-            array_push($enseignantsName,$enseignant->getName());
-        }
-        $this->m_viewAdminModuleList->setModulesNamesList($modulesName);
+        $enseignants =ControllerUserDataBase::lookForAllTeacher();
 
-                    $this->m_viewEnseignantList->setEnseignantList(["Bouque Fabrice", "Fabien Peureux", "Autre Enseignant"]);
-                    $this->m_viewEnseignantList->render();
-}
+        $tab= array();
+        foreach($enseignants as $enseignant){
+            $tab[$enseignant->getId()] =$enseignant->getFirstName().' '.$enseignant->getLastName();
+        }
+        $this->m_viewEnseignantList->setEnseignantList($tab);
+        $this->m_viewEnseignantList->render();
+    }
+    public function deleteEnseignant($getParameters){
+        $etudiants =ControllerUserDataBase::deleteUser($getParameters["key"]);
+        $this->handleRequest($getParameters);
+    }
 }
