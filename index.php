@@ -103,9 +103,10 @@ else if($requestedPage === PAGE_ID_ENSEIGNANT_LIST) {
     $controller = new ControllerEnseignantList();
     $controller->handleRequest($sanitizedGet);
 }
+
 else if($requestedPage === PAGE_ID_ENSEIGNANT_EDIT) {
-    $controller = new ControllerEnseignantEdit();
-    $controller->handleRequest($sanitizedGet);
+    $controller = new ControllerEnseignantList();
+    $controller->editEnseignant($sanitizedGet);
 }
 else if($requestedPage === PAGE_ID_ADD_ABSENSE_DETAIL) {
     //echo "Page Running";
@@ -172,6 +173,11 @@ else if ($requestedPage === ADD_ADMIN_MODULE)
 }
 
 
+else if ($requestedPage === DELETE_ADMIN_ENSEIGNANT)
+{
+    $controller = new ControllerEnseignantList();
+    $controller->deleteEnseignant($sanitizedGet);
+}
 else if ($requestedPage === DELETE_ADMIN_ETUDIANT)
 {
     $controller = new ControllerEtudiantList();
@@ -182,8 +188,18 @@ else if ($requestedPage === ADD_ADMIN_ETUDIANT)
     $controller = new ControllerEtudiantList();
     $controller->addEtudiant($sanitizedGet);
 }
+else if ($requestedPage === ADD_ADMIN_ENSEIGNANT)
+{
+    $controller = new ControllerEnseignantList();
+    $controller->addEnseignant($sanitizedGet);
+}
 else if ($requestedPage === MODIFY_ADMIN_ETUDIANT)
 {
     $controller = new ControllerEtudiantList();
     $controller->modifyAdminEtudiant($sanitizedGet);
+}
+else if ($requestedPage === MODIFY_ADMIN_ENSEIGNANT)
+{
+    $controller = new ControllerEnseignantList();
+    $controller->modifyAdminEnseignant($sanitizedGet);
 }

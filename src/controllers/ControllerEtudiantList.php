@@ -27,7 +27,6 @@ class ControllerEtudiantList
         $this->m_viewEtudiantList->setEtudiantList($tab);
         $this->m_viewEtudiantList->render();
 }
-
     public function deleteEtudiant($getParameters){
         $etudiants =ControllerUserDataBase::deleteUser($getParameters["key"]);
         $this->handleRequest($getParameters);
@@ -62,7 +61,7 @@ class ControllerEtudiantList
         $user->setPassword($_POST['password']);
         $date= new datetime($_POST['date']);
         $date= $date->format("Y-m-d");
-        $user->setPassword($date);
+        $user->setDate($date);
         $user->setMail($_POST['mail']);
         $controllerUser->modifyUser();
      }

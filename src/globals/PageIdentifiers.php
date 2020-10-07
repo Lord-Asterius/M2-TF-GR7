@@ -30,6 +30,9 @@ define("ADD_ADMIN_MODULE", "addAdminModule");
 define('DELETE_ADMIN_ETUDIANT',"deleteAdminEtudiant");
 define('ADD_ADMIN_ETUDIANT','addAdminEtudiant');
 define('MODIFY_ADMIN_ETUDIANT',"modifyAdminEtudiant");
+define('DELETE_ADMIN_ENSEIGNANT',"deleteAdminEnseignant");
+define('ADD_ADMIN_ENSEIGNANT',"addAdminEnseignant");
+define('MODIFY_ADMIN_ENSEIGNANT','modifyAdminEnseignant');
 
 
 

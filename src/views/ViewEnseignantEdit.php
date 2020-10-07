@@ -18,6 +18,10 @@ class ViewEnseignantEdit
     {
         $this->m_context["enseignant"] = $enseignant;
     }
+    public function setDataEnseignantEdit($enseignant)
+    {
+        $this->m_context["enseignant"] = $enseignant;
+    }
 
     public function render()
     {
