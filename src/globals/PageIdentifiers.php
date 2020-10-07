@@ -13,6 +13,7 @@ define('AJAX_ADD_ABSENCE_DETAILS',"add_absence_details");
 define('AJAX_EDIT_ABSENCE_DETAILS',"edit_absence_details");
 define('AJAX_DELETE_ABSENCE_DETAILS',"delete_absence_details");
 define('PAGE_ID_ALERT',"alert");
+define('PAGE_ID_HOME',"home");
 
 define("PAGE_ID_ETUDIANT_LIST", "etudiantList");
 define("PAGE_ID_ETUDIANT_EDIT", "etudiantEdit");

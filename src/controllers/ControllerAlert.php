@@ -30,12 +30,8 @@ class ControllerAlert
                     $nbAbsence ++;
                 }
             }
-            echo $nbAbsence;
-            var_dump($student);
             if($nbAbsence >= 3){
-                echo 'OK';
                 $alerts[$student->getKey()] = array($student->getId(), $student->getFirstName(), $student->getLastName(), $nbAbsence, $student->getMail());
-                var_dump($alerts);
             }
         }
         $this->m_viewAlert->setAlertList($alerts);
