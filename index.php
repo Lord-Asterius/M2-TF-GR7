@@ -185,5 +185,5 @@ else if ($requestedPage === ADD_ADMIN_ETUDIANT)
 else if ($requestedPage === MODIFY_ADMIN_ETUDIANT)
 {
     $controller = new ControllerEtudiantList();
-    $controller->modifyEtudiant($sanitizedGet);
+    $controller->modifyAdminEtudiant($sanitizedGet);
 }

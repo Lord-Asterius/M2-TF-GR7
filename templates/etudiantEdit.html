@@ -1,36 +1,41 @@
 
 <div class="container" style="padding-top: 3em">
     <h1>Ajouter un étudiant</h1>
-    <?php print_r($context) ?>
-    <form method="post" action= "index.php?page=<?= ADD_ADMIN_ETUDIANT ?>">
+    <!-- <?php print_r($context) ?> -->
+    <!-- <?php echo $_GET["key"] ; ?> -->
+    <form method="post" action= "index.php?page=<?php if($context){echo(MODIFY_ADMIN_ETUDIANT.'&key='.$_GET['key']);}else { echo ADD_ADMIN_ETUDIANT ;}  ?>" required>
         <div class="row">
             <div class="col">
-              <input name="first_name" type="text" class="form-control" placeholder="Prénom">
+              <input  name="first_name" type="text" class="form-control" placeholder="Prénom" value="<?php if($context) {echo $context['etudiant']['first_name']; }?>" required>
             </div>
             <div class="col">
-              <input name="last_name" type="text" class="form-control" placeholder="Nom">
+              <input name="last_name" type="text" class="form-control" placeholder="Nom" value="<?php if($context) {echo $context['etudiant']['last_name']; }?>" required>
             </div>
         </div>
         <div class="form-group">
-            <label  for="exampleInputEmail1">Date de naissance</label>
+            <label  for="exampleInputEmail1" >Date de naissance</label>
                     
-        <input name="date" id="datepicker" width="276" />
-        <script>
-            $('#datepicker').datepicker({
-                uiLibrary: 'bootstrap4'
-            });
-        </script>
+        <input name="date" id="datepicker" width="276"  value="<?php if($context) {echo $context['etudiant']['date']; }?>" required/>
+      
             </div>
 
         <div class="form-group">
           <label for="exampleInputEmail1">Adresse email</label>
-          <input name="mail" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Adresse email">
+          <input name="mail" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Adresse email"
+          value="<?php if($context) {echo $context['etudiant']['mail']; }?>" required >
         </div>
         <div class="form-group">
           <label for="exampleInputPassword1">Mot de passe</label>
-          <input name ="password" type="password" class="form-control" id="exampleInputPassword1" placeholder="Mot de passe">
+          <input name ="password" type="password" class="form-control" id="exampleInputPassword1" placeholder="Mot de passe" required>
         </div>
+        <!-- faire changement de mot de passe  -->
         <button type="submit" class="btn btn-primary">envoyer</button>
       </form>
 
 </div>
+<script>
+       
+  $('#datepicker').datepicker({
+      uiLibrary: 'bootstrap4',
+  });
+</script>

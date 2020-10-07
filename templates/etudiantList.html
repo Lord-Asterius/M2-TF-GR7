@@ -1,12 +1,12 @@
 
 <div class="container" style="padding-top: 3em">
-    <a href="index.php?page=<?= MODIFY_ADMIN_ETUDIANT ?>"> <input type="image" src="images/bootstrap-icons/plus.svg" alt="" class="float-right" width="32" height="32" title="Ajouter un étudiant"></a>
+    <a href="index.php?page=<?= PAGE_ID_ETUDIANT_EDIT ?>"> <input type="image" src="images/bootstrap-icons/plus.svg" alt="" class="float-right" width="32" height="32" title="Ajouter un étudiant"></a>
     <input class="form-control" id="listSearch" type="text" placeholder="Rechercher un étudiant">
     <br>
     <ul class="list-group" id="studentList">
         <?php 
         foreach($context["etudiants"] as $key => $etudiant): ?>
-            <li class="list-group-item"> <a href="index.php?page=<?= MODIFY_ADMIN_ETUDIANT ?>&key=<?= $key ?>"> <?= $etudiant?> </a>
+            <li class="list-group-item"> <a href="index.php?page=<?= PAGE_ID_ETUDIANT_EDIT ?>&key=<?= $key ?>"> <?= $etudiant?> </a>
 
                 <div class="float-right">
                     <a class="navbar-brand" href="index.php?page=<?= DELETE_ADMIN_ETUDIANT ?>&key=<?= $key ?>"  >
