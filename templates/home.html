@@ -1,4 +1,26 @@
+<style>
+    body, html {
+        height: 100%;
+        margin: 0;
+    }
 
-<body style = "background-image: url(images/accueil.png); background-size: 100%; background-repeat:no-repeat;">
-    <p>Bienvenu</p>
+    .bg {
+        background-image: url(images/accueil.png);
+        height: 100%;
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+    .tkt {
+        padding-top: 10%;
+        margin-left: 10%;
+    }
+
+</style>
+
+<body>
+<div class="bg">
+    <h1 class="tkt">Bienvenu, <?= $context["userName"] ?> !</h1>
+</div>
+
 </body>

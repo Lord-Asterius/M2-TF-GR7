@@ -14,7 +14,7 @@ class ViewHome
 
     public function render()
     {
-        $context = [];
+        $context["userName"] = $_SESSION['user']->getFirstName().' '.$_SESSION['user']->getLastName();
         $this->m_canvas->renderTemplate("home", $context);
     }
 }
