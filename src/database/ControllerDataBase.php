@@ -22,6 +22,7 @@ class ControllerDataBase
     private static $selectAllAllStudent;
     private static $selectSpecificUser;
     private static $selectAllAbsence;
+    private static $selectSpecificStudentAbsence;
     private static $selectAllModule;
     private static $selectSpecificUserModule;
     private static $insertUserModule;
@@ -256,6 +257,22 @@ class ControllerDataBase
         return true;
     }
 
+    
+    public static function prepareSelectSpecificStudentAbsence($student_id)
+    {
+
+        if(self::$dataBaseConnector === NULL) {
+            self::connectToDatabase();
+        }
+
+        if (self::$selectSpecificStudentAbsence == null) {
+            self::setPrepareToNull();
+            return self::$selectSpecificStudentAbsence = self::$dataBaseConnector->prepare("select user.first_name, user.last_name, user.mail, module.name, absence.reason, absence.comment, absence.date from user, module, user_module, absence where user.key = user_module.user_key and module.key = user_module.module_key and absence.etudiant_key = user.key and user.key = $student_id");
+        }
+        return true;
+    }
+
+
     public static function prepareSelectSpecificModule()
     {
         if (self::$selectSpecificModule == null) {
@@ -297,6 +314,10 @@ class ControllerDataBase
         return self::$dataBaseConnector;
     }
 
+    public static function getSelectSpecificStudentAbsence() {
+        return self::$selectSpecificStudentAbsence;
+    }
+    
     public static function getInsertModule()
     {
         return self::$insertModule;

@@ -78,8 +78,8 @@ else if($requestedPage === PAGE_ID_ETUDIANT_LIST) {
     $controller->handleRequest($sanitizedGet);
 }
 else if($requestedPage === PAGE_ID_ETUDIANT_EDIT) {
-    $controller = new ControllerEtudiantEdit();
-    $controller->handleRequest($sanitizedGet);
+    $controller = new ControllerEtudiantList();
+    $controller->editEtudiant($sanitizedGet);
 }
 else if($requestedPage === PAGE_ID_MODULE_EDIT) {
     $controller = new ControllerAdminModuleList();
@@ -130,6 +130,11 @@ else if($requestedPage === AJAX_DELETE_ABSENCE_DETAILS) {
     $obj = new ControllerAbsenceDetails();
     $obj->delete_student();
 }
+else if ($requestedPage === PAGE_ID_ALERT)
+{
+    $controller = new ControllerAlert();
+    $controller->handleRequest();
+}
 
 else if ($requestedPage === PAGE_ID_ADMINISTRATION)
 {
@@ -152,3 +157,19 @@ else if ($requestedPage === ADD_ADMIN_MODULE)
     $controller->addAdminModule($sanitizedGet);
 }
 
+
+else if ($requestedPage === DELETE_ADMIN_ETUDIANT)
+{
+    $controller = new ControllerEtudiantList();
+    $controller->deleteEtudiant($sanitizedGet);
+}
+else if ($requestedPage === ADD_ADMIN_ETUDIANT)
+{
+    $controller = new ControllerEtudiantList();
+    $controller->addEtudiant($sanitizedGet);
+}
+else if ($requestedPage === MODIFY_ADMIN_ETUDIANT)
+{
+    $controller = new ControllerEtudiantList();
+    $controller->modifyEtudiant($sanitizedGet);
+}

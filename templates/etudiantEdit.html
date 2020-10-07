@@ -1,19 +1,20 @@
 
 <div class="container" style="padding-top: 3em">
     <h1>Ajouter un étudiant</h1>
-    <form>
+    <?php print_r($context) ?>
+    <form method="post" action= "index.php?page=<?= ADD_ADMIN_ETUDIANT ?>">
         <div class="row">
             <div class="col">
-              <input type="text" class="form-control" placeholder="Prénom">
+              <input name="first_name" type="text" class="form-control" placeholder="Prénom">
             </div>
             <div class="col">
-              <input type="text" class="form-control" placeholder="Nom">
+              <input name="last_name" type="text" class="form-control" placeholder="Nom">
             </div>
         </div>
         <div class="form-group">
-            <label for="exampleInputEmail1">Date de naissance</label>
+            <label  for="exampleInputEmail1">Date de naissance</label>
                     
-        <input id="datepicker" width="276" />
+        <input name="date" id="datepicker" width="276" />
         <script>
             $('#datepicker').datepicker({
                 uiLibrary: 'bootstrap4'
@@ -23,11 +24,11 @@
 
         <div class="form-group">
           <label for="exampleInputEmail1">Adresse email</label>
-          <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Adresse email">
+          <input name="mail" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Adresse email">
         </div>
         <div class="form-group">
           <label for="exampleInputPassword1">Mot de passe</label>
-          <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Mot de passe">
+          <input name ="password" type="password" class="form-control" id="exampleInputPassword1" placeholder="Mot de passe">
         </div>
         <button type="submit" class="btn btn-primary">envoyer</button>
       </form>

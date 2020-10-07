@@ -8,6 +8,7 @@ include_once(dirname(__FILE__) . '/../database/Module.php');
 
 
 
+//todo renommé classe en ControlleAdminModule tout silmple 
 
 class ControllerAdminModuleList
 {

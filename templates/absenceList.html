@@ -1,43 +1,23 @@
 <div class="container" style="padding-top: 3em">
-    <div class="container" style="padding-top: 3em">
-      <h3 class="text-center text-secondary">Liste d'absence</h3>
-      <input class="form-control" id="listSearch" type="text" placeholder="Rechercher un module">
-      <br>
-      <table class="table table-bordered">
-        <thead>
-          <th>Name</th>
-          <th>Module</th>
-          <th>Date</th>
-        </thead>
-  
-        <?php foreach($context["attendanceData"] as $moduleName): ?>
-  
-        <tr>
-          <td>
-            <a
-              href="index.php?page=<?= PAGE_ID_ABSENSE_DETAIL ?>&studentId=<?= $moduleName['studentId'] ?>"
-              ><?= $moduleName["name"] ?></a
-            >
-          </td>
-          <td><?= $moduleName["module"] ?></td>
-          <td><?= $moduleName["date"] ?></td>
-        </tr>
-  
-        <?php endforeach; ?>
-      </table>
-    </div>
-  </div>
+  <input class="form-control" id="listSearch" type="text" placeholder="Rechercher un module">
+  <br>
+  <ul class="list-group" id="moduleList">
+      <?php foreach($context["attendanceData"] as $attendanceData): ?>
+      <li class="list-group-item"><a
+          href="index.php?page=<?= PAGE_ID_ABSENSE_DETAIL ?>&studentId=<?= $attendanceData['id'] ?> " > <?= $attendanceData["name"] ?></a></li>
+      <?php endforeach; ?>
+  </ul>
+</div>
 
-  <script>
-    $(document).ready(function () {
-    $("#listSearch").on("keyup", function () {
-        var value = $(this).val().toLowerCase();
-        $("#moduleList li").filter(function () {
-            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-        });
-    });
+
+
+<script>
+  $(document).ready(function () {
+  $("#listSearch").on("keyup", function () {
+      var value = $(this).val().toLowerCase();
+      $("#absenceList li").filter(function () {
+          $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+      });
+  });
 });
 </script>
-
- 
-  

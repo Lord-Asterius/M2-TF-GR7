@@ -1,6 +1,13 @@
 <?php
 
 include_once(dirname(__FILE__) . "/../views/ViewAlert.php");
+include_once(dirname(__FILE__) . "/../database/ControllerDataBase.php");
+include_once(dirname(__FILE__) . "/../database/ControllerUserDataBase.php");
+include_once(dirname(__FILE__) . "/../globals/Utils.php");
+include_once(dirname(__FILE__) . '/../database/User.php');
+include_once(dirname(__FILE__) . '/../database/Module.php');
+include_once(dirname(__FILE__) . '/../database/Absence.php');
+
 
 class ControllerAlert
 {
@@ -11,9 +18,27 @@ class ControllerAlert
         $this->m_viewAlert = new ViewAlert();
     }
 
-    public function handleRequest($getParameters)
+    public function handleRequest()
     {
-        $this->m_viewAlert->setAlertList([["21300598", "Fabien Perreux", "3", "1"], ["21300599", "Fabrice Bouquet", "4", "2"], ["21300597", "Julien Bernard", "5", "3"]]);
+        ControllerDataBase::connectToDatabase();
+        $students = ControllerUserDataBase::lookForAllStudents();
+        $alerts = array();
+        foreach ($students as $student){
+            $nbAbsence = 0;
+            foreach ($student->getAbsence() as $absence){
+                if(!preg_match("/[a-zA-Z]/", $absence->getReason())){
+                    $nbAbsence ++;
+                }
+            }
+            echo $nbAbsence;
+            var_dump($student);
+            if($nbAbsence >= 3){
+                echo 'OK';
+                $alerts[$student->getKey()] = array($student->getId(), $student->getFirstName(), $student->getLastName(), $nbAbsence, $student->getMail());
+                var_dump($alerts);
+            }
+        }
+        $this->m_viewAlert->setAlertList($alerts);
         $this->m_viewAlert->render();
     }
 }
