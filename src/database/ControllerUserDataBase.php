@@ -109,13 +109,12 @@ class ControllerUserDataBase
                     $users[$user->getId()] = $user;
                 }
                 if ($row['9']) {
-
                     $module = new Module($row['9'], $row['11']);
-                    $users[$user->getId()]->addModule($module);
+                    $users[$row['id']]->addModule($module);
                 }
                 if ($row['12']) {
                     $absence = new Absence($row['12'], $row['reason'], $row['comment'], $row['date_time']);
-                    $users[$user->getId()]->addAbsence($absence);
+                    $users[$row['id']]->addAbsence($absence);
                 }
             } while ($row = ControllerDataBase::getSelectAllStudent()->fetch());
             return $users;
@@ -138,11 +137,11 @@ class ControllerUserDataBase
                 }
                 if ($row['9']) {
                     $module = new Module($row['9'], $row['11']);
-                    $teachers[$teacher->getId()]->addModule($module);
+                    $teachers[$row['id']]->addModule($module);
                 }
                 if ($row['12']) {
                     $absence = new Absence($row['12'], $row['reason'], $row['comment'], $row['date_time']);
-                    $teachers[$teacher->getId()]->addAbsence($absence);
+                    $teachers[$row['id']]->addAbsence($absence);
                 }
             } while ($row = ControllerDataBase::getSelectAllTeacher()->fetch());
             return $teachers;
