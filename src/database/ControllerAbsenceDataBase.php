@@ -48,10 +48,39 @@ class ControllerAbsenceDataBase
         ControllerDataBase::getInsertAbsence()->execute();
     }
 
+    public static function getForAllAbsence()
+    {
+        ControllerDataBase::prepareSelectAllAbsence();
+        if (ControllerDataBase::getSelectAllAbsence()->execute()) {
+           
+            $row = ControllerDataBase::getSelectAllAbsence()->fetch();
+            if ($row) {
+
+              
+                $response = [];
+                
+                do {
+                    $data['firstName'] = $row['first_name'];
+                    $data['lastName'] = $row['last_name'];    
+                    $data['moduleName'] = $row['module'];
+                    $data['date'] = $row['date_time'];
+                    $data["absenceKey"] = $row['absenceKey'];
+
+                    $response[] = $data;
+                    
+                } while ($row = ControllerDataBase::getSelectAllAbsence()->fetch());
+                
+                return $response;
+            }
+        }
+      
+        return [];
+    }
+
 
     public static function lookForSpecificUser($id)
     {
-        //return ['ammad'];
+        
         ControllerDataBase::prepareSelectSpecificStudentAbsence($id);
         if (ControllerDataBase::getSelectSpecificStudentAbsence()->execute()) {
            
@@ -79,6 +108,34 @@ class ControllerAbsenceDataBase
         }
       
         return [];
+    }
+
+    
+    public function getAbsence()
+    {
+        return $this->absence;
+    }
+
+    public static function deleteAbsence($studentAbscent)
+    {
+    ControllerDataBase::prepareDeleteAbsence();
+        return ControllerDataBase::getDeleteAbsence()->execute(array($studentAbscent));
+    }
+
+    public static function insertAbsence($studentKey, $comment, $reason, $date) {
+
+        $dateTime = date('Y-m-d h:i:s', strtotime($date));
+
+
+        ControllerDataBase::prepareInsertAbsence();
+        $insertAbsence = ControllerDataBase::getInsertAbsence();
+        $insertAbsence->bindParam(':reason', $reason);
+        $insertAbsence->bindParam(':etudiant_key', $studentKey);
+        $insertAbsence->bindParam(':comment', $comment);
+        $insertAbsence->bindParam(':date_time', $dateTime);
+
+        $res = ControllerDataBase::getInsertAbsence()->execute();
+    
     }
 
    

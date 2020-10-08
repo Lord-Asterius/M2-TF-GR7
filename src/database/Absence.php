@@ -7,6 +7,7 @@ class Absence
     private $reason;
     private $comment;
     private $date;
+   
 
 
     public function __construct($key, $reason, $comment, $date)

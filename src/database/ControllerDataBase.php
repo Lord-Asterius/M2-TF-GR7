@@ -23,6 +23,7 @@ class ControllerDataBase
     private static $selectSpecificUser;
     private static $selectAllAbsence;
     private static $selectSpecificStudentAbsence;
+    private static $DeleteAbsence;
     private static $selectAllModule;
     private static $selectSpecificUserModule;
     private static $insertUserModule;
@@ -82,6 +83,7 @@ class ControllerDataBase
         self::$selectAllStudentInModule = null;
         self::$DeleteModule = null;
         self::$DeleteUser = null;
+        self::$DeleteAbsence = null;
         self::$removeUserModule = null;
         self::$removeUserReferentModule = null;
         self::$modifyUser=null;
@@ -109,9 +111,12 @@ class ControllerDataBase
 
     public static function prepareInsertAbsence()
     {
+        self::connectToDatabase();
+
         if (self::$insertAbsence == null) {
             self::setPrepareToNull();
-            return self::$insertAbsence = self::$dataBaseConnector->prepare("INSERT INTO absence(reason, etudiant_key, comment, date_time) VALUES (?, ?, ?, ?)");
+            return self::$insertAbsence = self::$dataBaseConnector->prepare("INSERT INTO absence(reason, etudiant_key, comment, date_time) VALUES (:reason, :etudiant_key, :comment, :date_time)");
+            // return self::$insertAbsence = self::$dataBaseConnector->prepare("INSERT INTO absence(reason, etudiant_key, comment, date_time) VALUES ('test', 1, 'test', now())");
         }
         return true;
     }
@@ -252,7 +257,7 @@ class ControllerDataBase
     {
         if (self::$selectAllAbsence == null) {
             self::setPrepareToNull();
-            return self::$selectAllAbsence = self::$dataBaseConnector->prepare("SELECT * FROM absence");
+            return self::$selectAllAbsence = self::$dataBaseConnector->prepare("SELECT absence.key as absenceKey,absence.date_time, user.first_name, user.last_name, module.name as module FROM absence LEFT JOIN user ON user.key = absence.etudiant_key LEFT JOIN user_module on user.key = user_module.user_key left JOIN module on module.key = user_module.module_key");
         }
         return true;
     }
@@ -296,6 +301,14 @@ class ControllerDataBase
         if (self::$DeleteModule == null) {
             self::setPrepareToNull();
             return self::$DeleteModule = self::$dataBaseConnector->prepare("DELETE FROM module WHERE `name` = ?");
+        }
+        return true;
+    }
+    public static function prepareDeleteAbsence()
+    {
+        if (self::$DeleteAbsence == null) {
+            self::setPrepareToNull();
+            return self::$DeleteAbsence = self::$dataBaseConnector->prepare("DELETE FROM absence WHERE `key` = ?");
         }
         return true;
     }
@@ -357,6 +370,8 @@ class ControllerDataBase
     {
         return self::$DeleteUser;
     }
+
+    
 
     public static function getSelectSpecificUser()
     {
@@ -458,6 +473,14 @@ class ControllerDataBase
     public static function getDeleteModule()
     {
         return self::$DeleteModule;
+    }
+
+      /**
+     * @return mixed
+     */
+    public static function getDeleteAbsence()
+    {
+        return self::$DeleteAbsence;
     }
 
 //____________________________________________________________________________

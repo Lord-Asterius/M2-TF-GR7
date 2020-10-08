@@ -27,6 +27,13 @@ foreach ($_GET as $key => $value)
 }
 
 
+$sanitizedPost = [];
+foreach ($_POST as $key => $value)
+{
+    $sanitizedPost[$key] = filter_var($value, FILTER_SANITIZE_STRING);
+}
+
+
 
 //the Connection page as the default page
 $requestedPage = PAGE_ID_CONNECTION;
@@ -122,14 +129,16 @@ else if($requestedPage === AJAX_EDIT_ABSENCE_DETAILS) {
     $obj = new ControllerAbsenceDetails();
     $obj->modify_student();
 }
-else if($requestedPage === AJAX_DELETE_ABSENCE_DETAILS) {
-    //echo "Page Running";
-    //$controller = new ControllerAbsenceDetails();
-    //$controller->AddRequest($sanitizedGet);
-    include_once($path . "/controllers/ControllerAbsenceDetails.php");
-    $obj = new ControllerAbsenceDetails();
-    $obj->delete_student();
+else if($requestedPage === DELETE_ABSENCE_STUDENT) {
+    $controller = new ControllerAbsencelist();
+    $controller->deleteAbsence($sanitizedGet); 
+
 }
+else if($requestedPage === PAGE_ID_ABSENCE_ADD) {
+    $controller = new ControllerAbsenceList();
+    $controller->add_absence($sanitizedGet, $sanitizedPost);
+}
+
 else if ($requestedPage === PAGE_ID_ALERT)
 {
     $controller = new ControllerAlert();

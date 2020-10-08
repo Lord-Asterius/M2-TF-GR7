@@ -1,23 +1,88 @@
 <div class="container" style="padding-top: 3em">
-  <input class="form-control" id="listSearch" type="text" placeholder="Rechercher un module">
-  <br>
-  <ul class="list-group" id="moduleList">
-      <?php foreach($context["attendanceData"] as $attendanceData): ?>
-      <li class="list-group-item"><a
-          href="index.php?page=<?= PAGE_ID_ABSENSE_DETAIL ?>&studentId=<?= $attendanceData['id'] ?> " > <?= $attendanceData["name"] ?></a></li>
-      <?php endforeach; ?>
-  </ul>
+  <h1>liste d'absence</h1>
+  <a href="index.php?page=<?= PAGE_ID_ABSENCE_ADD ?>">
+    <input
+      type="image"
+      src="images/bootstrap-icons/plus.svg"
+      alt=""
+      class="float-right"
+      width="32"
+      height="32"
+      title="Ajouter une absence"
+  /></a>
+
+  <input
+    class="form-control"
+    id="listSearch"
+    type="text"
+    placeholder="Rechercher un etudiant absent"
+  />
+
+  <br />
+
+  <table class="table table-bordered">
+    <thead>
+      <th>First Name</th>
+      <th>LastName</th>
+      <th>Module</th>
+      <th>Date</th>
+      <th>action</th>
+      <th>action</th>
+    </thead>
+
+    <?php foreach($context["attendanceData"] as $attendanceData): ?>
+
+    <tr>
+      <td>
+        <a
+          href="index.php?page=<?= PAGE_ID_ABSENSE_DETAIL ?>&studentId=<?= $attendanceData['id'] ?> "
+        >
+          <?= $attendanceData["name"] ?></a
+        >
+      </td>
+      <td><?= $attendanceData["lastName"] ?></td>
+      <td><?=  $attendanceData["module"] ?></td>
+      <td><?= $attendanceData["date"] ?></td>
+      <td>
+        <a
+          class="navbar-brand"
+          href="index.php?page=<?= PAGE_ID_ABSENCE_LIST ?>&absenceKey=<?= $attendanceData['id'] ?>&action=delete"
+        >
+          <img
+            src="images/bootstrap-icons/trash.svg"
+            alt=""
+            width="32"
+            height="32"
+            title="Bootstrap"
+          />
+        </a>
+      </td>
+      <td>
+        <a
+          class="float-right"
+          href="index.php?page=absenceDetails&studentId=<?= $attendanceData['id'] ?>"
+        >
+          <img
+            src="images/bootstrap-icons/pencil-square.svg"
+            alt=""
+            width="32"
+            height="32"
+            title="Modifier les absences"
+          />
+        </a>
+      </td>
+    </tr>
+
+    <?php endforeach; ?>
+  </table>
 </div>
-
-
-
 <script>
   $(document).ready(function () {
-  $("#listSearch").on("keyup", function () {
+    $('#listSearch').on('keyup', function () {
       var value = $(this).val().toLowerCase();
-      $("#absenceList li").filter(function () {
-          $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+      $('#absenceList li').filter(function () {
+        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
       });
+    });
   });
-});
 </script>
