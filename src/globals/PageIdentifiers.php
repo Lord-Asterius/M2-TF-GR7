@@ -18,7 +18,8 @@ define('DELETE_ABSENCE_STUDENT',"delete_student");
 define("PAGE_ID_ABSENCE_ADD", "absenceAdd");
 
 define('PAGE_ID_ALERT',"alert");
-// renommé avec la meme normalisation de nommage 
+define('PAGE_ID_HOME',"home");
+
 define("PAGE_ID_ETUDIANT_LIST", "etudiantList");
 define("PAGE_ID_ETUDIANT_EDIT", "etudiantEdit");
 define("PAGE_ID_ENSEIGNANT_EDIT", "enseignantEdit");
@@ -34,6 +35,9 @@ define("ADD_ADMIN_MODULE", "addAdminModule");
 define('DELETE_ADMIN_ETUDIANT',"deleteAdminEtudiant");
 define('ADD_ADMIN_ETUDIANT','addAdminEtudiant');
 define('MODIFY_ADMIN_ETUDIANT',"modifyAdminEtudiant");
+define('DELETE_ADMIN_ENSEIGNANT',"deleteAdminEnseignant");
+define('ADD_ADMIN_ENSEIGNANT',"addAdminEnseignant");
+define('MODIFY_ADMIN_ENSEIGNANT','modifyAdminEnseignant');
 
 
 

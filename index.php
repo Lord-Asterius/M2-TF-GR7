@@ -5,6 +5,7 @@ include_once("src/controllers/ControllerModuleList.php");
 include_once("src/controllers/ControllerModule.php");
 include_once("src/controllers/ControllerConnection.php");
 include_once("src/views/ViewHelloWorld.php");
+include_once("src/views/ViewHome.php");
 include_once("src/controllers/ControllerAbsenceDetails.php");
 include_once("src/controllers/ControllerAbsenceList.php");
 include_once("src/controllers/ControllerEtudiantList.php");
@@ -20,7 +21,10 @@ $path=$_SERVER['DOCUMENT_ROOT']."/M2-TF-GR7/src";
 
 // We do a first sanitization pass by removing HTML tags
 $sanitizedGet = [];
+
+//We start the session $_SESSION[]
 session_start();
+
 foreach ($_GET as $key => $value)
 {
     $sanitizedGet[$key] = filter_var($value, FILTER_SANITIZE_STRING);
@@ -35,8 +39,13 @@ foreach ($_POST as $key => $value)
 
 
 
-//the Connection page as the default page
-$requestedPage = PAGE_ID_CONNECTION;
+//If no user is connected, the Connection page is the default page, else is the Home page
+if(isset($_SESSION['user'])){
+    $requestedPage = PAGE_ID_HOME;
+}else{
+    $requestedPage = PAGE_ID_CONNECTION;
+}
+
 
 if (isset($sanitizedGet["page"]))
 {
@@ -54,6 +63,11 @@ else if ($requestedPage === PAGE_ID_CONNECTION)
 {
     $controller = new ControllerConnection();
     $controller->connection();
+}
+else if ($requestedPage === PAGE_ID_HOME)
+{
+    $homeView = new ViewHome();
+    $homeView->render();
 }
 else if ($requestedPage === PAGE_ID_DISCONNECTION)
 {
@@ -96,9 +110,10 @@ else if($requestedPage === PAGE_ID_ENSEIGNANT_LIST) {
     $controller = new ControllerEnseignantList();
     $controller->handleRequest($sanitizedGet);
 }
+
 else if($requestedPage === PAGE_ID_ENSEIGNANT_EDIT) {
-    $controller = new ControllerEnseignantEdit();
-    $controller->handleRequest($sanitizedGet);
+    $controller = new ControllerEnseignantList();
+    $controller->editEnseignant($sanitizedGet);
 }
 else if($requestedPage === PAGE_ID_ADD_ABSENSE_DETAIL) {
     //echo "Page Running";
@@ -167,6 +182,11 @@ else if ($requestedPage === ADD_ADMIN_MODULE)
 }
 
 
+else if ($requestedPage === DELETE_ADMIN_ENSEIGNANT)
+{
+    $controller = new ControllerEnseignantList();
+    $controller->deleteEnseignant($sanitizedGet);
+}
 else if ($requestedPage === DELETE_ADMIN_ETUDIANT)
 {
     $controller = new ControllerEtudiantList();
@@ -177,8 +197,18 @@ else if ($requestedPage === ADD_ADMIN_ETUDIANT)
     $controller = new ControllerEtudiantList();
     $controller->addEtudiant($sanitizedGet);
 }
+else if ($requestedPage === ADD_ADMIN_ENSEIGNANT)
+{
+    $controller = new ControllerEnseignantList();
+    $controller->addEnseignant($sanitizedGet);
+}
 else if ($requestedPage === MODIFY_ADMIN_ETUDIANT)
 {
     $controller = new ControllerEtudiantList();
-    $controller->modifyEtudiant($sanitizedGet);
+    $controller->modifyAdminEtudiant($sanitizedGet);
+}
+else if ($requestedPage === MODIFY_ADMIN_ENSEIGNANT)
+{
+    $controller = new ControllerEnseignantList();
+    $controller->modifyAdminEnseignant($sanitizedGet);
 }

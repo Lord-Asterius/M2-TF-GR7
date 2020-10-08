@@ -14,7 +14,7 @@ class ViewEtudiantEdit
         $this->m_context = [];
     }
 
-    public function setEtudiantEdit($etudiant)
+    public function setDataEtudiantEdit($etudiant)
     {
         $this->m_context["etudiant"] = $etudiant;
     }
