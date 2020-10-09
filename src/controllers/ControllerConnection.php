@@ -34,13 +34,12 @@ class ControllerConnection
                             $this->c_viewConnection->setErrorLogIn();
                             Utils::redirectTo(PAGE_ID_CONNECTION, []);
                             break;
-                        //                        break;
-                        //                    case 'EQUIPE_ADMINISTRATIVE':
-                        //                        Utils::redirectTo(PAGE_ID_, []);
-                        //                        break;
-                        //                    case 'ADMINISTRATEUR' :
-                        //                        Utils::redirectTo(PAGE_ID_, []);
-                        //                        break;
+                        case 'EQUIPE_ADMINISTRATIVE':
+                            Utils::redirectTo(PAGE_ID_ALERT, []);
+                            break;
+                        case 'ADMINISTRATEUR' :
+                            Utils::redirectTo(PAGE_ID_ADMINISTRATION, []);
+                            break;
                     }
                 } else {
                     $this->c_viewConnection->setErrorLogIn();

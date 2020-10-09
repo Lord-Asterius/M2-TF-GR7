@@ -31,7 +31,7 @@ class ControllerAlert
                 }
             }
             if($nbAbsence >= 3){
-                $alerts[$student->getKey()] = array($student->getId(), $student->getFirstName(), $student->getLastName(), $nbAbsence, $student->getMail());
+                $alerts[$student->getKey()] = array($student->getKey(), $student->getFirstName(), $student->getLastName(), $nbAbsence, $student->getMail());
             }
         }
         $this->m_viewAlert->setAlertList($alerts);
