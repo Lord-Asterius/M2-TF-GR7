@@ -15,6 +15,7 @@ class ControllerDataBase
     private static $insertUser;
     private static $insertModule;
     private static $insertAbsence;
+    private static $updateAbsence;
     private static $selectAllUser;
     private static $selectAllTeacher;
     private static $selectAllAdminStaff;
@@ -22,6 +23,7 @@ class ControllerDataBase
     private static $selectAllAllStudent;
     private static $selectSpecificUser;
     private static $selectAllAbsence;
+    private static $selectSpecificAbsence;
     private static $selectSpecificStudentAbsence;
     private static $DeleteAbsence;
     private static $selectAllModule;
@@ -67,6 +69,7 @@ class ControllerDataBase
         self::$insertUser = null;
         self::$insertModule = null;
         self::$insertAbsence = null;
+        self::$updateAbsence = null;
         self::$selectAllUser = null;
         self::$selectAllTeacher = null;
         self::$selectAllAdminStaff = null;
@@ -74,6 +77,7 @@ class ControllerDataBase
         self::$selectAllAllStudent = null;
         self::$selectSpecificUser = null;
         self::$selectAllAbsence = null;
+        self::$selectSpecificAbsence = null;
         self::$selectAllModule = null;
         self::$selectSpecificUserModule = null;
         self::$insertUserModule = null;
@@ -105,6 +109,17 @@ class ControllerDataBase
         if (self::$insertModule == null) {
             self::setPrepareToNull();
             return self::$insertModule = self::$dataBaseConnector->prepare("INSERT INTO module(name) VALUES (:name)");
+        }
+        return true;
+    }
+
+    public static function prepareUpdateAbsence()
+    {
+        self::connectToDatabase();
+
+        if (self::$updateAbsence == null) {
+            self::setPrepareToNull();
+            return self::$updateAbsence = self::$dataBaseConnector->prepare("Update  absence set reason= :reason, comment = :comment, date_time = :date_time where absence.key = :key");
         }
         return true;
     }
@@ -257,7 +272,20 @@ class ControllerDataBase
     {
         if (self::$selectAllAbsence == null) {
             self::setPrepareToNull();
-            return self::$selectAllAbsence = self::$dataBaseConnector->prepare("SELECT absence.key as absenceKey,absence.date_time, user.first_name, user.last_name, module.name as module FROM absence LEFT JOIN user ON user.key = absence.etudiant_key LEFT JOIN user_module on user.key = user_module.user_key left JOIN module on module.key = user_module.module_key");
+            return self::$selectAllAbsence = self::$dataBaseConnector->prepare("SELECT absence.key as absenceKey, etudiant_key as studentId,  absence.date_time, user.first_name, user.last_name, module.name as module FROM absence LEFT JOIN user ON user.key = absence.etudiant_key LEFT JOIN user_module on user.key = user_module.user_key left JOIN module on module.key = user_module.module_key");
+        }
+        return true;
+    }
+
+
+    public static function prepareSelectSpecificAbsence()
+    {
+
+        self::connectToDatabase();
+
+        if (self::$selectSpecificAbsence == null) {
+            self::setPrepareToNull();
+            return self::$selectSpecificAbsence = self::$dataBaseConnector->prepare("SELECT absence.key as absenceKey, etudiant_key as studentId,  absence.date_time, comment, reason from absence where absence.key = :key");
         }
         return true;
     }
@@ -272,7 +300,7 @@ class ControllerDataBase
 
         if (self::$selectSpecificStudentAbsence == null) {
             self::setPrepareToNull();
-            return self::$selectSpecificStudentAbsence = self::$dataBaseConnector->prepare("select user.first_name, user.last_name, user.mail, module.name, absence.reason, absence.comment, absence.date from user, module, user_module, absence where user.key = user_module.user_key and module.key = user_module.module_key and absence.etudiant_key = user.key and user.key = $student_id");
+            return self::$selectSpecificStudentAbsence = self::$dataBaseConnector->prepare("select user.first_name, absence.key  as absenceKey, user.last_name, user.mail, module.name, absence.reason, absence.comment, absence.date_time as date from user, module, user_module, absence where user.key = user_module.user_key and module.key = user_module.module_key and absence.etudiant_key = user.key and user.key = $student_id");
         }
         return true;
     }
@@ -341,6 +369,11 @@ class ControllerDataBase
         return self::$insertAbsence;
     }
 
+    public static function getUpdateAbsence()
+    {
+        return self::$updateAbsence;
+    }
+
     public static function getSelectAllUser()
     {
         return self::$selectAllUser;
@@ -391,6 +424,10 @@ class ControllerDataBase
     public static function getSelectAllAbsence()
     {
         return self::$selectAllAbsence;
+    }
+
+    public static function getSelectSpecificAbsence() {
+        return self::$selectSpecificAbsence;
     }
 
 

@@ -35,7 +35,7 @@
     <tr>
       <td>
         <a
-          href="index.php?page=<?= PAGE_ID_ABSENSE_DETAIL ?>&studentId=<?= $attendanceData['id'] ?> "
+          href="index.php?page=<?= PAGE_ID_ABSENSE_DETAIL ?>&studentId=<?= $attendanceData['studentKey'] ?> "
         >
           <?= $attendanceData["name"] ?></a
         >
@@ -60,7 +60,7 @@
       <td>
         <a
           class="float-right"
-          href="index.php?page=absenceDetails&studentId=<?= $attendanceData['id'] ?>"
+          href="index.php?page=<?= PAGE_ID_ABSENCE_EDIT ?>&absenceKey=<?= $attendanceData['id'] ?>"
         >
           <img
             src="images/bootstrap-icons/pencil-square.svg"

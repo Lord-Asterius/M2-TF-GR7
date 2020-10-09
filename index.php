@@ -17,7 +17,6 @@ include_once("src/controllers/ControllerDisconnection.php");
 include_once("src/controllers/ControllerAdministration.php");
 include_once("src/controllers/ControllerAdminModuleList.php");
 
-$path=$_SERVER['DOCUMENT_ROOT']."/M2-TF-GR7/src";
 
 // We do a first sanitization pass by removing HTML tags
 $sanitizedGet = [];
@@ -120,30 +119,20 @@ else if($requestedPage === PAGE_ID_ADD_ABSENSE_DETAIL) {
     $controller = new ControllerAbsenceDetails();
     $controller->AddRequest($sanitizedGet);
 }
-else if($requestedPage === AJAX_LOAD_ABSENCE_DETAILS) {
-    //echo "Page Running";
-    //$controller = new ControllerAbsenceDetails();
-    //$controller->AddRequest($sanitizedGet);
-    include_once($path . "/controllers/ControllerAbsenceDetails.php");
-    $obj = new ControllerAbsenceDetails();
-    $obj->reload();
+else if($requestedPage === DELETE_ABSENCE_STUDENT) {
+    $controller = new ControllerAbsencelist();
+    $controller->deleteAbsence($sanitizedGet); 
+
 }
-else if($requestedPage === AJAX_ADD_ABSENCE_DETAILS) {
-    //echo "Page Running";
-    //$controller = new ControllerAbsenceDetails();
-    //$controller->AddRequest($sanitizedGet);
-    include_once($path . "/controllers/ControllerAbsenceDetails.php");
-    $obj = new ControllerAbsenceDetails();
-    $obj->add_student();
+else if($requestedPage === PAGE_ID_ABSENCE_ADD) {
+    $controller = new ControllerAbsenceList();
+    $controller->add_absence($sanitizedGet, $sanitizedPost);
 }
-else if($requestedPage === AJAX_EDIT_ABSENCE_DETAILS) {
-    //echo "Page Running";
-    //$controller = new ControllerAbsenceDetails();
-    //$controller->AddRequest($sanitizedGet);
-    include_once($path . "/controllers/ControllerAbsenceDetails.php");
-    $obj = new ControllerAbsenceDetails();
-    $obj->modify_student();
+else if($requestedPage === PAGE_ID_ABSENCE_EDIT) {
+    $controller = new ControllerAbsenceDetails();
+    $controller->absenceEdit($sanitizedGet, $sanitizedPost);
 }
+
 else if($requestedPage === DELETE_ABSENCE_STUDENT) {
     $controller = new ControllerAbsencelist();
     $controller->deleteAbsence($sanitizedGet); 

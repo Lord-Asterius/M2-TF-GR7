@@ -4,12 +4,23 @@
   
 </script>
 <script type="text/javascript" src="styles/jquery-2.2.1.min.js"></script>
-<!-- <script type="text/javascript" src="styles/absenceDetails.js"></script> -->
 
 
 
 
-<div class="container" style="padding-top: 3em">  
+<div class="container" style="padding-top: 3em">
+  <h1>liste d'absence</h1>
+  <a href="index.php?page=<?= PAGE_ID_ABSENCE_EDIT ?>">
+    <input
+      type="image"
+      src="images/bootstrap-icons/plus.svg"
+      alt=""
+      class="float-right"
+      width="32"
+      height="32"
+      title="Ajouter une absence"
+  /></a>
+
   
     <div
       class="modal fade"
@@ -172,7 +183,29 @@ for($i = 0;$i < count($students);$i++){
           <td><?= $attendanceData["reason"] ?></td>
           <td><?= $attendanceData["comment"] ?></td>
           <td><?= $attendanceData["date"] ?></td>
-          <td><button class="btn btn-success">Edit</button> <button class="btn btn-danger">Delete</button></td>
+          <td> <a
+            class="float-right"
+            href="index.php?page=<?= PAGE_ID_ABSENCE_EDIT ?>&absenceKey=<?= $attendanceData['id'] ?>"
+          >
+            <img
+              src="images/bootstrap-icons/pencil-square.svg"
+              alt=""
+              width="32"
+              height="32"
+              title="Modifier les absences"
+            />
+            <a
+            class="navbar-brand"
+            href="index.php?page=<?= PAGE_ID_ABSENCE_LIST ?>&absenceKey=<?= $attendanceData['id'] ?>&action=delete"
+          >
+            <img
+              src="images/bootstrap-icons/trash.svg"
+              alt=""
+              width="32"
+              height="32"
+              title="Bootstrap"
+            />
+          </a>
         </tr>
 
         <?php endforeach; ?>

@@ -65,6 +65,7 @@ class ControllerAbsenceDataBase
                     $data['moduleName'] = $row['module'];
                     $data['date'] = $row['date_time'];
                     $data["absenceKey"] = $row['absenceKey'];
+                    $data["studentId"] = $row['studentId'];
 
                     $response[] = $data;
                     
@@ -98,8 +99,11 @@ class ControllerAbsenceDataBase
                     $data['reason'] = $row['reason'];
                     $data['comment'] = $row['comment'];
                     $data['date'] = $row['date'];
+                    $data['id'] = $row['absenceKey'];
+
 
                     $response[] = $data;
+
                     
                 } while ($row = ControllerDataBase::getSelectSpecificStudentAbsence()->fetch());
                 
@@ -136,6 +140,42 @@ class ControllerAbsenceDataBase
 
         $res = ControllerDataBase::getInsertAbsence()->execute();
     
+    }
+
+    public static function updateAbsence($key, $comment, $reason, $date) {
+
+        $dateTime = date('Y-m-d h:i:s', strtotime($date));
+
+        ControllerDataBase::prepareUpdateAbsence();
+        $insertAbsence = ControllerDataBase::getUpdateAbsence();
+        $insertAbsence->bindParam(':reason', $reason);
+        $insertAbsence->bindParam(':comment', $comment);
+        $insertAbsence->bindParam(':date_time', $dateTime);
+        $insertAbsence->bindParam(':key', $key);
+
+        $res = ControllerDataBase::getUpdateAbsence()->execute();
+    }
+
+    public static function getAbsenceDetailsByKey($key) {
+
+        $result = [];
+
+        ControllerDataBase::prepareSelectSpecificAbsence();
+        ControllerDataBase::getSelectSpecificAbsence()->bindParam(':key', $key);
+
+        if (ControllerDataBase::getSelectSpecificAbsence()->execute()) {
+            while ($row = ControllerDataBase::getSelectSpecificAbsence()->fetch()) {
+                $result["absenceKey"] = $row["absenceKey"];
+                $result["studentId"] = $row["studentId"];
+                $result["date_time"] = $row["date_time"];
+                $result["comment"] = $row["comment"];
+                $result["reason"] = $row["reason"];
+            }
+
+            return $result;
+        }
+        
+        return false;
     }
 
    

@@ -1,0 +1,59 @@
+
+ <?php $attendanceData  = $context["attendanceData"] ?>
+<div class="container" style="padding-top: 3em">
+    <h1>Ajouter un absence</h1>
+    <form
+      method="post"
+      action="index.php?page=<?= PAGE_ID_ABSENCE_EDIT ?>&action=update&absenceKey=<?= $attendanceData['absenceKey'] ?>"
+    >
+   
+      <div class="form-group">
+        <label>Student Key</label>
+        <input
+          type="text"
+          name="studentKey"
+          class="form-control"
+          placeholder="Student Key"
+          value= '<?= $attendanceData["studentId"] ?>'
+          disabled
+        />
+      
+
+        <input
+        type="hidden"
+        name="absenceKey"
+        value= '<?= $attendanceData["absenceKey"] ?>'
+      />
+  
+        <div class="form-group">
+          <label for="exampleInputEmail1">Date</label>
+  
+          <input id="datepicker" name="date" width="276"   value= '<?= $attendanceData["date_time"] ?>'
+          />
+          <script>
+            $('#datepicker').datepicker({
+              uiLibrary: 'bootstrap4',
+            });
+          </script>
+        </div>
+        <label for="name module">comment</label>
+        <input
+          type="text"
+          name="comment"
+          class="form-control"
+          placeholder="Comment"
+          value= '<?= $attendanceData["comment"] ?>'
+        />
+        <label for="name module">Motif d'absence</label>
+        <input
+          type="text"
+          name="reason"
+          class="form-control"
+          placeholder="Reason"
+          value= '<?= $attendanceData["reason"] ?>'
+        />
+      </div>
+      <button type="submit" class="btn btn-primary">envoyer</button>
+    </form>
+  </div>
+  

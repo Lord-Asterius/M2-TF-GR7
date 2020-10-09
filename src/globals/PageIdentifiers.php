@@ -9,13 +9,10 @@ define("PAGE_ID_MODULE", "module");
 define("PAGE_ID_ABSENCE_LIST", "absenceList");
 define('PAGE_ID_ABSENSE_DETAIL',"absenceDetails");
 define('PAGE_ID_ADD_ABSENSE_DETAIL',"AddNewAbsence");
-define('AJAX_LOAD_ABSENCE_DETAILS',"load_absence_details");
-define('AJAX_ADD_ABSENCE_DETAILS',"add_absence_details");
-define('AJAX_EDIT_ABSENCE_DETAILS',"edit_absence_details");
-define('AJAX_DELETE_ABSENCE_DETAILS',"delete_absence_details");
-
 define('DELETE_ABSENCE_STUDENT',"delete_student");
 define("PAGE_ID_ABSENCE_ADD", "absenceAdd");
+define('PAGE_ID_ABSENCE_EDIT',"absenceEdit");
+
 
 define('PAGE_ID_ALERT',"alert");
 define('PAGE_ID_HOME',"home");
@@ -38,6 +35,7 @@ define('MODIFY_ADMIN_ETUDIANT',"modifyAdminEtudiant");
 define('DELETE_ADMIN_ENSEIGNANT',"deleteAdminEnseignant");
 define('ADD_ADMIN_ENSEIGNANT',"addAdminEnseignant");
 define('MODIFY_ADMIN_ENSEIGNANT','modifyAdminEnseignant');
+
 
 
 

@@ -51,8 +51,8 @@ class ControllerAbsenceList
                                     "name" => $student["firstName"],
                                     "lastName" => $student["lastName"],
                                     "module" => $student["moduleName"],
-                                    "date"=> $student["date"]        
-                        
+                                    "date"=> $student["date"],
+                                    "studentKey" => $student["studentId"]      
                                 ];
         }
 
@@ -62,7 +62,6 @@ class ControllerAbsenceList
     }
 
     public function deleteAbsence($studentId){
-        echo "something";
         ControllerDataBase::connectToDatabase();
         ControllerAbsenceDataBase::deleteAbsence($studentId);
         // $this->handleRequest($getParameters);
