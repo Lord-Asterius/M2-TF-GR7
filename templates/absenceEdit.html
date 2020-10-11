@@ -1,7 +1,10 @@
 
  <?php $attendanceData  = $context["attendanceData"] ?>
+ <?php $firstName = $attendanceData["first_name"] ?>
+ <?php $lastName = $attendanceData["last_name"] ?>
+
 <div class="container" style="padding-top: 3em">
-    <h1>Ajouter un absence</h1>
+    <h1>Ajouter un absence -- <?= $firstName ?> <?= $lastName ?></h1>
     <form
       method="post"
       action="index.php?page=<?= PAGE_ID_ABSENCE_EDIT ?>&action=update&absenceKey=<?= $attendanceData['absenceKey'] ?>"
@@ -15,7 +18,7 @@
           class="form-control"
           placeholder="Student Key"
           value= '<?= $attendanceData["studentId"] ?>'
-          disabled
+          readonly
         />
       
 

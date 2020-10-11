@@ -1,7 +1,7 @@
 <?php $student_id= $_GET['studentId']; ?>
+<?php $studentName = $context["attendanceData"][0]["firstName"].' '.$context["attendanceData"][0]["lastName"]  ?>
 <script>
   var selected_user_id="<?php echo $student_id; ?>";
-  
 </script>
 <script type="text/javascript" src="styles/jquery-2.2.1.min.js"></script>
 
@@ -9,8 +9,8 @@
 
 
 <div class="container" style="padding-top: 3em">
-  <h1>liste d'absence</h1>
-  <a href="index.php?page=<?= PAGE_ID_ABSENCE_EDIT ?>">
+  <h1>Absence de l'étudiant -- <?= $studentName ?> </h1>
+  <a href="index.php?page=<?= PAGE_ID_ABSENCE_ADD ?>&studentKey=<?= $student_id ?>">
     <input
       type="image"
       src="images/bootstrap-icons/plus.svg"
@@ -22,169 +22,31 @@
   /></a>
 
   
-    <div
-      class="modal fade"
-      id="exampleModal"
-      tabindex="-1"
-      role="dialog"
-      aria-labelledby="exampleModalLabel"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Ajouter une absence</h5>
-            <button
-              type="button"
-              class="close"
-              data-dismiss="modal"
-              aria-label="Close"
-            >
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <form action="index.php?page=add_absence_detai" method="post">              
-  
-  <div class="form-group" >
-            <label for="student-name" class="col-form-label">student-name:</label>
-            <input type="text" class="form-control" id="student-name" readonly/>
-          </div>   
-  
-          <div class="form-group">
-            <label for="subject" class="col-form-label">Date:</label>
-            <input type="date" class="form-control" id="date" />
-          </div>        
-
-              <div class="form-group">
-                <label for="subject" class="col-form-label">Comment:</label>
-                <textarea class="form-control" id="subject"></textarea>
-              </div>
-              <div class="form-group">
-                <label for="reason" class="col-form-label">Motif d'absence:</label>
-                <textarea class="form-control" id="reason"></textarea>
-              </div>
-            </form>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">
-              Annuler
-            </button>
-            <input type="submit" class="btn btn-primary" >
-          </div>
-        </div>
-      </div>
-    </div>
-    
-    
-    <div
-      class="modal fade"
-      id="edit"
-      tabindex="-1"
-      role="dialog"
-      aria-labelledby="edit"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Ajouter une modification</h5>
-            <button
-              type="button"
-              class="close"
-              data-dismiss="modal"
-              aria-label="Close"
-            >
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <form>     
-                  <input type="hidden" id="id_absence" value="" />
-                <input type="hidden" id="id_student" value="" />
-                 <!-- <select>
-                  
-                   <?php
-for($i = 0;$i < count($students);$i++){
-  $id = $students[$i]["key"];
-  $first_name = $students[$i]["first_name"]; 
-  $last_name = $students[$i]["last_name"]; 
-  print_r($students);die("dfdf");      
-  echo '<option value="'.$id.'">'.$first_name.' '.last_name.'</option>';
-}
-                   ?>
-             
-                </select>
-  --> 
-  
-  <div class="form-group">
-            <label for="student-name" class="col-form-label">student-name:</label>
-            <input type="text" class="form-control" id="student-name" readonly/>
-          </div>   
-  
-          <div class="form-group">
-            <label for="subject" class="col-form-label">Date:</label>
-            <input type="text" class="form-control" id="date" type="date" />
-          </div>        
-
-              <div class="form-group">
-                <label for="subject" class="col-form-label">Comment:</label>
-                <textarea class="form-control" id="subject"></textarea>
-              </div>
-              <div class="form-group">
-                <label for="reason" class="col-form-label">Motif d'absence:</label>
-                <textarea class="form-control" id="reason"></textarea>
-              </div>
-            </form>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">
-              Annuler
-            </button>
-            <button type="button" class="btn btn-primary" onclick="javascript:modify();">Modifique</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  
-  
-      <div>
-        <div class="dropdown">
-         
-  
-          <button class="btn btn-primary" style="align-self: flex-end"
-            type="button"
-            class="btn btn-primary"
-            data-toggle="modal"
-            data-target="#exampleModal" 
-            >
-            Add
-          </button>
-        </div>
-      </div>
-  
       <table class="table table-bordered" id="table_data">
         
       
       
         <thead>
-          <th>Name</th>
+          <th>Nom</th>
+          <th>Prénom</th>
           <th>Module</th>
-          <th>Reason</th>
-          <th>Comment</th>
-          <th>Date</th>
+          <th>Raison</th>
+          <th>Commentaire</th>
+          <th>Jour d'absence</th>
           <th>Action</th>
         </thead>
 
         <?php foreach($context["attendanceData"] as $attendanceData): ?>
         <tr>
           <td><?= $attendanceData["firstName"] ?></td>
+          <td><?= $attendanceData["lastName"] ?></td>
           <td><?= $attendanceData["moduleName"] ?></td>
           <td><?= $attendanceData["reason"] ?></td>
           <td><?= $attendanceData["comment"] ?></td>
           <td><?= $attendanceData["date"] ?></td>
           <td> <a
             class="float-right"
+            
             href="index.php?page=<?= PAGE_ID_ABSENCE_EDIT ?>&absenceKey=<?= $attendanceData['id'] ?>"
           >
             <img
@@ -196,7 +58,8 @@ for($i = 0;$i < count($students);$i++){
             />
             <a
             class="navbar-brand"
-            href="index.php?page=<?= PAGE_ID_ABSENCE_LIST ?>&absenceKey=<?= $attendanceData['id'] ?>&action=delete"
+            href="index.php?page=<?= PAGE_ID_ABSENSE_DETAIL ?>&absenceKey=<?= $attendanceData['id'] ?>
+            &action=delete&studentId=<?=$student_id?>"
           >
             <img
               src="images/bootstrap-icons/trash.svg"

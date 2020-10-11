@@ -68,26 +68,30 @@ class ControllerAbsenceList
     }
 
     public function absenceEdit($getParameters){
-        $this->m_viewAbsenceAdd->render();
+        // $this->m_viewAbsenceAdd->render();
     }
 
     public function add_absence($getParameters, $postParameters){
        
         $action = isset($getParameters["action"]) ? $getParameters["action"] : '';
-        $studentKey = isset($postParameters["studentKey"]) ? $postParameters["studentKey"] : '';
+        $studentKey = isset($postParameters["studentKey"]) ? $postParameters["studentKey"] : NULL;
+        $s_key = isset($getParameters["studentKey"]) ? $getParameters["studentKey"] : NULL;
         $date = isset($postParameters["date"]) ? $postParameters["date"] : '';
         $comment = isset($postParameters["comment"]) ? $postParameters["comment"] : '';
         $reason = isset($postParameters["reason"]) ? $postParameters["reason"] : '';
-        echo($action);
+        
+        // print_r($getParameters);
+        // print_r($postParameters);
 
         switch($action) {
             case 'add':
                 $res = ControllerAbsenceDataBase::insertAbsence($studentKey, $comment, $reason, $date);
-            break;
                
+            break;   
         }
 
-        
+       
+        $this->m_viewAbsenceAdd->setAttendanceData($s_key);
         $this->m_viewAbsenceAdd->render();
 
     }

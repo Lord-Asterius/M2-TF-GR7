@@ -1,3 +1,4 @@
+<?php $studentKey  = $context["studentKey"] ?>
 <div class="container" style="padding-top: 3em">
   <h1>Ajouter un absence</h1>
   <form
@@ -6,12 +7,11 @@
   >
     <div class="form-group">
       <label>Student Key</label>
-      <input
-        type="text"
-        name="studentKey"
-        class="form-control"
-        placeholder="Student Key"
-      />
+      <input type="text" name="studentKey" class="form-control"
+      placeholder="Student Key" 
+      value="<?= isset($studentKey) ? $studentKey: '' ?>" 
+      <?= isset($studentKey) ?  'readonly' : '' ?>
+     />
 
       <div class="form-group">
         <label for="exampleInputEmail1">Date</label>

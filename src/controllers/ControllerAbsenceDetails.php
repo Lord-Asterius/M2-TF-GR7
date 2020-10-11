@@ -25,10 +25,26 @@ class ControllerAbsenceDetails
 
     public function handleRequest($getParameters)
     {  
+        $action = isset($getParameters["action"]) ? $getParameters["action"] : '';
+        $absenceKey = isset($getParameters["absenceKey"]) ? $getParameters["absenceKey"] : '';
+
+
+        switch($action) {
+            case 'delete':
+                $this->deleteAbsence($absenceKey);
+                break;
+        }
+
         $studentId = $getParameters['studentId'];
         $students = ControllerAbsenceDataBase::lookForSpecificUser($studentId); 
         $this->m_viewAbsence->setAttendanceData($students);
         $this->m_viewAbsence->render();
+    }
+
+    public function deleteAbsence($studentId){
+        ControllerDataBase::connectToDatabase();
+        ControllerAbsenceDataBase::deleteAbsence($studentId);
+        // $this->handleRequest($getParameters);
     }
 
     public function absenceEdit($getParameters,$postParameters){
@@ -47,15 +63,13 @@ class ControllerAbsenceDetails
 
             switch($action) {
                 case 'update':
-
                     ControllerAbsenceDataBase::updateAbsence($absenceKey, $comment, $reason, $date);
-                    
-            
                 break;
             }
         }
 
         $record = ControllerAbsenceDataBase::getAbsenceDetailsByKey($absenceKey);
+
      
         $this->m_viewAbsenceEdit->setAbsenceData($record);
         $this->m_viewAbsenceEdit->render();

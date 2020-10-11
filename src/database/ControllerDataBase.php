@@ -285,7 +285,7 @@ class ControllerDataBase
 
         if (self::$selectSpecificAbsence == null) {
             self::setPrepareToNull();
-            return self::$selectSpecificAbsence = self::$dataBaseConnector->prepare("SELECT absence.key as absenceKey, etudiant_key as studentId,  absence.date_time, comment, reason from absence where absence.key = :key");
+            return self::$selectSpecificAbsence = self::$dataBaseConnector->prepare("SELECT user.first_name, user.last_name, absence.key as absenceKey, etudiant_key as studentId,  absence.date_time, comment, reason from absence left join user on user.key =  absence.etudiant_key   where absence.key = :key");
         }
         return true;
     }

@@ -1,5 +1,8 @@
+
+
+
 <div class="container" style="padding-top: 3em">
-  <h1>liste d'absence</h1>
+  <h1>Liste d'absence</h1>
   <a href="index.php?page=<?= PAGE_ID_ABSENCE_ADD ?>">
     <input
       type="image"
@@ -15,21 +18,23 @@
     class="form-control"
     id="listSearch"
     type="text"
-    placeholder="Rechercher un etudiant absent"
+    placeholder="Chercher un etudiant absent"
   />
 
   <br />
 
   <table class="table table-bordered">
     <thead>
-      <th>First Name</th>
-      <th>LastName</th>
-      <th>Module</th>
-      <th>Date</th>
-      <th>action</th>
-      <th>action</th>
+      <tr>
+        <th>Nom</th>
+        <th>Prénom</th>
+        <th>Module</th>
+        <th>Jour d'absence</th>
+        <th>Supprimer</th>
+        <th>Modifier</th>
+      </tr>
     </thead>
-
+    <tbody id="absenceList">
     <?php foreach($context["attendanceData"] as $attendanceData): ?>
 
     <tr>
@@ -53,7 +58,7 @@
             alt=""
             width="32"
             height="32"
-            title="Bootstrap"
+            title="Supprimer"
           />
         </a>
       </td>
@@ -67,20 +72,24 @@
             alt=""
             width="32"
             height="32"
-            title="Modifier les absences"
+            title="Modifier"
           />
         </a>
       </td>
     </tr>
 
     <?php endforeach; ?>
+  </tbody>
   </table>
 </div>
+
+
+
 <script>
   $(document).ready(function () {
     $('#listSearch').on('keyup', function () {
       var value = $(this).val().toLowerCase();
-      $('#absenceList li').filter(function () {
+      $('#absenceList tr').filter(function () {
         $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
       });
     });

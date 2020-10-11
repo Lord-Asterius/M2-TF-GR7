@@ -164,12 +164,16 @@ class ControllerAbsenceDataBase
         ControllerDataBase::getSelectSpecificAbsence()->bindParam(':key', $key);
 
         if (ControllerDataBase::getSelectSpecificAbsence()->execute()) {
+            
             while ($row = ControllerDataBase::getSelectSpecificAbsence()->fetch()) {
+
                 $result["absenceKey"] = $row["absenceKey"];
                 $result["studentId"] = $row["studentId"];
                 $result["date_time"] = $row["date_time"];
                 $result["comment"] = $row["comment"];
                 $result["reason"] = $row["reason"];
+                $result["first_name"] = $row["first_name"];
+                $result["last_name"] = $row["last_name"];
             }
 
             return $result;
