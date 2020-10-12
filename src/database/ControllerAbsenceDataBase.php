@@ -11,7 +11,7 @@ class ControllerAbsenceDataBase
 
     /**
      * ControllerUserDataBase constructor.
-     * @param $user
+     * @param $absence
      */
     public function __construct($absence)
     {

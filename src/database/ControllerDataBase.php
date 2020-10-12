@@ -130,8 +130,7 @@ class ControllerDataBase
 
         if (self::$insertAbsence == null) {
             self::setPrepareToNull();
-            return self::$insertAbsence = self::$dataBaseConnector->prepare("INSERT INTO absence(reason, etudiant_key, comment, date_time) VALUES (:reason, :etudiant_key, :comment, :date_time)");
-            // return self::$insertAbsence = self::$dataBaseConnector->prepare("INSERT INTO absence(reason, etudiant_key, comment, date_time) VALUES ('test', 1, 'test', now())");
+            return self::$insertAbsence = self::$dataBaseConnector->prepare("INSERT INTO absence(reason, etudiant_key, comment, date_time) VALUES (?, ?, ?, ?)");
         }
         return true;
     }

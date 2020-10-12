@@ -188,7 +188,6 @@ class ControllerUserDataBase
     }
 
 
-
     public static function lookForSpecificUserModule($id)
     {
         ControllerDataBase::prepareSelectSpecificUserModule();

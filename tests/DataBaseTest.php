@@ -28,12 +28,12 @@ class DataBaseTest extends TestCase
 
     protected function tearDown(): void
     {
-        //TestUtils::cleanTables();
+        TestUtils::cleanTables();
     }
 
     public static function tearDownAfterClass(): void
     {
-        //TestUtils::cleanTables();
+        TestUtils::cleanTables();
         ControllerDataBase::disconnectFromDataBase();
     }
 
