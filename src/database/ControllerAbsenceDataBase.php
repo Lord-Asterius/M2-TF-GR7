@@ -138,8 +138,8 @@ class ControllerAbsenceDataBase
         $insertAbsence->bindParam(':comment', $comment);
         $insertAbsence->bindParam(':date_time', $dateTime);
 
-        $res = ControllerDataBase::getInsertAbsence()->execute();
-    
+        $res = ControllerDataBase::getInsertAbsence()->execute(array($reason, $studentKey, $comment, $date));
+
     }
 
     public static function updateAbsence($key, $comment, $reason, $date) {
