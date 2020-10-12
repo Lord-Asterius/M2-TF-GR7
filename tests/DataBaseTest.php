@@ -45,11 +45,12 @@ class DataBaseTest extends TestCase
         $this->assertEquals('Gerard', $userFetched->getFirstName());
         $this->assertEquals('Mendufric', $userFetched->getLastName());
         $this->assertEquals('Gerard.Mendufric@mail.com', $userFetched->getMail());
-        $this->assertTrue(sizeof($userFetched->getModule()) == 2);
-        $this->assertTrue(sizeof($userFetched->getModuleReferent()) == 0);
-        $this->assertTrue(sizeof($userFetched->getAbsence()) == 0);
+        $this->assertEquals(2, sizeof($userFetched->getModule()));
+        $this->assertEquals(0, sizeof($userFetched->getModuleReferent()));
+        $this->assertEquals(0, sizeof($userFetched->getAbsence()));
         $this->assertEquals('2020-09-01', $userFetched->getDate());
         $this->assertEquals('ENSEIGNANT', $userFetched->getRole());
+        $this->assertEquals(0, $userFetched->getStudentNumber());
     }
 
     public function testSelectSpecificUserModule()
@@ -89,6 +90,9 @@ class DataBaseTest extends TestCase
 
         $this->assertArrayHasKey('JTanrien', $teachers);
         $this->assertArrayHasKey('GMendufric', $teachers);
+
+        $this->assertEquals(1, sizeof($teachers['JTanrien']->getModule()));
+        $this->assertEquals(1, sizeof($teachers['JTanrien']->getModuleReferent()));
     }
 
     public function testSelectAllAdmin()
@@ -141,8 +145,8 @@ class DataBaseTest extends TestCase
         $controllerUser->removeModuleUserReferent($module);
 
         $this->assertTrue(sizeof($controllerUser->getUser()->getModule()) == 1);
-        $this->assertTrue(sizeof($controllerUser->getUser()->getModuleReferent()) == 0);
-        $this->assertTrue(sizeof($controllerUser->getUser()->getAbsence()) == 0);
+        $this->assertEquals(0, sizeof($controllerUser->getUser()->getModuleReferent()));
+        $this->assertEquals(0, sizeof($controllerUser->getUser()->getAbsence()));
 
         $this->assertTrue(!in_array(new Module('1', 'test pas vraiment fonctionnelle'), $controllerUser->getUser()->getModule()));
         $this->assertTrue(in_array(new Module('2', 'etude de trucs'), $controllerUser->getUser()->getModule()));
@@ -186,7 +190,7 @@ class DataBaseTest extends TestCase
 
     public function testInsertUser()
     {
-        $user = new User(9, 'Az12@4567', 'Pat', 'ateee', 'mon@mail.com', '2020-09-01', 'ENSEIGNANT');
+        $user = new User(9, 'Az12@4567', 'Pat', 'ateee', 'mon@mail.com', '2020-09-01', 'ENSEIGNANT', 0);
         $controllerUser = new ControllerUserDataBase($user);
         $controllerUser->commit();
 

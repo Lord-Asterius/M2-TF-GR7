@@ -90,7 +90,7 @@ class ControllerDataBase
         self::$DeleteAbsence = null;
         self::$removeUserModule = null;
         self::$removeUserReferentModule = null;
-        self::$modifyUser=null;
+        self::$modifyUser = null;
     }
 
 
@@ -98,7 +98,7 @@ class ControllerDataBase
     {
         if (self::$insertUser == null) {
             self::setPrepareToNull();
-            self::$insertUser = self::$dataBaseConnector->prepare("INSERT INTO user(id, password, first_name, last_name, mail, role, date_naissance) VALUES (:id, :password, :first_name, :last_name, :mail, :role, :date_naissance)");
+            self::$insertUser = self::$dataBaseConnector->prepare("INSERT INTO user(id, password, first_name, last_name, mail, role, date_naissance, student_number) VALUES (:id, :password, :first_name, :last_name, :mail, :role, :date_naissance, :student_number)");
             return self::$insertUser;
         }
         return true;
@@ -178,7 +178,13 @@ class ControllerDataBase
     {
         if (self::$selectAllTeacher == null) {
             self::setPrepareToNull();
-            return self::$selectAllTeacher = self::$dataBaseConnector->prepare("SELECT * FROM user LEFT JOIN user_module ON user.key = user_module.user_key LEFT JOIN module ON user_module.module_key = module.key LEFT JOIN absence ON user.key = absence.etudiant_key WHERE user.role = 'ENSEIGNANT' ");
+            return self::$selectAllTeacher = self::$dataBaseConnector->prepare("SELECT *
+FROM user
+         LEFT JOIN user_module ON user.key = user_module.user_key
+         LEFT JOIN module ON user_module.module_key = module.key
+         LEFT JOIN enseigant_referent ON user.key = enseigant_referent.module_key
+         LEFT JOIN module as module_ref ON enseigant_referent.module_key = module_ref.key
+WHERE user.role = 'ENSEIGNANT' ");
         }
         return true;
     }
@@ -289,11 +295,11 @@ class ControllerDataBase
         return true;
     }
 
-    
+
     public static function prepareSelectSpecificStudentAbsence($student_id)
     {
 
-        if(self::$dataBaseConnector === NULL) {
+        if (self::$dataBaseConnector === NULL) {
             self::connectToDatabase();
         }
 
@@ -331,6 +337,7 @@ class ControllerDataBase
         }
         return true;
     }
+
     public static function prepareDeleteAbsence()
     {
         if (self::$DeleteAbsence == null) {
@@ -354,10 +361,11 @@ class ControllerDataBase
         return self::$dataBaseConnector;
     }
 
-    public static function getSelectSpecificStudentAbsence() {
+    public static function getSelectSpecificStudentAbsence()
+    {
         return self::$selectSpecificStudentAbsence;
     }
-    
+
     public static function getInsertModule()
     {
         return self::$insertModule;
@@ -403,7 +411,6 @@ class ControllerDataBase
         return self::$DeleteUser;
     }
 
-    
 
     public static function getSelectSpecificUser()
     {
@@ -425,7 +432,8 @@ class ControllerDataBase
         return self::$selectAllAbsence;
     }
 
-    public static function getSelectSpecificAbsence() {
+    public static function getSelectSpecificAbsence()
+    {
         return self::$selectSpecificAbsence;
     }
 
@@ -450,7 +458,6 @@ class ControllerDataBase
     {
         return self::$modifyUser;
     }
-
 
 
     public static function getSelectSpecificUserModule()
@@ -491,9 +498,6 @@ class ControllerDataBase
     }
 
 
-
-
-
     /**
      * @return mixed
      */
@@ -511,7 +515,7 @@ class ControllerDataBase
         return self::$DeleteModule;
     }
 
-      /**
+    /**
      * @return mixed
      */
     public static function getDeleteAbsence()

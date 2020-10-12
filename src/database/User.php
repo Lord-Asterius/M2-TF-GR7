@@ -14,6 +14,7 @@ class User
     private $absence;
     private $date;
     private $role; //'ENSEIGNANT','EQUIPE_ADMINISTRATIVE','ADMINISTRATEUR','ETUDIANT',''
+    private $studentNumber;
 
     public function getRole()
     {
@@ -30,7 +31,7 @@ class User
         return $this->key;
     }
 
-    public function __construct($key, $password, $first_name, $last_name, $mail, $date, $role)
+    public function __construct($key, $password, $first_name, $last_name, $mail, $date, $role, $studentNumber)
     {
         $this->key = $key;
         $this->setPassword($password);
@@ -44,6 +45,23 @@ class User
         $this->absence = array();
         $this->date = $date;
         $this->role = $role;
+        $this->studentNumber = $studentNumber;
+    }
+
+    /**
+     * @return int
+     */
+    public function getStudentNumber(): int
+    {
+        return $this->studentNumber;
+    }
+
+    /**
+     * @param int $studentNumber
+     */
+    public function setStudentNumber(int $studentNumber): void
+    {
+        $this->studentNumber = $studentNumber;
     }
 
     /**

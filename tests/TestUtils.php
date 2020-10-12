@@ -16,15 +16,15 @@ class TestUtils
     //password : Az12@4567   ->    $2y$10$dvPYMpa4mXt3CRz8vifbY.yJsTQnpGJDHJ6J5gB.XdhF6F1z322t6
     public static function CreateDataTestSet()
     {
-        ControllerDataBase::exec('INSERT INTO `user` (`key`, `id`, `password`, `first_name`, `last_name`, `mail`, `role`, `date_naissance`) VALUES (\'1\', \'JTanrien\', \'$2y$10$dvPYMpa4mXt3CRz8vifbY.yJsTQnpGJDHJ6J5gB.XdhF6F1z322t6\', \'Jean\', \'Tanrien\', \'Jean.Tanrien@mail.com\', \'ENSEIGNANT\', \'2020-09-01\') ');
-        ControllerDataBase::exec('INSERT INTO `user` (`key`, `id`, `password`, `first_name`, `last_name`, `mail`, `role`, `date_naissance`) VALUES (\'2\', \'GMendufric\', \'$2y$10$dvPYMpa4mXt3CRz8vifbY.yJsTQnpGJDHJ6J5gB.XdhF6F1z322t6\', \'Gerard\', \'Mendufric\', \'Gerard.Mendufric@mail.com\', \'ENSEIGNANT\', \'2020-09-01\')');
+        ControllerDataBase::exec('INSERT INTO `user` (`key`, `id`, `password`, `first_name`, `last_name`, `mail`, `role`, `date_naissance`, student_number) VALUES (\'1\', \'JTanrien\', \'$2y$10$dvPYMpa4mXt3CRz8vifbY.yJsTQnpGJDHJ6J5gB.XdhF6F1z322t6\', \'Jean\', \'Tanrien\', \'Jean.Tanrien@mail.com\', \'ENSEIGNANT\', \'2020-09-01\', 0) ');
+        ControllerDataBase::exec('INSERT INTO `user` (`key`, `id`, `password`, `first_name`, `last_name`, `mail`, `role`, `date_naissance`, student_number) VALUES (\'2\', \'GMendufric\', \'$2y$10$dvPYMpa4mXt3CRz8vifbY.yJsTQnpGJDHJ6J5gB.XdhF6F1z322t6\', \'Gerard\', \'Mendufric\', \'Gerard.Mendufric@mail.com\', \'ENSEIGNANT\', \'2020-09-01\', 0)');
 
-        ControllerDataBase::exec('INSERT INTO `user` (`key`, `id`, `password`, `first_name`, `last_name`, `mail`, `role`, `date_naissance`) VALUES (\'3\', \'GHotine\', \'$2y$10$dvPYMpa4mXt3CRz8vifbY.yJsTQnpGJDHJ6J5gB.XdhF6F1z322t6\', \'Guy\', \'Hotine\', \'Guy.Hotine@mail.com\', \'ETUDIANT\', \'2020-09-01\')');
-        ControllerDataBase::exec('INSERT INTO `user` (`key`, `id`, `password`, `first_name`, `last_name`, `mail`, `role`, `date_naissance`) VALUES (\'4\', \'DDormi\', \'$2y$10$dvPYMpa4mXt3CRz8vifbY.yJsTQnpGJDHJ6J5gB.XdhF6F1z322t6\', \'Djamal\', \'Dormi\', \'Djamal.Dormi@mail.com\', \'ETUDIANT\', \'2020-09-01\')');
+        ControllerDataBase::exec('INSERT INTO `user` (`key`, `id`, `password`, `first_name`, `last_name`, `mail`, `role`, `date_naissance`, student_number) VALUES (\'3\', \'GHotine\', \'$2y$10$dvPYMpa4mXt3CRz8vifbY.yJsTQnpGJDHJ6J5gB.XdhF6F1z322t6\', \'Guy\', \'Hotine\', \'Guy.Hotine@mail.com\', \'ETUDIANT\', \'2020-09-01\', 123456789)');
+        ControllerDataBase::exec('INSERT INTO `user` (`key`, `id`, `password`, `first_name`, `last_name`, `mail`, `role`, `date_naissance`, student_number) VALUES (\'4\', \'DDormi\', \'$2y$10$dvPYMpa4mXt3CRz8vifbY.yJsTQnpGJDHJ6J5gB.XdhF6F1z322t6\', \'Djamal\', \'Dormi\', \'Djamal.Dormi@mail.com\', \'ETUDIANT\', \'2020-09-01\', 987654321)');
 
-        ControllerDataBase::exec('INSERT INTO `user` (`key`, `id`, `password`, `first_name`, `last_name`, `mail`, `role`, `date_naissance`) VALUES (\'5\', \'CCépacaré\', \'$2y$10$dvPYMpa4mXt3CRz8vifbY.yJsTQnpGJDHJ6J5gB.XdhF6F1z322t6\', \'Cicéron\', \'Cépacaré\', \'Cicéron.Cépacaré@mail.com\', \'EQUIPE_ADMINISTRATIVE\', \'2020-09-01\')');
+        ControllerDataBase::exec('INSERT INTO `user` (`key`, `id`, `password`, `first_name`, `last_name`, `mail`, `role`, `date_naissance`, student_number) VALUES (\'5\', \'CCépacaré\', \'$2y$10$dvPYMpa4mXt3CRz8vifbY.yJsTQnpGJDHJ6J5gB.XdhF6F1z322t6\', \'Cicéron\', \'Cépacaré\', \'Cicéron.Cépacaré@mail.com\', \'EQUIPE_ADMINISTRATIVE\', \'2020-09-01\', 0)');
 
-        ControllerDataBase::exec('INSERT INTO `user` (`key`, `id`, `password`, `first_name`, `last_name`, `mail`, `role`, `date_naissance`) VALUES (\'6\', \'AIstrateur\', \'$2y$10$dvPYMpa4mXt3CRz8vifbY.yJsTQnpGJDHJ6J5gB.XdhF6F1z322t6\', \'Admin\', \'Istrateur\', \'Admin.Istrateur@mail.com\', \'ADMINISTRATEUR\', \'2020-09-01\')');
+        ControllerDataBase::exec('INSERT INTO `user` (`key`, `id`, `password`, `first_name`, `last_name`, `mail`, `role`, `date_naissance`, student_number) VALUES (\'6\', \'AIstrateur\', \'$2y$10$dvPYMpa4mXt3CRz8vifbY.yJsTQnpGJDHJ6J5gB.XdhF6F1z322t6\', \'Admin\', \'Istrateur\', \'Admin.Istrateur@mail.com\', \'ADMINISTRATEUR\', \'2020-09-01\', 0)');
 
 
         ControllerDataBase::exec('INSERT INTO module (`key`, name) VALUES (\'1\', \'test pas vraiment fonctionnelle\')');

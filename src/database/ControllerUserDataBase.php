@@ -36,6 +36,9 @@ class ControllerUserDataBase
         ControllerDataBase::getInsertUser()->bindParam(':role', $role);
         $dateNaissance = $this->user->getDate();
         ControllerDataBase::getInsertUser()->bindParam(':date_naissance', $dateNaissance);
+        $studentNumber = $this->user->getStudentNumber();
+        ControllerDataBase::getInsertUser()->bindParam(':student_number', $studentNumber);
+
     }
 
     public function commit()
@@ -55,19 +58,19 @@ class ControllerUserDataBase
         if (ControllerDataBase::getSelectSpecificUser()->execute(array($id))) {
             $row = ControllerDataBase::getSelectSpecificUser()->fetch();
             if ($row) {
-                $user = new User($row['0'], $row['password'], $row['first_name'], $row['last_name'], $row['mail'], $row['date_naissance'], $row['role']);
+                $user = new User($row['0'], $row['password'], $row['first_name'], $row['last_name'], $row['mail'], $row['date_naissance'], $row['role'], $row['student_number']);
                 $user->forceSetPassword($row['password']);
                 do {
-                    if ($row['12']) {
-                        $moduleRefere = new Module($row['12'], $row['15']);
+                    if ($row['15']) {
+                        $moduleRefere = new Module($row['15'], $row['16']);
                         $user->addModuleReferent($moduleRefere);
                     }
-                    if ($row['9']) {
-                        $module = new Module($row['9'], $row['11']);
+                    if ($row['10']) {
+                        $module = new Module($row['10'], $row['12']);
                         $user->addModule($module);
                     }
-                    if ($row['16']) {
-                        $absence = new Absence($row['16'], $row['reason'], $row['comment'], $row['date_time']);
+                    if ($row['17']) {
+                        $absence = new Absence($row['17'], $row['reason'], $row['comment'], $row['date_time']);
                         $user->addAbsence($absence);
                     }
                 } while ($row = ControllerDataBase::getSelectSpecificUser()->fetch());
@@ -86,7 +89,7 @@ class ControllerUserDataBase
             $row = ControllerDataBase::getSelectAllUser()->fetch();
             $users = array();
             do {
-                $user = new User($row['0'], $row['password'], $row['first_name'], $row['last_name'], $row['mail'], $row['date_naissance'], $row['role']);
+                $user = new User($row['0'], $row['password'], $row['first_name'], $row['last_name'], $row['mail'], $row['date_naissance'], $row['role'], $row['student_number']);
                 $user->forceSetPassword($row['password']);
                 $users[] = $user;
             } while ($row = ControllerDataBase::getSelectAllUser()->fetch());
@@ -104,16 +107,16 @@ class ControllerUserDataBase
             $user = null;
             do {
                 if (!isset($users[$row['id']])) {
-                    $user = new User($row['0'], $row['password'], $row['first_name'], $row['last_name'], $row['mail'], $row['date_naissance'], $row['role']);
+                    $user = new User($row['0'], $row['password'], $row['first_name'], $row['last_name'], $row['mail'], $row['date_naissance'], $row['role'], $row['student_number']);
                     $user->forceSetPassword($row['password']);
                     $users[$user->getId()] = $user;
                 }
-                if ($row['9']) {
-                    $module = new Module($row['9'], $row['11']);
+                if ($row['10']) {
+                    $module = new Module($row['10'], $row['12']);
                     $users[$row['id']]->addModule($module);
                 }
-                if ($row['12']) {
-                    $absence = new Absence($row['12'], $row['reason'], $row['comment'], $row['date_time']);
+                if ($row['13']) {
+                    $absence = new Absence($row['13'], $row['reason'], $row['comment'], $row['date_time']);
                     $users[$row['id']]->addAbsence($absence);
                 }
             } while ($row = ControllerDataBase::getSelectAllStudent()->fetch());
@@ -131,17 +134,17 @@ class ControllerUserDataBase
             $teacher = null;
             do {
                 if (!isset($teachers[$row['id']])) {
-                    $teacher = new User($row['0'], $row['password'], $row['first_name'], $row['last_name'], $row['mail'], $row['date_naissance'], $row['role']);
+                    $teacher = new User($row['0'], $row['password'], $row['first_name'], $row['last_name'], $row['mail'], $row['date_naissance'], $row['role'], $row['student_number']);
                     $teacher->forceSetPassword($row['password']);
                     $teachers[$teacher->getId()] = $teacher;
                 }
-                if ($row['9']) {
-                    $module = new Module($row['9'], $row['11']);
-                    $teachers[$row['id']]->addModule($module);
+                if ($row['13']) {
+                    $moduleRefere = new Module($row['13'], $row['16']);
+                    $teacher->addModuleReferent($moduleRefere);
                 }
-                if ($row['12']) {
-                    $absence = new Absence($row['12'], $row['reason'], $row['comment'], $row['date_time']);
-                    $teachers[$row['id']]->addAbsence($absence);
+                if ($row['10']) {
+                    $module = new Module($row['10'], $row['12']);
+                    $teachers[$row['id']]->addModule($module);
                 }
             } while ($row = ControllerDataBase::getSelectAllTeacher()->fetch());
             return $teachers;
@@ -158,7 +161,7 @@ class ControllerUserDataBase
             $AdminStaff = null;
             do {
                 if (!isset($AdminStaffs[$row['id']])) {
-                    $AdminStaff = new User($row['0'], $row['password'], $row['first_name'], $row['last_name'], $row['mail'], $row['date_naissance'], $row['role']);
+                    $AdminStaff = new User($row['0'], $row['password'], $row['first_name'], $row['last_name'], $row['mail'], $row['date_naissance'], $row['role'], $row['student_number']);
                     $AdminStaff->forceSetPassword($row['password']);
                     $AdminStaffs[$AdminStaff->getId()] = $AdminStaff;
                 }
@@ -177,7 +180,7 @@ class ControllerUserDataBase
             $Admin = null;
             do {
                 if (!isset($Admins[$row['id']])) {
-                    $Admin = new User($row['0'], $row['password'], $row['first_name'], $row['last_name'], $row['mail'], $row['date_naissance'], $row['role']);
+                    $Admin = new User($row['0'], $row['password'], $row['first_name'], $row['last_name'], $row['mail'], $row['date_naissance'], $row['role'], $row['student_number']);
                     $Admin->forceSetPassword($row['password']);
                     $Admins[$Admin->getId()] = $Admin;
                 }
@@ -194,7 +197,7 @@ class ControllerUserDataBase
         if (ControllerDataBase::getSelectSpecificUserModule()->execute(array($id))) {
             $row = ControllerDataBase::getSelectSpecificUserModule()->fetch();
             if ($row) {
-                $user = new User($row['key'], $row['password'], $row['first_name'], $row['last_name'], $row['mail'], $row['date_naissance'], $row['role']);
+                $user = new User($row['key'], $row['password'], $row['first_name'], $row['last_name'], $row['mail'], $row['date_naissance'], $row['role'], $row['student_number']);
                 $user->forceSetPassword($row['password']);
                 return $user;
             }
@@ -208,7 +211,7 @@ class ControllerUserDataBase
         if (ControllerDataBase::getSelectSpecificReferentModule()->execute(array($id))) {
             $row = ControllerDataBase::getSelectSpecificReferentModule()->fetch();
             if ($row) {
-                $user = new User($row['key'], $row['password'], $row['first_name'], $row['last_name'], $row['mail'], $row['date_naissance'], $row['role']);
+                $user = new User($row['key'], $row['password'], $row['first_name'], $row['last_name'], $row['mail'], $row['date_naissance'], $row['role'], $row['student_number']);
                 $user->forceSetPassword($row['password']);
                 return $user;
             }
@@ -222,7 +225,7 @@ class ControllerUserDataBase
         $users = array();
         if (ControllerDataBase::getSelectAllStudentInModule()->execute(array($moduleName))) {
             while ($row = ControllerDataBase::getSelectAllStudentInModule()->fetch()) {
-                $user = new User($row['key'], $row['password'], $row['first_name'], $row['last_name'], $row['mail'], $row['date_naissance'], $row['role']);
+                $user = new User($row['key'], $row['password'], $row['first_name'], $row['last_name'], $row['mail'], $row['date_naissance'], $row['role'], $row['student_number']);
                 $user->forceSetPassword($row['password']);
                 $users[] = $user;
             }
