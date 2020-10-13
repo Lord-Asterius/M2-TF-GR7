@@ -67,14 +67,15 @@ CREATE TABLE `module` (
 --
 
 CREATE TABLE `user` (
-  `key` int(11) NOT NULL,
-  `id` varchar(1024) COLLATE utf8_bin NOT NULL,
-  `password` varchar(1024) COLLATE utf8_bin NOT NULL,
-  `first_name` varchar(1024) COLLATE utf8_bin NOT NULL,
-  `last_name` varchar(1024) COLLATE utf8_bin NOT NULL,
-  `mail` varchar(1024) COLLATE utf8_bin NOT NULL,
-  `role` enum('ENSEIGNANT','EQUIPE_ADMINISTRATIVE','ADMINISTRATEUR','ETUDIANT','') COLLATE utf8_bin NOT NULL,
-  `date_naissance` date NOT NULL
+                        `key` int(11) NOT NULL,
+                        `id` varchar(1024) COLLATE utf8_bin NOT NULL,
+                        `password` varchar(1024) COLLATE utf8_bin NOT NULL,
+                        `first_name` varchar(1024) COLLATE utf8_bin NOT NULL,
+                        `last_name` varchar(1024) COLLATE utf8_bin NOT NULL,
+                        `mail` varchar(1024) COLLATE utf8_bin NOT NULL,
+                        `role` enum('ENSEIGNANT','EQUIPE_ADMINISTRATIVE','ADMINISTRATEUR','ETUDIANT','') COLLATE utf8_bin NOT NULL,
+                        `date_naissance` date NOT NULL,
+                        `student_number` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- --------------------------------------------------------
