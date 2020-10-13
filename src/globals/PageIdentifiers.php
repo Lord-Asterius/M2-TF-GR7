@@ -38,4 +38,4 @@ define('MODIFY_ADMIN_ENSEIGNANT','modifyAdminEnseignant');
 
 
 //DataBase
-include_once(__DIR__ . '/Credientials.php');
+include_once(__DIR__ . '/Credentials.php');
