@@ -25,7 +25,7 @@ public class FeatureSearch
         m_driver = new HtmlUnitDriver();
         m_js = m_driver;
         m_vars = new HashMap<String, Object>();
-        m_driver.get("http://m2gl.deptinfo-st.univ-fcomte.fr/~m2test7/preprod/index.php");
+        Utils.connectToSite(m_driver);
         Utils.loginAdmin(m_driver);
 
         m_driver.findElement(By.linkText("Modules")).click();

@@ -29,8 +29,7 @@ public class FeatureLogin
         m_js = m_driver;
         m_vars = new HashMap<String, Object>();
 
-        m_driver.get("http://m2gl.deptinfo-st.univ-fcomte.fr/~m2test7/preprod/index.php");
-
+        Utils.connectToSite(m_driver);
     }
 
     @When("^L'utilisateur se connecte avec une paire identifiant/mdp valide$")
@@ -43,7 +42,7 @@ public class FeatureLogin
         m_driver.findElement(By.name("submit")).click();
         m_driver.findElement(By.cssSelector("html")).click();
 
-       }
+    }
 
     @Then("^L'utilisateur est connecté$")
     public void theUserIsConnect()

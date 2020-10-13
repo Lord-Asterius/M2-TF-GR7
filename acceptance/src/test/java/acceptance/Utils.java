@@ -3,8 +3,24 @@ package acceptance;
 import org.openqa.selenium.By;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 
-public class Utils {
-    public static void loginAdmin(HtmlUnitDriver driver){
+public class Utils
+{
+    private static boolean m_isLocalTestEnabled = false;
+
+    public static void connectToSite(HtmlUnitDriver driver)
+    {
+        if (m_isLocalTestEnabled)
+        {
+            driver.get("http://localhost:63343/TF/index.php");
+        }
+        else
+        {
+            driver.get("http://m2gl.deptinfo-st.univ-fcomte.fr/~m2test7/preprod/index.php");
+        }
+    }
+
+    public static void loginAdmin(HtmlUnitDriver driver)
+    {
         driver.findElement(By.id("login")).click();
         driver.findElement(By.id("username")).sendKeys("AIstrateur");
         driver.findElement(By.id("password")).click();
