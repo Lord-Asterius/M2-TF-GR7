@@ -34,6 +34,7 @@ class DataBaseTest extends TestCase
     public static function tearDownAfterClass(): void
     {
         TestUtils::cleanTables();
+        TestUtils::CreateDataTestSet();
         ControllerDataBase::disconnectFromDataBase();
     }
 
