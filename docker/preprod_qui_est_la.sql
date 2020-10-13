@@ -20,9 +20,6 @@ SET time_zone = "+00:00";
 --
 -- Base de données : `qui_est_la`
 --
-DROP DATABASE IF EXISTS `preprod_qui_est_la`;
-CREATE DATABASE IF NOT EXISTS `preprod_qui_est_la` DEFAULT CHARACTER SET utf8 COLLATE utf8_bin;
-USE `preprod_qui_est_la`;
 
 -- --------------------------------------------------------
 
@@ -176,5 +173,3 @@ COMMIT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-
-quit
