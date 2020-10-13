@@ -43,12 +43,7 @@ class ControllerDataBase
     public static function connectToDatabase()
     {
         try {
-            if (IS_RELEASE) {
-                self::$dataBaseConnector = new PDO('mysql:host=' . SERVER_RELEASE . ';dbname=' . DB . 'qui_est_la', USER_RELEASE, PASS_RELEASE);
-            } else {
                 self::$dataBaseConnector = new PDO('mysql:host=' . SERVER . ';dbname=' . DB, USER, PASS);
-            }
-
         } catch (PDOException $e) {
             if (IS_RELEASE) {
                 self::errorExit('<h4>Error when connecting to the database</h4>');

@@ -37,18 +37,5 @@ define('ADD_ADMIN_ENSEIGNANT',"addAdminEnseignant");
 define('MODIFY_ADMIN_ENSEIGNANT','modifyAdminEnseignant');
 
 
-
-
-
-//Release
-define('IS_RELEASE', false);
-
 //DataBase
-define('SERVER', '127.0.0.1');
-define('SERVER_RELEASE', 'm2gl.deptinfo-st.univ-fcomte.fr/phpmyadmin');
-define('DB', 'qui_est_la');
-define('USER', 'root');
-define('USER_RELEASE', 'm2test7');
-define('PASS', 'password');
-define('PASS_RELEASE', 'm2test7');
-define('PORT', '8080');
+include_once(__DIR__ . '/Credientials.php');
