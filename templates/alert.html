@@ -19,6 +19,7 @@
     <table class="table table-bordered table-striped">
         <thead>
         <tr>
+            <th>Numéro étudiant</th>
             <th>Nom</th>
             <th>Nombre d'absences injustifiées</th>
             <th>Mail d'alerte</th>
@@ -27,6 +28,9 @@
         <tbody id="alertTable">
         <?php foreach($context["alert"] as $alert): ?>
         <tr>
+            <td>
+                <?= $alert[5] ?>
+            </td>
             <td>
                 <a href="index.php?page=<?= PAGE_ID_ABSENSE_DETAIL ?>&studentId=<?= $alert[0] ?>"><?= $alert[1] ?> <?= $alert[2] ?></a>
             </td>

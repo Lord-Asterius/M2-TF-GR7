@@ -116,7 +116,7 @@ class ControllerModule
         {
             $user = ControllerUserDataBase::lookForSpecificUser($user->getId());
             $enrolledUsersInformation[] = new ControllerModuleEnrolledInformation($user->getFirstName() . " " . $user->getLastName(),
-                                                                                  $user->getKey(), count($user->getAbsence()));
+                                                                                  $user->getId(), count($user->getAbsence()));
         }
 
         $this->m_viewModule->setEnrolledUsers($enrolledUsersInformation);
