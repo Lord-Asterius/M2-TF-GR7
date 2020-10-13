@@ -20,11 +20,11 @@ class ControllerAbsenceDetails
         $this->m_viewAbsence = new ViewAbsenceDetails();
         $this->m_viewAbsenceEdit = new  ViewAbsenceEdit();
         $this->m_viewAbsenceAdd = new  ViewAbsenceAdd();
-        
+
     }
 
     public function handleRequest($getParameters)
-    {  
+    {
         $action = isset($getParameters["action"]) ? $getParameters["action"] : '';
         $absenceKey = isset($getParameters["absenceKey"]) ? $getParameters["absenceKey"] : '';
 
@@ -36,7 +36,7 @@ class ControllerAbsenceDetails
         }
 
         $studentId = $getParameters['studentId'];
-        $students = ControllerAbsenceDataBase::lookForSpecificUser($studentId); 
+        $students = ControllerAbsenceDataBase::lookForSpecificUser($studentId);
         $this->m_viewAbsence->setAttendanceData($students);
         $this->m_viewAbsence->render();
     }
@@ -70,24 +70,24 @@ class ControllerAbsenceDetails
 
         $record = ControllerAbsenceDataBase::getAbsenceDetailsByKey($absenceKey);
 
-     
+
         $this->m_viewAbsenceEdit->setAbsenceData($record);
         $this->m_viewAbsenceEdit->render();
     }
 
     public function add_absence($getParameters, $postParameters){
-       
+
         $action = isset($getParameters["action"]) ? $getParameters["action"] : '';
         $studentKey = isset($postParameters["studentKey"]) ? $postParameters["studentKey"] : '';
         $date = isset($postParameters["date"]) ? $postParameters["date"] : '';
         $comment = isset($postParameters["comment"]) ? $postParameters["comment"] : '';
         $reason = isset($postParameters["reason"]) ? $postParameters["reason"] : '';
-       
+
         switch($action) {
             case 'add':
                 $res = ControllerAbsenceDataBase::insertAbsence($studentKey, $comment, $reason, $date);
             break;
-               
+
         }
         $this->m_viewAbsenceAdd->render();
     }

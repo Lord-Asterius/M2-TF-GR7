@@ -272,7 +272,7 @@ WHERE user.role = 'ENSEIGNANT' ");
     {
         if (self::$selectAllAbsence == null) {
             self::setPrepareToNull();
-            return self::$selectAllAbsence = self::$dataBaseConnector->prepare("SELECT absence.key as absenceKey, etudiant_key as studentId,  absence.date_time, user.first_name, user.last_name, module.name as module FROM absence LEFT JOIN user ON user.key = absence.etudiant_key LEFT JOIN user_module on user.key = user_module.user_key left JOIN module on module.key = user_module.module_key");
+            return self::$selectAllAbsence = self::$dataBaseConnector->prepare("SELECT absence.key as absenceKey, user.id as studentId,  absence.date_time, user.first_name, user.last_name, module.name as module FROM absence LEFT JOIN user ON user.key = absence.etudiant_key LEFT JOIN user_module on user.key = user_module.user_key left JOIN module on module.key = user_module.module_key");
         }
         return true;
     }
@@ -291,16 +291,15 @@ WHERE user.role = 'ENSEIGNANT' ");
     }
 
 
-    public static function prepareSelectSpecificStudentAbsence($student_id)
+    public static function prepareSelectSpecificStudentAbsence()
     {
 
         if (self::$dataBaseConnector === NULL) {
             self::connectToDatabase();
         }
-
         if (self::$selectSpecificStudentAbsence == null) {
             self::setPrepareToNull();
-            return self::$selectSpecificStudentAbsence = self::$dataBaseConnector->prepare("select user.first_name, absence.key  as absenceKey, user.last_name, user.mail, module.name, absence.reason, absence.comment, absence.date_time as date from user, module, user_module, absence where user.key = user_module.user_key and module.key = user_module.module_key and absence.etudiant_key = user.key and user.key = $student_id");
+            return self::$selectSpecificStudentAbsence = self::$dataBaseConnector->prepare("select user.first_name, absence.key  as absenceKey, user.last_name, user.mail, module.name, absence.reason, absence.comment, absence.date_time as date from user, module, user_module, absence where user.key = user_module.user_key and module.key = user_module.module_key and absence.etudiant_key = user.key and user.id = ?");
         }
         return true;
     }

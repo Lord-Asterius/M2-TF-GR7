@@ -52,46 +52,48 @@ class ControllerAbsenceDataBase
     {
         ControllerDataBase::prepareSelectAllAbsence();
         if (ControllerDataBase::getSelectAllAbsence()->execute()) {
-           
+
             $row = ControllerDataBase::getSelectAllAbsence()->fetch();
             if ($row) {
 
-              
+
                 $response = [];
-                
+
                 do {
                     $data['firstName'] = $row['first_name'];
-                    $data['lastName'] = $row['last_name'];    
+                    $data['lastName'] = $row['last_name'];
                     $data['moduleName'] = $row['module'];
                     $data['date'] = $row['date_time'];
                     $data["absenceKey"] = $row['absenceKey'];
                     $data["studentId"] = $row['studentId'];
 
                     $response[] = $data;
-                    
+
                 } while ($row = ControllerDataBase::getSelectAllAbsence()->fetch());
-                
+
                 return $response;
             }
         }
-      
+
         return [];
     }
 
 
     public static function lookForSpecificUser($id)
     {
-        
-        ControllerDataBase::prepareSelectSpecificStudentAbsence($id);
-        if (ControllerDataBase::getSelectSpecificStudentAbsence()->execute()) {
-           
+
+        ControllerDataBase::prepareSelectSpecificStudentAbsence();
+        if (ControllerDataBase::getSelectSpecificStudentAbsence()->execute(array($id))) {
+
             $row = ControllerDataBase::getSelectSpecificStudentAbsence()->fetch();
+
             if ($row) {
 
-              
+
                 $response = [];
-                
+
                 do {
+                    $data['studentKey'] = $row['student_number'];
                     $data['firstName'] = $row['first_name'];
                     $data['lastName'] = $row['last_name'];
                     $data['mail'] = $row['mail'];
@@ -104,17 +106,17 @@ class ControllerAbsenceDataBase
 
                     $response[] = $data;
 
-                    
+
                 } while ($row = ControllerDataBase::getSelectSpecificStudentAbsence()->fetch());
-                
+
                 return $response;
             }
         }
-      
+
         return [];
     }
 
-    
+
     public function getAbsence()
     {
         return $this->absence;
@@ -161,7 +163,7 @@ class ControllerAbsenceDataBase
         ControllerDataBase::getSelectSpecificAbsence()->bindParam(':key', $key);
 
         if (ControllerDataBase::getSelectSpecificAbsence()->execute()) {
-            
+
             while ($row = ControllerDataBase::getSelectSpecificAbsence()->fetch()) {
 
                 $result["absenceKey"] = $row["absenceKey"];
@@ -175,10 +177,10 @@ class ControllerAbsenceDataBase
 
             return $result;
         }
-        
+
         return false;
     }
 
-   
+
 
 }
