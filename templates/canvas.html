@@ -21,6 +21,9 @@
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <a class="navbar-brand" href="index.php"> <?= $this->m_siteTitle ?> </a>
             <?php if(isset($_SESSION['user'])): ?>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
                 <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                     <div class="navbar-nav">
                         <a class="nav-item nav-link <?= $this->getActiveStatusForPage(PAGE_ID_ADMINISTRATION) ?>" href="index.php?page=<?= PAGE_ID_ADMINISTRATION ?>">Administration</a>
@@ -31,10 +34,8 @@
                         <?php if($_SESSION['role'] == 'EQUIPE_ADMINISTRATIVE'): ?>
                             <a class="nav-item nav-link <?= $this->getActiveStatusForPage(PAGE_ID_ALERT) ?>" href="index.php?page=<?= PAGE_ID_ALERT ?>">Alertes</a>
                         <?php endif; ?>
+                        <a class="nav-item nav-link text-danger" href="index.php?page=<?= PAGE_ID_DISCONNECTION ?>">Déconnexion</a>
                     </div>
-                </div>
-                <div class="nav justify-content-end">
-                    <a class="nav-item nav-link" href="index.php?page=<?= PAGE_ID_DISCONNECTION ?>">Déconnexion</a>
                 </div>
             <?php endif; ?>
 

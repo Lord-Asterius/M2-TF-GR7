@@ -1,8 +1,6 @@
 <?php
 
 use PHPUnit\Framework\TestCase;
-use function PHPUnit\assertEquals;
-use function PHPUnit\assertTrue;
 
 include_once(__DIR__ . '/../src/database/ControllerDataBase.php');
 include_once(__DIR__ . '/../src/database/User.php');
@@ -25,6 +23,7 @@ class UserTest extends testCase
     public static function tearDownAfterClass(): void
     {
         TestUtils::cleanTables();
+        TestUtils::CreateDataTestSet();
         ControllerDataBase::disconnectFromDataBase();
     }
 
