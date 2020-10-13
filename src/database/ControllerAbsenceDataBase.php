@@ -133,12 +133,9 @@ class ControllerAbsenceDataBase
 
         ControllerDataBase::prepareInsertAbsence();
         $insertAbsence = ControllerDataBase::getInsertAbsence();
-        $insertAbsence->bindParam(':reason', $reason);
-        $insertAbsence->bindParam(':etudiant_key', $studentKey);
-        $insertAbsence->bindParam(':comment', $comment);
-        $insertAbsence->bindParam(':date_time', $dateTime);
 
-        $res = ControllerDataBase::getInsertAbsence()->execute(array($reason, $studentKey, $comment, $date));
+
+        $res = ControllerDataBase::getInsertAbsence()->execute(array($reason, $studentKey, $comment, $dateTime));
 
     }
 
