@@ -18,7 +18,7 @@ class ControllerModuleList
         ControllerDataBase::connectToDatabase();
 
         $moduleNames = [];
-        $modules = ControllerModuleDataBase::lookForAllModule();
+        $modules = ($_SESSION['role'] == "ADMINISTRATEUR") ? ControllerModuleDataBase::lookForAllModule() : $_SESSION['user']->getModule();
 
         foreach ($modules as $module)
         {
