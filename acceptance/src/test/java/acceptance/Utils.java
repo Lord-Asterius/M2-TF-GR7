@@ -11,7 +11,7 @@ public class Utils
     {
         if (m_isLocalTestEnabled)
         {
-            driver.get("http://localhost:63343/TF/index.php");
+            driver.get("http://localhost:63342/TF/index.php");
         }
         else
         {
