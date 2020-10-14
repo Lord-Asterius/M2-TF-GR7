@@ -51,6 +51,26 @@ class ControllerModule
             Utils::redirectTo(PAGE_ID_MODULE_LIST, []);
         }
 
+        if ($_SESSION['role'] != "ADMINISTRATEUR")
+        {
+            $isInModule = false;
+
+            foreach ($_SESSION['user']->getModule() as $module)
+            {
+                if ($module->getName() == $this->m_moduleName)
+                {
+                    $isInModule = true;
+                    break;
+                }
+            }
+
+            if ($isInModule === false)
+            {
+                // User not authorized to access this module
+                Utils::redirectTo(PAGE_ID_MODULE_LIST, []);
+            }
+        }
+
         if (isset($getParameters["action"]) && $getParameters["action"] === "addAbsence")
         {
             $this->handleActionAddAbsence($getParameters);
