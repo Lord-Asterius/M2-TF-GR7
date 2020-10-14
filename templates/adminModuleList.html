@@ -7,7 +7,7 @@
     <br>
     <ul class="list-group" id="moduleList">
         <?php foreach($context["modulesNames"] as $moduleName): ?>
-        <li class="list-group-item"><?= $moduleName ?>
+        <li class="list-group-item" ><a href="index.php?page=<?= PAGE_ID_ADMIN_MODULE_SUBSCRIBE_MENU ?>&module=<?= $moduleName ?>"><?= $moduleName ?></a>
         
             <div class="float-right">
                 <a class="navbar-brand" href="index.php?page=<?= DELETE_ADMIN_MODULE ?>&module=<?= $moduleName ?>"  >

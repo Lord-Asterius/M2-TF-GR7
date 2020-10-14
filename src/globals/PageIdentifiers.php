@@ -22,6 +22,12 @@ define("PAGE_ID_ETUDIANT_EDIT", "etudiantEdit");
 define("PAGE_ID_ENSEIGNANT_EDIT", "enseignantEdit");
 define("PAGE_ID_ENSEIGNANT_LIST", "enseignantList");
 
+
+
+
+define('PAGE_ID_ADMIN_MODULE_SUBSCRIBE_MENU','pageAdminModuleSubscribeMenu');
+define('PAGE_ID_ADMIN_MODULE_INSCRIPTION_ENSEIGNANTS','pageAdminModuleInscriptionEnseignants');
+define('PAGE_ID_ADMIN_MODULE_INSCRIPTION_ETUDIANTS','pageAdminModuleInscriptionEtudiants');
 define("PAGE_ID_ADMINISTRATION", "administration");
 define("PAGE_ID_MODULE_EDIT", "moduleEdit");
 define("PAGE_ID_ADMIN_MODULE_LIST", "adminModuleList");
@@ -35,6 +41,9 @@ define('MODIFY_ADMIN_ETUDIANT',"modifyAdminEtudiant");
 define('DELETE_ADMIN_ENSEIGNANT',"deleteAdminEnseignant");
 define('ADD_ADMIN_ENSEIGNANT',"addAdminEnseignant");
 define('MODIFY_ADMIN_ENSEIGNANT','modifyAdminEnseignant');
+define('MODIFY_ADMIN_MODULE_INSCRIPTION_ENSEIGNANTS','modifiyAdminModuleInscriptionEnseignants');
+define('MODIFY_ADMIN_MODULE_INSCRIPTION_ETUDIANTS','modifiyAdminModuleInscriptionEtudiants');
+
 
 
 //DataBase
