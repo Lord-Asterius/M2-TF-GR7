@@ -138,6 +138,9 @@ else if($requestedPage === DELETE_ABSENCE_STUDENT) {
     $controller->deleteAbsence($sanitizedGet); 
 
 }
+
+
+
 else if($requestedPage === PAGE_ID_ABSENCE_ADD) {
     $controller = new ControllerAbsenceList();
     $controller->add_absence($sanitizedGet, $sanitizedPost);
@@ -154,6 +157,33 @@ else if ($requestedPage === PAGE_ID_ADMINISTRATION)
     $controller = new ControllerAdministration();
     $controller->handleRequest($sanitizedGet);
 }
+else if ($requestedPage === PAGE_ID_ADMIN_MODULE_INSCRIPTION_ENSEIGNANTS)
+{
+    $controller = new ControllerAdminModuleList();
+    $controller->editModuleInscriptionEnseignants($sanitizedGet);
+}
+else if ($requestedPage === PAGE_ID_ADMIN_MODULE_INSCRIPTION_ETUDIANTS)
+{
+    $controller = new ControllerAdminModuleList();
+    $controller->editModuleInscriptionEtudiants($sanitizedGet);
+}
+else if($requestedPage === PAGE_ID_ADMIN_MODULE_SUBSCRIBE_MENU) {
+    $controller = new ControllerAdminModuleList();
+    $controller->adminModuleSubscribe($sanitizedGet);
+}
+
+else if ($requestedPage === MODIFY_ADMIN_MODULE_INSCRIPTION_ETUDIANTS)
+{
+    $controller = new ControllerAdminModuleList();
+    $controller->setModuleInscriptionsEtudiants($sanitizedGet);
+}
+
+else if ($requestedPage === MODIFY_ADMIN_MODULE_INSCRIPTION_ENSEIGNANTS)
+{
+    $controller = new ControllerAdminModuleList();
+    $controller->setModuleInscriptionsEnseignants($sanitizedGet);
+}
+
 else if ($requestedPage === PAGE_ID_ADMIN_MODULE_LIST)
 {
     $controller = new ControllerAdminModuleList();

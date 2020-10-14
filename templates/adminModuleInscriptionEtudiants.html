@@ -1,0 +1,49 @@
+<h1> Admin module</h1>
+
+
+<div class="container" style="padding-top: 3em">
+    <form method="post" action= "index.php?page=<?= MODIFY_ADMIN_MODULE_INSCRIPTION_ETUDIANTS?>&module=<?= $_GET['module'] ?>">
+    <input class="form-control" id="listSearch" type="text" placeholder="Rechercher un etudiant">
+    <br>
+    <div class="form-group" >
+        <ul class="list-group list-group-flush" id="teacherList">
+            <p class="font-weight-bold">Selection des etudiants référents au module "<?php echo $_GET["module"];?>" :</p>
+        <?php foreach($context["etudiants"] as $key => $etudiant): ?>
+              <li class="list-group-item">
+                <!-- Default checked -->
+                <div class="custom-control custom-checkbox">
+
+                  <input type="checkbox" name="<?php echo $key ?>"  class="custom-control-input"  id="<?php echo $key ?>" <?php echo ($etudiant['module']==1 ? 'checked' : '');?>>
+                    <label class="custom-control-label"  for="<?php echo $key?>"><?= $etudiant['name'] ?></label>
+
+                </div>
+              </li>
+
+
+              <!-- <li class="list-group-item"> <a href="index.php?page=<?= PAGE_ID_ENSEIGNANT_EDIT ?>&key=<?= $key ?>"> <?= $etudiant ?> </a>
+
+                <div class="float-right">
+                <a class="navbar-brand" href="index.php?page=<?= DELETE_ADMIN_ENSEIGNANT ?>&key=<?= $key ?>"  >
+                    <img src="images/bootstrap-icons/trash.svg"  alt="" width="32" height="32" title="Bootstrap">
+                </a>
+                </div>
+        </li> -->
+        <?php endforeach; ?>
+    </ul>
+</div>
+
+    <button type="submit" class="btn btn-primary">envoyer</button>
+    </form>
+</div>
+
+
+<script>
+    $(document).ready(function () {
+        $("#listSearch").on("keyup", function () {
+            var value = $(this).val().toLowerCase();
+            $("#teacherList li").filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+    });
+</script>
