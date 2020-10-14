@@ -22,8 +22,8 @@ public class FeatureEditUser
     private String m_firstName;
     private String m_lastName;
 
-    @Given("^The administrator is connected$")
-    public void theAdministratorIsConnected()
+    @Given("^The administrator is connected on a student modification page$")
+    public void theAdministratorIsConnectedOnAStudentModificationPage()
     {
         m_driver = new HtmlUnitDriver();
         m_js = m_driver;
@@ -31,20 +31,23 @@ public class FeatureEditUser
 
         Utils.connectToSite(m_driver);
         Utils.loginAdmin(m_driver);
-    }
 
-    @And("^The administrator is on a student modification page$")
-    public void theAdministratorIsOnAStudentModificationPage()
-    {
         m_driver.findElement(By.linkText("Etudiants")).click();
         m_driver.findElement(By.cssSelector(".list-group-item:nth-child(1) > a")).click();
         m_firstName = m_driver.findElement(By.name("first_name")).getAttribute("value");
         m_lastName = m_driver.findElement(By.name("last_name")).getAttribute("value");
     }
 
-    @And("^The administrator is on a teacher modification page$")
-    public void theAdministratorIsOnATeacherModificationPage()
+    @Given("^The administrator is connected on a teacher modification page$")
+    public void theAdministratorIsConnectedOnATeacherModificationPage()
     {
+        m_driver = new HtmlUnitDriver();
+        m_js = m_driver;
+        m_vars = new HashMap<String, Object>();
+
+        Utils.connectToSite(m_driver);
+        Utils.loginAdmin(m_driver);
+
         m_driver.findElement(By.linkText("Enseignants")).click();
         m_driver.findElement(By.cssSelector(".list-group-item:nth-child(1) > a")).click();
         m_firstName = m_driver.findElement(By.name("first_name")).getAttribute("value");
