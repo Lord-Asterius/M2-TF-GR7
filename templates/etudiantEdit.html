@@ -19,51 +19,45 @@
 
 <div class="container" style="padding-top: 3em">
     <h1><?php if ($_GET['add'] == 'true') echo 'Ajouter'; else echo 'Modifier';?> un étudiant</h1>
-    <form method="post" action= "index.php?page=<?php if($_GET['add'] == 'true'){echo(MODIFY_ADMIN_ETUDIANT.'&add=true&key=');}else { echo (MODIFY_ADMIN_ETUDIANT.'&add=fale&key='.$_GET['key']) ;}  ?>">
+    <form method="post"
+          action="index.php?page=<?php if($_GET['add'] == 'true'){echo(MODIFY_ADMIN_ETUDIANT.'&add=true');}else { echo (MODIFY_ADMIN_ETUDIANT.'&add=false&key='.$_GET['key']) ;}  ?>">
         <div class="row">
             <div class="col">
-                <label  for="exampleInputEmail1" >Prénom</label>
-                <input  name="first_name" type="text" class="form-control" placeholder="Prénom" value="<?php if($context) {echo $context['etudiant']['first_name']; }?>" required>
+                <label for="exampleInputEmail1">Prénom</label>
+                <input name="first_name" type="text" class="form-control" placeholder="Prénom"
+                       value="<?php if($context) {echo $context['etudiant']['first_name']; }?>" required>
             </div>
             <div class="col">
-                <label  for="exampleInputEmail1" >Nom</label>
-                <input name="last_name" type="text" class="form-control" placeholder="Nom" value="<?php if($context) {echo $context['etudiant']['last_name']; }?>" required>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col">
-                <label  for="exampleInputEmail1" >Numéro d'étudiant</label>
-                <input name="student_number" type="text" class="form-control" placeholder="Numéro d'étudiant" value="<?php if($context) {echo $context['etudiant']['student_number']; }?>" required>
+                <label for="exampleInputEmail1">Nom</label>
+                <input name="last_name" type="text" class="form-control" placeholder="Nom"
+                       value="<?php if($context) {echo $context['etudiant']['last_name']; }?>" required>
             </div>
         </div>
         <div class="form-group">
-            <label  for="exampleInputEmail1" >Date de naissance</label>
+            <label for="exampleInputEmail1">Date de naissance</label>
 
-        <input name="date" id="datepicker" width="276"  value="<?php if($context) {echo $context['etudiant']['date']; }?>" required/>
+            <input name="date" id="datepicker" width="276"
+                   value="<?php if($context) {echo $context['etudiant']['date']; }?>" required/>
 
-            </div>
+        </div>
 
         <div class="form-group">
-          <label for="exampleInputEmail1">Adresse email</label>
-          <input name="mail" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Adresse email"
-          value="<?php if($context) {echo $context['etudiant']['mail']; }?>" required >
+            <label for="exampleInputEmail1">Adresse email</label>
+            <input name="mail" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                   placeholder="Adresse email"
+                   value="<?php if($context) {echo $context['etudiant']['mail']; }?>" required>
         </div>
-<!--        <div class="form-group">-->
-<!--          <label for="exampleInputPassword1">Mot de passe</label>-->
-<!--          <input name ="password" type="password" class="form-control" id="exampleInputPassword1" placeholder="Mot de passe" required>-->
-<!--        </div>-->
-        <!-- faire changement de mot de passe  -->
         <button type="submit" class="btn btn-primary">envoyer</button>
-      </form>
+    </form>
 
 </div>
 <script>
-       
-  $('#datepicker').datepicker({
-      uiLibrary: 'bootstrap4',
-  });
 
-  $(document).ready(function () {
-      $('.toast').toast('show');
-  })
+    $('#datepicker').datepicker({
+        uiLibrary: 'bootstrap4',
+    });
+
+    $(document).ready(function () {
+        $('.toast').toast('show');
+    })
 </script>

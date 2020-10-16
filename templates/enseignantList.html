@@ -1,11 +1,30 @@
+<!--<?php if($context["toastSuccess"] === true || $context["toastError"] === true): ?>-->
+<!--<div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-autohide="true" data-delay="15000"-->
+<!--     style="position: absolute; top: 1em; right: 1em; background-color: white; z-index: 1">-->
+<!--    <div class="toast-header">-->
+<!--        <?php if($context["toastSuccess"] === true): ?>-->
+<!--        <strong class="mr-auto text-success">Succès</strong>-->
+<!--        <?php elseif($context["toastError"] === true): ?>-->
+<!--        <strong class="mr-auto text-danger">Erreur</strong>-->
+<!--        <?php endif; ?>-->
+<!--        <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">-->
+<!--            <span aria-hidden="true">&times;</span>-->
+<!--        </button>-->
+<!--    </div>-->
+<!--    <div class="toast-body">-->
+<!--        <?= $context["toastMessage"] ?>-->
+<!--    </div>-->
+<!--</div>-->
+<!--<?php endif; ?>-->
+
 
 <div class="container" style="padding-top: 3em">
-    <a href="index.php?page=<?= PAGE_ID_ENSEIGNANT_EDIT ?>"> <input type="image" src="images/bootstrap-icons/plus.svg" alt="" class="float-right" width="32" height="32" title="Ajouter un enseignant"></a>
+    <a href="index.php?page=<?= PAGE_ID_ENSEIGNANT_EDIT ?>&add=true"> <input type="image" src="images/bootstrap-icons/plus.svg" alt="" class="float-right" width="32" height="32" title="Ajouter un enseignant"></a>
     <input class="form-control" id="listSearch" type="text" placeholder="Rechercher un enseignant">
     <br>
     <ul class="list-group" id="teacherList">
         <?php foreach($context["enseignants"] as $key => $enseignant): ?>
-            <li class="list-group-item"> <a href="index.php?page=<?= PAGE_ID_ENSEIGNANT_EDIT ?>&key=<?= $key ?>"> <?= $enseignant ?> </a>
+            <li class="list-group-item"> <a href="index.php?page=<?= PAGE_ID_ENSEIGNANT_EDIT ?>&add=false&key=<?= $key ?>"> <?= $enseignant ?> </a>
 
                     <div class="float-right">
                     <a class="navbar-brand" href="index.php?page=<?= DELETE_ADMIN_ENSEIGNANT ?>&key=<?= $key ?>"  >
@@ -26,5 +45,8 @@
                 $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
             });
         });
+        $(document).ready(function () {
+            $('.toast').toast('show');
+        })
     });
 </script>

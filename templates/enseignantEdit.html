@@ -1,51 +1,67 @@
-<!-- 
-  créé 
-Une fois connecté, un administateur doit pouvoir ajouter un enseignant depuis sa page d'administration. 
-Pour cela, il renseigne le nom, le prénom et la date de naissance de l'enseignant.
+<?php if($context["toastSuccess"] === true || $context["toastError"] === true): ?>
+<div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-autohide="true" data-delay="15000"
+     style="position: absolute; top: 1em; right: 1em; background-color: white; z-index: 1">
+    <div class="toast-header">
+        <?php if($context["toastSuccess"] === true): ?>
+        <strong class="mr-auto text-success">Succès</strong>
+        <?php elseif($context["toastError"] === true): ?>
+        <strong class="mr-auto text-danger">Erreur</strong>
+        <?php endif; ?>
+        <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="toast-body">
+        <?= $context["toastMessage"] ?>
+    </div>
+</div>
+<?php endif; ?>
 
-modifié 
-Une fois connecté, un administrateur doit pouvoir modifier les informations d'un enseignant depuis sa page d'administration.
-
-supprimer
-Une fois connecté, un administrateur doit pouvoir supprimer un enseignant depuis sa page d'administration. -->
 
 <div class="container" style="padding-top: 3em">
-  <h1>Ajouter un enseignant</h1>
-  <!-- <?php print_r($context) ?> -->
-  <!-- <?php echo $_GET["key"] ; ?> -->
-  <form method="post" action= "index.php?page=<?php if($context){echo(MODIFY_ADMIN_ENSEIGNANT.'&key='.$_GET['key']);}else { echo ADD_ADMIN_ENSEIGNANT ;}  ?>" required>
-      <div class="row">
-          <div class="col">
-            <input  name="first_name" type="text" class="form-control" placeholder="Prénom" value="<?php if($context) {echo $context['enseignant']['first_name']; }?>" required>
-          </div>
-          <div class="col">
-            <input name="last_name" type="text" class="form-control" placeholder="Nom" value="<?php if($context) {echo $context['enseignant']['last_name']; }?>" required>
-          </div>
-      </div>
-      <div class="form-group">
-          <label  for="exampleInputEmail1" >Date de naissance</label>
-                  
-      <input name="date" id="datepicker" width="276"  value="<?php if($context) {echo $context['enseignant']['date']; }?>" required/>
-    
-          </div>
+    <h1><?php if ($_GET['add'] == 'true') echo 'Ajouter'; else echo 'Modifier';?> un enseignant</h1>
 
-      <div class="form-group">
-        <label for="exampleInputEmail1">Adresse email</label>
-        <input name="mail" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Adresse email"
-        value="<?php if($context) {echo $context['enseignant']['mail']; }?>" required >
-      </div>
-      <div class="form-group">
-        <label for="exampleInputPassword1">Mot de passe</label>
-        <input name ="password" type="password" class="form-control" id="exampleInputPassword1" placeholder="Mot de passe" required>
-      </div>
-      <!-- faire changement de mot de passe  -->
-      <button type="submit" class="btn btn-primary">envoyer</button>
+    <form method="post" action= "index.php?page=<?php if($_GET['add'] == 'true'){echo(MODIFY_ADMIN_ENSEIGNANT.'&add=true');}else { echo (MODIFY_ADMIN_ENSEIGNANT.'&add=false&key='.$_GET['key']) ;}  ?>">
+        <div class="row">
+            <div class="col">
+                <input name="first_name" type="text" class="form-control" placeholder="Prénom"
+                       value="<?php if($context) {echo $context['enseignant']['first_name']; }?>" required>
+            </div>
+            <div class="col">
+                <input name="last_name" type="text" class="form-control" placeholder="Nom"
+                       value="<?php if($context) {echo $context['enseignant']['last_name']; }?>" required>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="exampleInputEmail1">Date de naissance</label>
+
+            <input name="date" id="datepicker" width="276"
+                   value="<?php if($context) {echo $context['enseignant']['date']; }?>" required/>
+
+        </div>
+
+        <div class="form-group">
+            <label for="exampleInputEmail1">Adresse email</label>
+            <input name="mail" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                   placeholder="Adresse email"
+                   value="<?php if($context) {echo $context['enseignant']['mail']; }?>" required>
+        </div>
+        <div class="form-group">
+            <label for="exampleInputPassword1">Mot de passe</label>
+            <input name="password" type="password" class="form-control" id="exampleInputPassword1"
+                   placeholder="Mot de passe" required>
+        </div>
+        <button type="submit" class="btn btn-primary">envoyer</button>
     </form>
 
 </div>
 <script>
-     
-$('#datepicker').datepicker({
-    uiLibrary: 'bootstrap4',
-});
+
+    $('#datepicker').datepicker({
+        uiLibrary: 'bootstrap4',
+    });
+
+    $(document).ready(function () {
+        $('.toast').toast('show');
+    })
 </script>

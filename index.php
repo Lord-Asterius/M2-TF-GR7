@@ -138,9 +138,6 @@ else if($requestedPage === DELETE_ABSENCE_STUDENT) {
     $controller->deleteAbsence($sanitizedGet); 
 
 }
-
-
-
 else if($requestedPage === PAGE_ID_ABSENCE_ADD) {
     $controller = new ControllerAbsenceList();
     $controller->add_absence($sanitizedGet, $sanitizedPost);
@@ -233,5 +230,9 @@ else if ($requestedPage === MODIFY_ADMIN_ETUDIANT)
 else if ($requestedPage === MODIFY_ADMIN_ENSEIGNANT)
 {
     $controller = new ControllerEnseignantList();
-    $controller->modifyAdminEnseignant($sanitizedGet);
+    if ($sanitizedGet['add'] != 'true') {
+        $controller->modifyAdminEnseignant($sanitizedGet);
+    } else {
+        $controller->addEnseignant($sanitizedGet);
+    }
 }
