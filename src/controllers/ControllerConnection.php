@@ -26,7 +26,7 @@ class ControllerConnection
             if ($_SESSION['user'] = ControllerUserDataBase::lookForSpecificUser($username)) {
                 if ($_SESSION['user']->isSamePassword($password)) {
                     $_SESSION['role'] = $_SESSION['user']->getRole();
-                    switch ($_SESSION['user']->getRole()) {
+                    switch ($_SESSION['role']) {
                         case 'ENSEIGNANT':
                             Utils::redirectTo(PAGE_ID_MODULE_LIST, []);
                             break;
