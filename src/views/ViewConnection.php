@@ -16,6 +16,7 @@ class ViewConnection
 
     public function setErrorLogIn()
     {
+        $_SESSION['user'] = null;
         $this->c_context["ErrorLogIn"] = true;
     }
 
