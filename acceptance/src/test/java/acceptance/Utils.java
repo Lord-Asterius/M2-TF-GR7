@@ -11,7 +11,7 @@ public class Utils
     {
         if (m_isLocalTestEnabled)
         {
-            driver.get("http://localhost:63343/TF/index.php");
+            driver.get("http://localhost:63342/TF/index.php");
         }
         else
         {
@@ -23,6 +23,26 @@ public class Utils
     {
         driver.findElement(By.id("login")).click();
         driver.findElement(By.id("username")).sendKeys("AIstrateur");
+        driver.findElement(By.id("password")).click();
+        driver.findElement(By.id("password")).sendKeys("Az12@4567");
+        driver.findElement(By.name("submit")).click();
+        driver.findElement(By.cssSelector("html")).click();
+    }
+
+    public static void loginAdministrativeStaff(HtmlUnitDriver driver)
+    {
+        driver.findElement(By.id("login")).click();
+        driver.findElement(By.id("username")).sendKeys("CCépacaré");
+        driver.findElement(By.id("password")).click();
+        driver.findElement(By.id("password")).sendKeys("Az12@4567");
+        driver.findElement(By.name("submit")).click();
+        driver.findElement(By.cssSelector("html")).click();
+    }
+
+    public static void loginTeacher(HtmlUnitDriver driver)
+    {
+        driver.findElement(By.id("login")).click();
+        driver.findElement(By.id("username")).sendKeys("GMendufric");
         driver.findElement(By.id("password")).click();
         driver.findElement(By.id("password")).sendKeys("Az12@4567");
         driver.findElement(By.name("submit")).click();
