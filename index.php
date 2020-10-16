@@ -224,7 +224,11 @@ else if ($requestedPage === ADD_ADMIN_ENSEIGNANT)
 else if ($requestedPage === MODIFY_ADMIN_ETUDIANT)
 {
     $controller = new ControllerEtudiantList();
-    $controller->modifyAdminEtudiant($sanitizedGet);
+    if ($sanitizedGet['add'] != 'true'){
+        $controller->modifyAdminEtudiant($sanitizedGet);
+    } else {
+        $controller->addEtudiant($sanitizedGet);
+    }
 }
 else if ($requestedPage === MODIFY_ADMIN_ENSEIGNANT)
 {

@@ -2,8 +2,6 @@
 
 include_once(dirname(__FILE__) . "/../views/ViewEtudiantList.php");
 
-//todo renommé classe en ControlleAdminEtudiant tout silmple  et suppression controllerEtudiantEdit
-
 class ControllerEtudiantList
 {
     private $m_viewEtudiantList;
@@ -36,7 +34,6 @@ class ControllerEtudiantList
 
     public function editEtudiant($getParameters)
     {
-        // if modifiy Student 
         if (isset($getParameters["key"])) {
             $user = ControllerUserDataBase::lookForSpecificUser($getParameters["key"]);
             if ($user->getFirstName() && $user->getLastName() && $user->getDate() && $user->getMail()) {
@@ -56,7 +53,7 @@ class ControllerEtudiantList
         $this->m_viewEtudiantEdit->render($getParameters);
     }
 
-    public function checkUserValidField($id)
+    public function checkUserValidField()
     {
         $errorToDisplay = "";
 
@@ -72,20 +69,33 @@ class ControllerEtudiantList
             $errorToDisplay = $errorToDisplay . "Le numéro d'étudiant ne doit contenir que des chiffres\n";
         }
 
-        if ($errorToDisplay != "") {
-            Utils::redirectTo(PAGE_ID_ETUDIANT_EDIT, ["key" => $id, "error" => $errorToDisplay]);
+        return $errorToDisplay;
+    }
+
+    public function redirectModif($error, $id) {
+        if ($error != "") {
+            Utils::redirectTo(PAGE_ID_ETUDIANT_EDIT, ["add" => false,"key" => $id, "error" => $error]);
+        }
+    }
+
+    public function redirectAdd($error) {
+        if ($error != "") {
+            Utils::redirectTo(PAGE_ID_ETUDIANT_EDIT, ["add" => true,"error" => $error]);
         }
     }
 
     public function modifyAdminEtudiant($getParameters)
     {
-        $this->checkUserValidField($getParameters["key"]);
+        $errors = $this->checkUserValidField();
+        echo $errors;
+        $this->redirectModif($errors, $getParameters["key"]);
         if ($getParameters["key"]) {
             $user = ControllerUserDataBase::lookForSpecificUser($getParameters["key"]);
             $controllerUser = new ControllerUserDataBase($user);
             $user->setLastName($_POST['last_name']);
             $user->setFirstName($_POST['first_name']);
             $user->setStudentNumber($_POST['student_number']);
+            $user->setId();
             $user->setPassword('Az12@4567');
             $date = new datetime($_POST['date']);
             $date = $date->format("Y-m-d");
@@ -94,10 +104,14 @@ class ControllerEtudiantList
             $controllerUser->modifyUser();
         }
         $this->handleRequest($getParameters);
+
     }
 
     public function addEtudiant($getParameters)
     {
+        $errors = $this->checkUserValidField();
+        $this->redirectAdd($errors);
+
         $date = new datetime($_POST['date']);
         $date = $date->format("Y-m-d");
         $user = new User(4, 'Az12@4567', $_POST['first_name'], $_POST['last_name'], $_POST['mail'], $date, 'ETUDIANT', $_POST['student_number']);

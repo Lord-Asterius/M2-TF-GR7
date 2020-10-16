@@ -18,10 +18,8 @@
 <?php endif; ?>
 
 <div class="container" style="padding-top: 3em">
-    <h1><?php if ($_GET['modif']) echo 'Modifier'; else echo 'Ajouter';?> un étudiant</h1>
-<!--     <?php print_r($context) ?>-->
-    <!-- <?php echo $_GET["key"] ; ?> -->
-    <form method="post" action= "index.php?page=<?php if($context){echo(MODIFY_ADMIN_ETUDIANT.'&key='.$_GET['key']);}else { echo ADD_ADMIN_ETUDIANT ;}  ?>" required>
+    <h1><?php if ($_GET['add'] == 'true') echo 'Ajouter'; else echo 'Modifier';?> un étudiant</h1>
+    <form method="post" action= "index.php?page=<?php if($_GET['add'] == 'true'){echo(MODIFY_ADMIN_ETUDIANT.'&add=true&key=');}else { echo (MODIFY_ADMIN_ETUDIANT.'&add=fale&key='.$_GET['key']) ;}  ?>">
         <div class="row">
             <div class="col">
                 <label  for="exampleInputEmail1" >Prénom</label>
@@ -40,9 +38,9 @@
         </div>
         <div class="form-group">
             <label  for="exampleInputEmail1" >Date de naissance</label>
-                    
+
         <input name="date" id="datepicker" width="276"  value="<?php if($context) {echo $context['etudiant']['date']; }?>" required/>
-      
+
             </div>
 
         <div class="form-group">
