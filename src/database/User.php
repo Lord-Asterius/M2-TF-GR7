@@ -68,7 +68,8 @@ class User
      * Don't use that if you want to Insert inside the DB
      * @param $hashedPassword
      */
-    public function forceSetPassword($hashedPassword) {
+    public function forceSetPassword($hashedPassword)
+    {
         $this->password = $hashedPassword;
     }
 
@@ -113,7 +114,6 @@ class User
     }
 
 
-
     public function getFirstName()
     {
         return $this->firstName;
@@ -153,7 +153,7 @@ class User
         return $emailErr;
     }
 
-    public function setPassword(string $password): array
+    public static function isPasswordValid(string $password)
     {
         $errors = array();
 
@@ -161,7 +161,7 @@ class User
             $errors[] = "Password should be min 8 characters and max 16 characters";
         }
         if (!preg_match("/\d/", $password)) {
-            $errors[] = "Password should contain at least one digigett";
+            $errors[] = "Password should contain at least one digit";
         }
         if (!preg_match("/[A-Z]/", $password)) {
             $errors[] = "Password should contain at least one Capital Letter";
@@ -175,6 +175,14 @@ class User
         if (preg_match("/\s/", $password)) {
             $errors[] = "Password should not contain any white space";
         }
+
+        return $errors;
+    }
+
+    public function setPassword(string $password): array
+    {
+        $errors = self::isPasswordValid($password);
+
         if (count($errors) == 0) {
             $this->password = password_hash($password, PASSWORD_DEFAULT);
         }
@@ -184,26 +192,28 @@ class User
 
     public function addModule(Module $module)
     {
-        if (!in_array($module, $this->module)){
+        if (!in_array($module, $this->module)) {
             $this->module[$module->getKey()] = $module;
         }
     }
 
     public function addModuleReferent(Module $module)
     {
-        if (!in_array($module, $this->moduleReferent)){
+        if (!in_array($module, $this->moduleReferent)) {
             $this->moduleReferent[$module->getKey()] = $module;
         }
     }
 
-    public function removeModule(Module $module) {
-        if (in_array($module, $this->module)){
+    public function removeModule(Module $module)
+    {
+        if (in_array($module, $this->module)) {
             unset($this->module[$module->getKey()]);
         }
     }
 
-    public function removeModuleReferent(Module $module) {
-        if (in_array($module, $this->moduleReferent)){
+    public function removeModuleReferent(Module $module)
+    {
+        if (in_array($module, $this->moduleReferent)) {
             unset($this->moduleReferent[$module->getKey()]);
         }
     }
@@ -211,7 +221,7 @@ class User
 
     public function addAbsence(Absence $absence)
     {
-        if (!in_array($absence, $this->absence)){
+        if (!in_array($absence, $this->absence)) {
             $this->absence[] = $absence;
         }
     }
@@ -221,7 +231,7 @@ class User
         return $this->password;
     }
 
-    public function isSamePassword(string $password) :bool
+    public function isSamePassword(string $password): bool
     {
         return password_verify($password, $this->password);
     }

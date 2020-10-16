@@ -14,7 +14,7 @@ class ControllerEtudiantEdit
 
     public function handleRequest($getParameters)
     {
-                    // $this->m_viewEtudiantEdit->setEtudiantEdit(["Dupont Jean", "Emilie", "Alexandre"]);
-                    $this->m_viewEtudiantEdit->render();
-}
+        // $this->m_viewEtudiantEdit->setEtudiantEdit(["Dupont Jean", "Emilie", "Alexandre"]);
+        $this->m_viewEtudiantEdit->render($getParameters);
+    }
 }

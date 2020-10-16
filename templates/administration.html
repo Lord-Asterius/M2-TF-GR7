@@ -1,27 +1,31 @@
+
+
 <div class="container" style="padding-top: 3em">
-   <h1> Vous êtes sur la page administration</h1>
-<!-- faire menu deroulant pour être plus intuitif -->
+    <h1> Vous êtes sur la page administration</h1>
+    <!-- faire menu deroulant pour être plus intuitif -->
     <br>
     <ul class="list-group" id="moduleList">
         <!-- <li class="list-group-item"><a href="index.php?page=<?= PAGE_ID_MODULE ?>&module=<?= $moduleName ?>"> <?= $moduleName ?> </a></li>
         <li class="list-group-item"><a href="index.php?page=<?= PAGE_ID_MODULE ?>&module=<?= $moduleName ?>"> <?= $moduleName ?> </a></li> -->
-        <a class="nav-item nav-link <?= $this->getActiveStatusForPage(PAGE_ID_ADMIN_MODULE_LIST) ?>" href="index.php?page=<?= PAGE_ID_ADMIN_MODULE_LIST ?>">Gestion des modules</a>
+        <a class="nav-item nav-link <?= $this->getActiveStatusForPage(PAGE_ID_ADMIN_MODULE_LIST) ?>"
+           href="index.php?page=<?= PAGE_ID_ADMIN_MODULE_LIST ?>">Gestion des modules</a>
         <!-- <a class="nav-item nav-link <?= $this->getActiveStatusForPage(PAGE_ID_ABSENCE_LIST) ?>" href="index.php?page=<?= PAGE_ID_ABSENCE_LIST ?>">Absences</a> -->
-        <a class="nav-item nav-link <?= $this->getActiveStatusForPage(PAGE_ID_ETUDIANT_LIST) ?>" href="index.php?page=<?= PAGE_ID_ETUDIANT_LIST ?>">Etudiants</a>
-        <a class="nav-item nav-link <?= $this->getActiveStatusForPage(PAGE_ID_ENSEIGNANT_LIST) ?>" href="index.php?page=<?= PAGE_ID_ENSEIGNANT_LIST ?>">Enseignants</a>
+        <a class="nav-item nav-link <?= $this->getActiveStatusForPage(PAGE_ID_ETUDIANT_LIST) ?>"
+           href="index.php?page=<?= PAGE_ID_ETUDIANT_LIST ?>">Etudiants</a>
+        <a class="nav-item nav-link <?= $this->getActiveStatusForPage(PAGE_ID_ENSEIGNANT_LIST) ?>"
+           href="index.php?page=<?= PAGE_ID_ENSEIGNANT_LIST ?>">Enseignants</a>
 
     </ul>
 </div>
 
 
-
 <script>
     $(document).ready(function () {
-    $("#listSearch").on("keyup", function () {
-        var value = $(this).val().toLowerCase();
-        $("#moduleList li").filter(function () {
-            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        $("#listSearch").on("keyup", function () {
+            var value = $(this).val().toLowerCase();
+            $("#moduleList li").filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
         });
     });
-});
 </script>

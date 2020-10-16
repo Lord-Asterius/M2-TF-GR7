@@ -15,7 +15,7 @@ class ControllerAdministration
 
     public function handleRequest($getParameters)
     {
-        $this->m_viewAdministration->render();
+        $this->m_viewAdministration->render($getParameters);
 
     }
 

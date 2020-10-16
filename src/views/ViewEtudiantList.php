@@ -21,6 +21,7 @@ class ViewEtudiantList
 
     public function render()
     {
+
         $this->m_canvas->renderTemplate("etudiantList", $this->m_context);
     }
 }
