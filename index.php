@@ -29,7 +29,6 @@ foreach ($_GET as $key => $value)
     $sanitizedGet[$key] = filter_var($value, FILTER_SANITIZE_STRING);
 }
 
-
 $sanitizedPost = [];
 foreach ($_POST as $key => $value)
 {

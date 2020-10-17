@@ -27,6 +27,9 @@ class UserTest extends testCase
         ControllerDataBase::disconnectFromDataBase();
     }
 
+//    public function testcreateDataSet(){
+//    }
+
     public function testCreateUserId()
     {
         $this->assertTrue(self::$user->isSameId('Pateee'));
