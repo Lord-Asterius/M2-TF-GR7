@@ -107,6 +107,8 @@ else if($requestedPage === PAGE_ID_MODULE_EDIT) {
 else if($requestedPage === PAGE_ID_ENSEIGNANT_LIST) {
     $controller = new ControllerEnseignantList();
     $controller->handleRequest($sanitizedGet);
+
+
 }
 
 else if($requestedPage === PAGE_ID_ENSEIGNANT_EDIT) {
@@ -193,7 +195,13 @@ else if ($requestedPage === DELETE_ADMIN_MODULE)
 else if ($requestedPage === ADD_ADMIN_MODULE)
 {
     $controller = new ControllerAdminModuleList();
-    $controller->addAdminModule($sanitizedGet);
+//    $controller->addAdminModule($sanitizedGet);
+
+    if ($sanitizedGet['add'] != 'true') {
+//        $controller->modifyAdminModule($sanitizedGet);
+    } else {
+        $controller->addAdminModule($sanitizedGet);
+    }
 }
 
 

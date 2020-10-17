@@ -18,9 +18,17 @@ class ViewAdminModuleEdit
     {
         $this->m_context["module"] = $module;
     }
-
-    public function render()
+    public function setErrorToast($message)
     {
+        $this->m_context["toastError"] = true;
+        $this->m_context["toastMessage"] = $message;
+    }
+
+    public function render($getParameters)
+    {
+        if (isset($getParameters["error"])) {
+            $this->setErrorToast($getParameters["error"]);
+        }
         $this->m_canvas->renderTemplate("moduleEdit", $this->m_context);
     }
 }

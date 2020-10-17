@@ -1,6 +1,6 @@
 <div class="container" style="padding-top: 3em">
     <h1>Liste des modules</h1>
-    <a href="index.php?page=<?= PAGE_ID_MODULE_EDIT ?>"> <input type="image" src="images/bootstrap-icons/plus.svg" alt="" class="float-right" width="32" height="32" title="Ajouter un module"></a>
+    <a href="index.php?page=<?= PAGE_ID_MODULE_EDIT ?>&add=true"> <input type="image" src="images/bootstrap-icons/plus.svg" alt="" class="float-right" width="32" height="32" title="Ajouter un module"></a>
 
     <input class="form-control" id="listSearch" type="text" placeholder="Rechercher un module">
 
@@ -10,6 +10,10 @@
         <li class="list-group-item" ><a href="index.php?page=<?= PAGE_ID_ADMIN_MODULE_SUBSCRIBE_MENU ?>&module=<?= $moduleName ?>"><?= $moduleName ?></a>
         
             <div class="float-right">
+<!--                <a class="navbar-brand" href="index.php?page=<?= PAGE_ID_MODULE_EDIT ?>&module=<?= $moduleName ?>&add=false"  >-->
+<!--                    <img src="images/bootstrap-icons/clipboard.svg"  alt="" width="32" height="32" title="Bootstrap">-->
+<!--                </a>-->
+
                 <a class="navbar-brand" href="index.php?page=<?= DELETE_ADMIN_MODULE ?>&module=<?= $moduleName ?>"  >
                     <img src="images/bootstrap-icons/trash.svg"  alt="" width="32" height="32" title="Bootstrap">
                 </a>
