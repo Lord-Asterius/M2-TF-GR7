@@ -36,6 +36,12 @@ class ControllerModuleDataBase
         return false; //the module already exist
     }
 
+    public function modifyModule($newName){
+        ControllerDataBase::prepareModifyModule();
+        return ControllerDataBase::getModifyModule()->execute(
+            array($newName, $this->module->getName()));
+    }
+
     public static function lookForModule($name)
     {
         ControllerDataBase::prepareSelectSpecificModule();

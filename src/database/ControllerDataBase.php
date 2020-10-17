@@ -38,6 +38,7 @@ class ControllerDataBase
     private static $removeUserModule;
     private static $removeUserReferentModule;
     private static $modifyUser;
+    private static $modifyModule;
 
 
     public static function connectToDatabase()
@@ -86,6 +87,7 @@ class ControllerDataBase
         self::$removeUserModule = null;
         self::$removeUserReferentModule = null;
         self::$modifyUser = null;
+        self::$modifyModule = null;
     }
 
 
@@ -145,6 +147,15 @@ class ControllerDataBase
         if (self::$modifyUser == null) {
             self::setPrepareToNull();
             return self::$modifyUser = self::$dataBaseConnector->prepare("UPDATE user SET id = ?, password = ?, first_name = ?,  last_name = ?, mail = ?, role = ?, date_naissance = ? WHERE `key` = ?");
+        }
+        return true;
+    }
+
+    public static function prepareModifyModule()
+    {
+        if (self::$modifyModule == null) {
+            self::setPrepareToNull();
+            return self::$modifyModule = self::$dataBaseConnector->prepare("UPDATE module SET name = ? WHERE `name` = ?");
         }
         return true;
     }
@@ -516,6 +527,16 @@ WHERE user.role = 'ENSEIGNANT' ");
     {
         return self::$DeleteAbsence;
     }
+
+    /**
+     * @return mixed
+     */
+    public static function getModifyModule()
+    {
+        return self::$modifyModule;
+    }
+
+
 
 //____________________________________________________________________________
 

@@ -114,6 +114,15 @@ class DataBaseTest extends TestCase
         $this->assertArrayHasKey('CCépacaré', $adminStaff);
     }
 
+    public function testModifModule(){
+        $module = ControllerModuleDataBase::lookForModule('test pas vraiment fonctionnelle');
+        $controllerModule = new ControllerModuleDataBase($module);
+        $controllerModule->modifyModule("test fonctionnel");
+
+        $modulefetched = ControllerModuleDataBase::lookForModule('test fonctionnel');
+        $this->assertEquals("test fonctionnel", $modulefetched->getName());
+    }
+
     public function testRemoveModuleToUser()
     {
         $user = ControllerUserDataBase::lookForSpecificUser('GMendufric');

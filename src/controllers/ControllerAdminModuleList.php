@@ -102,6 +102,10 @@ class ControllerAdminModuleList
 //            Utils::redirectTo(PAGE_ID_ETUDIANT_EDIT, ["add" => true,"error" => $error]);
 //        }
 //    }
+    public function modifyAdminModule(array $sanitizedGet)
+    {
+    }
+
     public function addAdminModule($getParameters)
     {
         $errors = $this->checkFieldValidity();
@@ -127,7 +131,7 @@ class ControllerAdminModuleList
         $tab = array();
         // Parcourt tout les enseignant
         foreach ($enseignants as $enseignant) {
-            // Ajouter au tab de l'enseignant le module a true si il possede le module recuperé en get 
+            // Ajouter au tab de l'enseignant le module a true si il possede le module recuperé en get
             $modules = $enseignant->getModule();
             $resModule = 0;
             foreach ($modules as $key => $value) {
@@ -155,7 +159,7 @@ class ControllerAdminModuleList
         $tab = array();
         // Parcourt tout les etudiant
         foreach ($etudiants as $etudiant) {
-            // Ajouter au tab de l'etudiant le module a true si il possede le module recuperé en get 
+            // Ajouter au tab de l'etudiant le module a true si il possede le module recuperé en get
             $modules = $etudiant->getModule();
             $resModule = 0;
             foreach ($modules as $key => $value) {
@@ -188,7 +192,7 @@ class ControllerAdminModuleList
         //Filter enseignant from module in BDD
         $enseignantsBDD = array();
         foreach ($enseignants as $enseignant) {
-            // Ajouter au tab de l'enseignant le module a true si il possede le module recuperé en get 
+            // Ajouter au tab de l'enseignant le module a true si il possede le module recuperé en get
             $modules = $enseignant->getModule();
             foreach ($modules as $key => $value) {
                 if ($getParameters["module"] == $value->getName()) {
@@ -206,7 +210,7 @@ class ControllerAdminModuleList
             $controllerUser->addModuleUser($module);
         }
         $listToRemove = array_diff($enseignantsBDD, $enseignantsFromPost);
-        // remove module user 
+        // remove module user
         foreach ($listToRemove as $remove) {
             // echo $r;
             $user = ControllerUserDataBase::lookForSpecificUser($remove);
@@ -231,7 +235,7 @@ class ControllerAdminModuleList
         //Filter etudiant from module in BDD
         $etudiantsBDD = array();
         foreach ($etudiants as $etudiant) {
-            // Ajouter au tab de l'etudiant le module a true si il possede le module recuperé en get 
+            // Ajouter au tab de l'etudiant le module a true si il possede le module recuperé en get
             $modules = $etudiant->getModule();
             foreach ($modules as $key => $value) {
                 if ($getParameters["module"] == $value->getName()) {
@@ -249,7 +253,7 @@ class ControllerAdminModuleList
             $controllerUser->addModuleUser($module);
         }
         $listToRemove = array_diff($etudiantsBDD, $etudiantsFromPost);
-        // remove module user 
+        // remove module user
         foreach ($listToRemove as $remove) {
             // echo $r;
             $user = ControllerUserDataBase::lookForSpecificUser($remove);
