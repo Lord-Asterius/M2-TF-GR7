@@ -87,7 +87,6 @@ class ControllerEtudiantList
     public function modifyAdminEtudiant($getParameters)
     {
         $errors = $this->checkUserValidField();
-        echo $errors;
         $this->redirectModif($errors, $getParameters["key"]);
         if ($getParameters["key"]) {
             $user = ControllerUserDataBase::lookForSpecificUser($getParameters["key"]);

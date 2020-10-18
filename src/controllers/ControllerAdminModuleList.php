@@ -115,12 +115,8 @@ class ControllerAdminModuleList
         if ($errors != "") {
             $this->redirectModif($errors, $_POST['moduleName']);
         }
-        echo($_POST['currentName'].'\n');
-        echo($_POST['module'].'\n');
         $module = ControllerModuleDataBase::lookForModule($_POST['currentName']);
-        echo $module->getName();
         $controllerModule = new ControllerModuleDataBase($module);
-
         $controllerModule->modifyModule($_POST['moduleName']);
         $this->handleRequest($getParameters);
     }
