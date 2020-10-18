@@ -29,6 +29,7 @@ class TestUtils
 
         ControllerDataBase::exec('INSERT INTO module (`key`, name) VALUES (\'1\', \'test pas vraiment fonctionnelle\')');
         ControllerDataBase::exec('INSERT INTO module (`key`, name) VALUES (\'2\', \'etude de trucs\')');
+        ControllerDataBase::exec('INSERT INTO module (`key`, name) VALUES (\'3\', \'Suprime Moi\')');
 
         ControllerDataBase::exec('INSERT INTO absence(`key`, reason, etudiant_key, comment, date_time) VALUES (\'1\', \'\', \'3\', \'\', \'2020-10-15 13:31:47\')');
 
