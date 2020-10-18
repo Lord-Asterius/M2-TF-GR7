@@ -5,7 +5,7 @@ import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 
 public class Utils
 {
-    private static boolean m_isLocalTestEnabled = true;
+    private static boolean m_isLocalTestEnabled = false;
 
     public static void connectToSite(HtmlUnitDriver driver)
     {
