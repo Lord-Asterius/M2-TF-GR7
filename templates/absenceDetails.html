@@ -1,66 +1,50 @@
 <?php $student_id= $_GET['studentId']; ?>
 <?php $studentName = $context["attendanceData"][0]["firstName"].' '.$context["attendanceData"][0]["lastName"]  ?>
-<script>
-  var selected_user_id="<?php echo $student_id; ?>";
-</script>
-<script type="text/javascript" src="styles/jquery-2.2.1.min.js"></script>
-
-
+<!--<script>-->
+<!--    var selected_user_id = "<?php echo $student_id; ?>";-->
+<!--</script>-->
+<!--<script type="text/javascript" src="styles/jquery-2.2.1.min.js"></script>-->
 
 
 <div class="container" style="padding-top: 3em">
-  <h1>Absence de l'étudiant -- <?= $studentName ?> </h1>
+    <h1>Absence de l'étudiant -- <?= $studentName ?> </h1>
 
-      <table class="table table-bordered" id="table_data">
-      
+    <table class="table table-bordered" id="table_data">
+
         <thead>
-          <th>Nom</th>
-          <th>Prénom</th>
-          <th>Module</th>
-          <th>Raison</th>
-          <th>Commentaire</th>
-          <th>Jour d'absence</th>
-          <th>Action</th>
+        <th>Nom</th>
+        <th>Prénom</th>
+        <th>Module</th>
+        <th>Raison</th>
+        <th>Commentaire</th>
+        <th>Jour d'absence</th>
+        <th>Action</th>
         </thead>
 
         <?php foreach($context["attendanceData"] as $attendanceData): ?>
         <tr>
-          <td><?= $attendanceData["firstName"] ?></td>
-          <td><?= $attendanceData["lastName"] ?></td>
-          <td><?= $attendanceData["moduleName"] ?></td>
-          <td><?= $attendanceData["reason"] ?></td>
-          <td><?= $attendanceData["comment"] ?></td>
-          <td><?= $attendanceData["date"] ?></td>
-          <td> <a
-            class="float-right"
-            
-            href="index.php?page=<?= PAGE_ID_ABSENCE_EDIT ?>&absenceKey=<?= $attendanceData['id'] ?>"
-          >
-            <img
-              src="images/bootstrap-icons/pencil-square.svg"
-              alt=""
-              width="32"
-              height="32"
-              title="Modifier les absences"
-            />
-            <a
-            class="navbar-brand"
-            href="index.php?page=<?= PAGE_ID_ABSENSE_DETAIL ?>&absenceKey=<?= $attendanceData['id'] ?>
-            &action=delete&studentId=<?=$student_id?>"
-          >
-            <img
-              src="images/bootstrap-icons/trash.svg"
-              alt=""
-              width="32"
-              height="32"
-              title="Bootstrap"
-            />
-          </a>
+            <td><?= $attendanceData["firstName"] ?></td>
+            <td><?= $attendanceData["lastName"] ?></td>
+            <td><?= $attendanceData["moduleName"] ?></td>
+            <td><?= $attendanceData["reason"] ?></td>
+            <td><?= $attendanceData["comment"] ?></td>
+            <td><?= $attendanceData["date"] ?></td>
+
+            <td>
+                <a class="navbar-brand"
+                   href="index.php?page=<?= PAGE_ID_ABSENCE_EDIT ?>&absenceKey=<?= $attendanceData['id'] ?>">
+                    <img src="images/bootstrap-icons/pencil-square.svg" alt="" width="32" height="32"
+                         title="Modifier les absences"/>
+                </a>
+                <a class="navbar-brand"
+                   href="index.php?page=<?= PAGE_ID_ABSENSE_DETAIL ?>&absenceKey=<?= $attendanceData['id'] ?> &action=delete&studentId=<?=$student_id?>">
+                    <img src="images/bootstrap-icons/trash.svg" alt="" width="32" height="32" title="Bootstrap"/>
+                </a>
+            </td>
+
         </tr>
 
         <?php endforeach; ?>
-       
-      </table>
-    </div>
-  </div>
-  
+
+    </table>
+</div>

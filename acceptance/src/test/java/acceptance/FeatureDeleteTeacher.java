@@ -32,13 +32,13 @@ public class FeatureDeleteTeacher {
     }
 
     @When("^l'administrateur valide la suppression de l'enseignant$")
-    public void theAdministratorChangeTheModuleNameWith() throws Throwable {
+    public void theAdministratorChangeTheModuleNameWith() {
         m_driver.findElement(By.cssSelector(".list-group-item:nth-child(3) img")).click();
 
     }
 
     @Then("^l'enseignant est supprimé de la liste des enseignants$")
-    public void theNewModuleNameMustBe() throws Throwable {
+    public void theNewModuleNameMustBe() {
         List<WebElement> elements = m_driver.findElements(By.linkText("Supprime Moi"));
         assertEquals(0, elements.size());
     }
