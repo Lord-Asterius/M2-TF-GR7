@@ -52,7 +52,7 @@ public class FeatureAddTeacher {
 
     @Then("^le nouvel enseignant est ajouté avec succès à la liste des étudiants$")
     public void leNouvelEnseigantEstAjouteAvecSucces() {
-        assertThat(m_driver.findElement(By.cssSelector(".list-group-item:nth-child(3)")).getText(), is("Aurore Boréale"));
+        assertThat(m_driver.findElement(By.cssSelector(".list-group-item:nth-child(4)")).getText(), is("Aurore Boréale"));
     }
 
 
