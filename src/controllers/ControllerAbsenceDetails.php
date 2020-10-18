@@ -14,6 +14,7 @@ class ControllerAbsenceDetails
 {
     private $m_viewAbsence;
     private $m_viewAbsenceEdit;
+    private $studentId;
 
     public function __construct()
     {
@@ -29,7 +30,7 @@ class ControllerAbsenceDetails
         $absenceKey = isset($getParameters["absenceKey"]) ? $getParameters["absenceKey"] : '';
 
 
-        switch($action) {
+        switch ($action) {
             case 'delete':
                 $this->deleteAbsence($absenceKey);
                 break;
@@ -41,41 +42,43 @@ class ControllerAbsenceDetails
         $this->m_viewAbsence->render();
     }
 
-    public function deleteAbsence($studentId){
+    public function deleteAbsence($studentId)
+    {
         ControllerDataBase::connectToDatabase();
         ControllerAbsenceDataBase::deleteAbsence($studentId);
         // $this->handleRequest($getParameters);
     }
 
-    public function absenceEdit($getParameters,$postParameters){
+    public function absenceEdit($getParameters, $postParameters)
+    {
 
         $absenceKey = $_GET['absenceKey'];
 
-        if(isset($_GET["action"])) {
+        if (isset($_GET["action"])) {
             $action = $_GET["action"];
-
             $studentKey = isset($postParameters["studentKey"]) ? $postParameters["studentKey"] : '';
-            $date = isset($postParameters["date"]) ? $postParameters["date"] : '';
+            $date = isset($postParameters["date"]) ? $postParameters["date"] . ' ' . $postParameters['absenceTime'] : '';
             $comment = isset($postParameters["comment"]) ? $postParameters["comment"] : '';
             $reason = isset($postParameters["reason"]) ? $postParameters["reason"] : '';
             $absenceKey = isset($postParameters["absenceKey"]) ? $postParameters["absenceKey"] : '';
 
-
-            switch($action) {
+            switch ($action) {
                 case 'update':
                     ControllerAbsenceDataBase::updateAbsence($absenceKey, $comment, $reason, $date);
-                break;
+                    break;
             }
+            Utils::redirectTo(PAGE_ID_ABSENSE_DETAIL, ["studentId" => "GHotine"]);
         }
 
         $record = ControllerAbsenceDataBase::getAbsenceDetailsByKey($absenceKey);
 
-
         $this->m_viewAbsenceEdit->setAbsenceData($record);
         $this->m_viewAbsenceEdit->render();
+
     }
 
-    public function add_absence($getParameters, $postParameters){
+    public function add_absence($getParameters, $postParameters)
+    {
 
         $action = isset($getParameters["action"]) ? $getParameters["action"] : '';
         $studentKey = isset($postParameters["studentKey"]) ? $postParameters["studentKey"] : '';
@@ -83,15 +86,14 @@ class ControllerAbsenceDetails
         $comment = isset($postParameters["comment"]) ? $postParameters["comment"] : '';
         $reason = isset($postParameters["reason"]) ? $postParameters["reason"] : '';
 
-        switch($action) {
+        switch ($action) {
             case 'add':
                 $res = ControllerAbsenceDataBase::insertAbsence($studentKey, $comment, $reason, $date);
-            break;
+                break;
 
         }
         $this->m_viewAbsenceAdd->render();
     }
-
 
 
 }
