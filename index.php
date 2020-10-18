@@ -198,7 +198,7 @@ else if ($requestedPage === ADD_ADMIN_MODULE)
 //    $controller->addAdminModule($sanitizedGet);
 
     if ($sanitizedGet['add'] != 'true') {
-//        $controller->modifyAdminModule($sanitizedGet);
+        $controller->modifyAdminModule($sanitizedGet);
     } else {
         $controller->addAdminModule($sanitizedGet);
     }

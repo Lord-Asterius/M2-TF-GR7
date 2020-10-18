@@ -17,17 +17,17 @@
 </div>
 <?php endif; ?>
 
-
 <div class="container" style="padding-top: 3em">
     <h1><?php if ($_GET['add'] == 'true') echo 'Ajouter'; else echo 'Modifier';?> un module</h1>
-    <form method="post" action= "index.php?page=<?php if($_GET['add'] == 'true'){echo(ADD_ADMIN_MODULE.'&add=true');}else { echo (ADD_ADMIN_MODULE.'&add=false&key='.$_GET['key']) ;}  ?>">
+    <form method="post" action= "index.php?page=<?php if($_GET['add'] == 'true'){echo(ADD_ADMIN_MODULE.'&add=true');}else { echo (ADD_ADMIN_MODULE.'&add=false&name='.$_GET['module']) ;}  ?>">
         <div class="form-group" >
           <label for="moduleName">Nom du module</label>
           <input type="text" id="moduleName" name="moduleName" class="form-control" placeholder="Module">
         </div>
+        <label for="currentName"></label>
+        <input type="text" id="currentName" name="currentName" value="<?php echo ($_GET['module']); ?>" hidden>
         <button type="submit" class="btn btn-primary">envoyer</button>
       </form>
-
 </div>
 
 <script>

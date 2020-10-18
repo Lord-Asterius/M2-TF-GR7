@@ -72,6 +72,13 @@ class ControllerAdminModuleList
         }
     }
 
+    public function redirectModif($error, $name)
+    {
+        if ($error != "") {
+            Utils::redirectTo(PAGE_ID_MODULE_EDIT, ["add" => "false", "name" => $name, "error" => $error]);
+        }
+    }
+
 //    public function checkUserValidField()
 //    {
 //        $errorToDisplay = "";
@@ -102,8 +109,20 @@ class ControllerAdminModuleList
 //            Utils::redirectTo(PAGE_ID_ETUDIANT_EDIT, ["add" => true,"error" => $error]);
 //        }
 //    }
-    public function modifyAdminModule(array $sanitizedGet)
+    public function modifyAdminModule($getParameters)
     {
+        $errors = $this->checkFieldValidity();
+        if ($errors != "") {
+            $this->redirectModif($errors, $_POST['moduleName']);
+        }
+        echo($_POST['currentName'].'\n');
+        echo($_POST['module'].'\n');
+        $module = ControllerModuleDataBase::lookForModule($_POST['currentName']);
+        echo $module->getName();
+        $controllerModule = new ControllerModuleDataBase($module);
+
+        $controllerModule->modifyModule($_POST['moduleName']);
+        $this->handleRequest($getParameters);
     }
 
     public function addAdminModule($getParameters)
