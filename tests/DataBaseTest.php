@@ -69,14 +69,14 @@ class DataBaseTest extends TestCase
     {
         $users = ControllerUserDataBase::lookForAllUser();
 
-        $this->assertCount(6, $users);
+        $this->assertCount(8, $users);
     }
 
     public function testAllStudent()
     {
         $users = ControllerUserDataBase::lookForAllStudents();
 
-        $this->assertCount(2, $users);
+        $this->assertCount(3, $users);
 
         $this->assertArrayHasKey('GHotine', $users);
         $this->assertArrayHasKey('DDormi', $users);
@@ -87,7 +87,7 @@ class DataBaseTest extends TestCase
     {
         $teachers = ControllerUserDataBase::lookForAllTeacher();
 
-        $this->assertCount(2, $teachers);
+        $this->assertCount(3, $teachers);
 
         $this->assertArrayHasKey('JTanrien', $teachers);
         $this->assertArrayHasKey('GMendufric', $teachers);
@@ -277,7 +277,7 @@ class DataBaseTest extends TestCase
     public function testSelectAllModule()
     {
         $modules = ControllerModuleDataBase::lookForAllModule();
-        $this->assertEquals(2, sizeof($modules));
+        $this->assertEquals(3, sizeof($modules));
 
         $this->assertEquals('test pas vraiment fonctionnelle', $modules[1]->getName());
         $this->assertEquals('etude de trucs', $modules[2]->getName());
@@ -332,7 +332,7 @@ class DataBaseTest extends TestCase
     public function testLookForAllModule()
     {
         $modules = ControllerModuleDataBase::lookForAllModule();
-        $this->assertCount(2, $modules);
+        $this->assertCount(3, $modules);
 
     }
 }
