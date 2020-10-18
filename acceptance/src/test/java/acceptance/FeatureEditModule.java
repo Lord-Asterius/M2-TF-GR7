@@ -14,13 +14,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.*;
+
 public class FeatureEditModule
 {
     private HtmlUnitDriver m_driver;
     private Map<String, Object> m_vars;
     private JavascriptExecutor m_js;
-
-    private String m_oldModuleName;
+    String m_oldModuleName;
 
     @Given("^The administrator is connected on a module modification page$")
     public void theAdministratorIsConnectedOnAModuleModificationPage()
@@ -32,23 +34,23 @@ public class FeatureEditModule
         Utils.connectToSite(m_driver);
         Utils.loginAdmin(m_driver);
 
-        // TODO : Access to module modification page and store the selected module name
+        m_driver.findElement(By.linkText("Gestion des modules")).click();
+        m_driver.findElement(By.cssSelector(".list-group-item:nth-child(2) .navbar-brand:nth-child(1) > img")).click();
     }
 
     @When("^The administrator change the module name with \"([^\"]*)\"$")
-    public void theAdministratorChangeTheModuleNameWith(String name) throws Throwable
+    public void theAdministratorChangeTheModuleNameWith(String name) 
     {
-        // Write code here that turns the phrase above into concrete actions
-        throw new PendingException();
+        m_oldModuleName = name;
+        m_driver.findElement(By.id("moduleName")).click();
+        m_driver.findElement(By.id("moduleName")).sendKeys(name);
     }
 
     @Then("^The new module name must be \"([^\"]*)\"$")
-    public void theNewModuleNameMustBe(String name) throws Throwable
+    public void theNewModuleNameMustBe(String name) 
     {
-        {
-            List<WebElement> elements = m_driver.findElements(By.linkText(name));
-            assert(elements.size() > 0);
-        }
+        m_driver.findElement(By.cssSelector(".btn")).click();
+        assertThat(m_driver.findElement(By.linkText(name)).getText(), is(name));
     }
 
     @Then("^The module shouldn't has changed because empty module names aren't allowed$")
@@ -56,7 +58,7 @@ public class FeatureEditModule
     {
         {
             List<WebElement> elements = m_driver.findElements(By.linkText(m_oldModuleName));
-            assert(elements.size() > 0);
+            assertEquals(0, elements.size());
         }
     }
 }
