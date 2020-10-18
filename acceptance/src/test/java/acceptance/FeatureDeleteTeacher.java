@@ -39,7 +39,7 @@ public class FeatureDeleteTeacher {
 
     @Then("^l'enseignant est supprimé de la liste des enseignants$")
     public void theNewModuleNameMustBe() throws Throwable {
-        List<WebElement> elements = m_driver.findElements(By.linkText("Suprime Moi"));
+        List<WebElement> elements = m_driver.findElements(By.linkText("Supprime Moi"));
         assertEquals(0, elements.size());
     }
 }
