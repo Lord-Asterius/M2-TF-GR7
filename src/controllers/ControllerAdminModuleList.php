@@ -4,6 +4,7 @@ include_once(dirname(__FILE__) . "/../views/ViewAdminModuleList.php");
 include_once(dirname(__FILE__) . "/../views/ViewAdminModuleEdit.php");
 include_once(dirname(__FILE__) . "/../views/ViewAdminModuleInscriptionEnseignants.php");
 include_once(dirname(__FILE__) . "/../views/ViewAdminModuleInscriptionEtudiants.php");
+include_once(dirname(__FILE__) . "/../views/ViewAdminModuleInscriptionEnseignantsRef.php");
 include_once(dirname(__FILE__) . "/../views/ViewAdminModuleMenuSubscibe.php");
 include_once(dirname(__FILE__) . "/../database/ControllerDataBase.php");
 include_once(dirname(__FILE__) . "/../database/ControllerModuleDataBase.php");
@@ -17,6 +18,7 @@ class ControllerAdminModuleList
     private $m_viewAdminModuleList;
     private $m_ViewAdminModuleEdit;
     private $m_viewAdminModuleInscriptionEnseignants;
+    private $m_viewAdminModuleInscriptionEnseignantsRef;
     private $m_viewAdminModuleMenuSubscibe;
 
 
@@ -25,6 +27,7 @@ class ControllerAdminModuleList
         $this->m_viewAdminModuleList = new ViewAdminModuleList();
         $this->m_ViewAdminModuleEdit = new ViewAdminModuleEdit();
         $this->m_viewAdminModuleInscriptionEnseignants = new ViewAdminModuleInscriptionEnseignants();
+        $this->m_viewAdminModuleInscriptionEnseignantsRef = new ViewAdminModuleInscriptionEnseignantsRef();
         $this->m_viewAdminModuleInscriptionEtudiants = new ViewAdminModuleInscriptionEtudiants();
         $this->m_viewAdminModuleMenuSubscibe = new ViewAdminModuleMenuSubscibe();
 
@@ -140,6 +143,34 @@ class ControllerAdminModuleList
         $this->m_viewAdminModuleMenuSubscibe->render();
     }
 
+    
+    public function editModuleInscriptionEnseignantsRef($getParameters)
+    {
+        $enseignants = ControllerUserDataBase::lookForAllTeacher();
+        var_dump($enseignants);
+        $tab = array();
+        // Parcourt tout les enseignant
+
+        foreach ($enseignants as $enseignant) {
+            // Ajouter au tab de l'enseignant le module a true si il possede le module recuperé en get
+            $modulesRef = $enseignant->getModuleReferent();
+            // var_dump($modulesRef);
+            $resModuleRef = 0;
+            foreach ($modulesRef as $k => $v) {
+                // echo $v->getName();
+                // echo $enseignant->getFirstName();
+                if ($getParameters["module"] == $v->getName()) {
+                    $resModuleRef = 1;
+                }
+            }
+            $tab[$enseignant->getId()] = ["name" => $enseignant->getFirstName() . ' ' . $enseignant->getLastName(), "module_ref" => $resModuleRef];
+        }
+
+        $this->m_viewAdminModuleInscriptionEnseignantsRef->setEnseignantList($tab);
+
+        $this->m_viewAdminModuleInscriptionEnseignantsRef->render();
+    }
+
     public function editModuleInscriptionEnseignants($getParameters)
     {
         $enseignants = ControllerUserDataBase::lookForAllTeacher();
@@ -154,15 +185,9 @@ class ControllerAdminModuleList
                     $resModule = 1;
                 }
             }
-            $modulesRef = $enseignant->getModuleReferent();
-            $resModuleRef = 0;
-            foreach ($modulesRef as $k => $v) {
-                if ($getParameters["module"] == $v->getName()) {
-                    $resModuleRef = 1;
-                }
-            }
-            $tab[$enseignant->getId()] = ["name" => $enseignant->getFirstName() . ' ' . $enseignant->getLastName(), "module" => $resModule, "module_ref" => $resModuleRef];
+            $tab[$enseignant->getId()] = ["name" => $enseignant->getFirstName() . ' ' . $enseignant->getLastName(), "module" => $resModule];
         }
+
         $this->m_viewAdminModuleInscriptionEnseignants->setEnseignantList($tab);
 
         $this->m_viewAdminModuleInscriptionEnseignants->render();
@@ -196,8 +221,53 @@ class ControllerAdminModuleList
         $this->m_viewAdminModuleInscriptionEtudiants->render();
     }
 
+    public function setModuleInscriptionsEnseignantsRef($getParameters)
+    {
+        $enseignantsFromPost = array();
+        foreach ($_POST as $k => $v) {
+            $enseignantsFromPost[] = $k;
+        }
+
+        print_r($enseignantsFromPost);
+
+        $enseignants = ControllerUserDataBase::lookForAllTeacher();
+        //Filter enseignant from module in BDD
+        $enseignantsBDD = array();
+        foreach ($enseignants as $enseignant) {
+            // Ajouter au tab de l'enseignant le module a true si il possede le module recuperé en get
+            $modules = $enseignant->getModuleReferent();
+            foreach ($modules as $key => $value) {
+                if ($getParameters["module"] == $value->getName()) {
+                    $enseignantsBDD[] = $enseignant->getId();
+                }
+            }
+        }
+        // add referent module user
+        $listToAdd = array_diff($enseignantsFromPost, $enseignantsBDD);
+        foreach ($listToAdd as $add) {
+            $user = ControllerUserDataBase::lookForSpecificUser($add);
+            $controllerUser = new ControllerUserDataBase($user);
+            $module = ControllerModuleDataBase::lookForModule($getParameters["module"]);
+
+            $controllerUser->addModuleReferent($module);
+        }
+        $listToRemove = array_diff($enseignantsBDD, $enseignantsFromPost);
+        // remove module user
+        foreach ($listToRemove as $remove) {
+            // echo $r;
+            $user = ControllerUserDataBase::lookForSpecificUser($remove);
+            $controllerUser = new ControllerUserDataBase($user);
+            $module = ControllerModuleDataBase::lookForModule($getParameters["module"]);
+            $controllerUser->removeModuleUserReferent($module);
+        }
+
+        $this->m_viewAdminModuleMenuSubscibe->setModule($getParameters["module"]);
+        $this->m_viewAdminModuleMenuSubscibe->render();
+
+    }
     public function setModuleInscriptionsEnseignants($getParameters)
     {
+        print_r($getParameters);
         $enseignantsFromPost = array();
         foreach ($_POST as $k => $v) {
             $enseignantsFromPost[] = $k;

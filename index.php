@@ -160,6 +160,11 @@ else if ($requestedPage === PAGE_ID_ADMIN_MODULE_INSCRIPTION_ENSEIGNANTS)
     $controller = new ControllerAdminModuleList();
     $controller->editModuleInscriptionEnseignants($sanitizedGet);
 }
+else if ($requestedPage === PAGE_ID_ADMIN_MODULE_INSCRIPTION_ENSEIGNANTS_REFERENTS)
+{
+    $controller = new ControllerAdminModuleList();
+    $controller->editModuleInscriptionEnseignantsRef($sanitizedGet);
+}
 else if ($requestedPage === PAGE_ID_ADMIN_MODULE_INSCRIPTION_ETUDIANTS)
 {
     $controller = new ControllerAdminModuleList();
@@ -180,6 +185,12 @@ else if ($requestedPage === MODIFY_ADMIN_MODULE_INSCRIPTION_ENSEIGNANTS)
 {
     $controller = new ControllerAdminModuleList();
     $controller->setModuleInscriptionsEnseignants($sanitizedGet);
+}
+
+else if ($requestedPage === MODIFY_ADMIN_MODULE_INSCRIPTION_ENSEIGNANTS_REFERENTS)
+{
+    $controller = new ControllerAdminModuleList();
+    $controller->setModuleInscriptionsEnseignantsRef($sanitizedGet);
 }
 
 else if ($requestedPage === PAGE_ID_ADMIN_MODULE_LIST)
