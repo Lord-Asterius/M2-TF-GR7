@@ -40,7 +40,8 @@ class ControllerEnseignantList
     {
         $errorToDisplay = "";
 
-        if (count(User::isPasswordValid($_POST['password'])) != 0) {
+        if (count(User::isPasswordValid($_POST['password'])) != 0 && strlen($_POST['password']) > 0)
+        {
             $errorToDisplay = $errorToDisplay . "Mot de pass : min 8 caracteres; au moins un nombre, une majuscule, minuscule et un caractere spécial.\n";
         }
 
@@ -70,17 +71,26 @@ class ControllerEnseignantList
     {
         $error = $this->checkUserValidField();
         $this->redirectModif($error, $getParameters['key']);
-        if ($getParameters["key"]) {
+        if ($getParameters["key"])
+        {
             $user = ControllerUserDataBase::lookForSpecificUser($getParameters["key"]);
             $controllerUser = new ControllerUserDataBase($user);
             $user->setLastName($_POST['last_name']);
             $user->setFirstName($_POST['first_name']);
-            $user->setPassword($_POST['password']);
             $date = new datetime($_POST['date']);
             $date = $date->format("Y-m-d");
             $user->setDate($date);
             $user->setMail($_POST['mail']);
-            $controllerUser->modifyUser();
+
+            if (strlen($_POST["password"]) != 0)
+            {
+                $user->setPassword($_POST['password']);
+                $controllerUser->modifyUser();
+            }
+            else
+            {
+                $controllerUser->modifyUserKeepPassword();
+            }
         }
         $this->handleRequest($getParameters);
     }
