@@ -38,6 +38,7 @@ class ControllerDataBase
     private static $removeUserModule;
     private static $removeUserReferentModule;
     private static $modifyUser;
+    private static $modifyUserKeepPassword;
     private static $modifyModule;
 
 
@@ -87,6 +88,7 @@ class ControllerDataBase
         self::$removeUserModule = null;
         self::$removeUserReferentModule = null;
         self::$modifyUser = null;
+        self::$modifyUserKeepPassword = null;
         self::$modifyModule = null;
     }
 
@@ -147,6 +149,15 @@ class ControllerDataBase
         if (self::$modifyUser == null) {
             self::setPrepareToNull();
             return self::$modifyUser = self::$dataBaseConnector->prepare("UPDATE user SET id = ?, password = ?, first_name = ?,  last_name = ?, mail = ?, role = ?, date_naissance = ? WHERE `key` = ?");
+        }
+        return true;
+    }
+
+    public static function prepareModifyUserKeepPassword()
+    {
+        if (self::$modifyUserKeepPassword == null) {
+            self::setPrepareToNull();
+            return self::$modifyUserKeepPassword = self::$dataBaseConnector->prepare("UPDATE user SET id = ?, first_name = ?,  last_name = ?, mail = ?, role = ?, date_naissance = ? WHERE `key` = ?");
         }
         return true;
     }
@@ -464,6 +475,13 @@ WHERE user.role = 'ENSEIGNANT'");
         return self::$modifyUser;
     }
 
+    /**
+     * @return mixed
+     */
+    public static function getModifyUserKeepPassword()
+    {
+        return self::$modifyUserKeepPassword;
+    }
 
     public static function getSelectSpecificUserModule()
     {

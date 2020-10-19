@@ -268,6 +268,16 @@ class ControllerUserDataBase
                 $this->user->getDate(), $this->user->getKey()));
     }
 
+    public function modifyUserKeepPassword()
+    {
+        ControllerDataBase::prepareModifyUserKeepPassword();
+        return ControllerDataBase::getModifyUserKeepPassword()->execute(
+            array($this->user->getId(), $this->user->getFirstName(),
+                $this->user->getLastName(), $this->user->getMail(),
+                $this->user->getRole(), $this->user->getDate(),
+                $this->user->getKey()));
+    }
+
     public function getUser()
     {
         return $this->user;
