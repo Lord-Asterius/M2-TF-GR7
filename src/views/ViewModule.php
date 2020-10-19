@@ -15,6 +15,7 @@ class ViewModule
 
         $this->m_context["toastSuccess"] = false;
         $this->m_context["toastError"] = false;
+        $this->m_context["isReferent"] = false;
     }
 
     public function setModuleName($moduleName)
@@ -42,6 +43,19 @@ class ViewModule
     {
         $this->m_context["toastError"] = true;
         $this->m_context["toastMessage"] = $message;
+    }
+    public function setAllStudents($students)
+    {
+        $this->m_context["students"] = $students;
+    }
+
+    public function setAllTeachers($teachers)
+    {
+        $this->m_context["teachers"] = $teachers;
+    }
+
+    public function setReferentTeacher(){
+        $this->m_context["isReferent"] = true;
     }
 
     public function render()

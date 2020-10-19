@@ -75,6 +75,9 @@ class ControllerModule
         {
             $this->handleActionAddAbsence($getParameters);
         }
+        else if (isset($getParameters["action"]) && $getParameters["action"] === "addUser"){
+            $this->handleActionAddUser($getParameters);
+        }
         else
         {
             $this->renderModule($getParameters);
@@ -124,6 +127,38 @@ class ControllerModule
         Utils::redirectTo(PAGE_ID_MODULE, ["module" => $this->m_moduleName, "success" => $successMessage]);
     }
 
+    public function handleActionAddUser($getParameters)
+    {
+        $user = ControllerUserDataBase::lookForSpecificUser($getParameters['user']);
+
+        if ($user == null)
+        {
+            Utils::redirectTo(PAGE_ID_MODULE, ["module" => $this->m_moduleName, "error" => "Impossible d'ajouter cette personne : user id invalide"]);
+        }
+
+        foreach($user->getModule() as $userModule) {
+            if ($userModule->getName() == $this->m_moduleName) {
+                Utils::redirectTo(PAGE_ID_MODULE, ["module" => $this->m_moduleName, "error" => "Cette personne est déjà inscrite au module"]);
+            }
+        }
+
+
+        $userController = new ControllerUserDataBase($user);
+
+        $userName = $user->getFirstName() . " " . $user->getLastName();
+        $module = ControllerModuleDataBase::lookForModule($this->m_moduleName);
+        if(isset($module)){
+            $userController->addModuleUser($module);
+        }
+        else{
+            Utils::redirectTo(PAGE_ID_MODULE, ["module" => $this->m_moduleName, "error" => "Impossible d'ajouter cette personne : nom du module incorrecte"]);
+        }
+
+        $successMessage = "$userName a bien été ajouté au module";
+
+        Utils::redirectTo(PAGE_ID_MODULE, ["module" => $this->m_moduleName, "success" => $successMessage]);
+    }
+
     public function renderModule($getParameters)
     {
         $this->m_viewModule->setModuleName($this->m_moduleName);
@@ -153,6 +188,25 @@ class ControllerModule
             $this->m_viewModule->setErrorToast($getParameters["error"]);
         }
 
+        $keyModuleRef=array();
+        foreach ($_SESSION["user"]->getModuleReferent() as $moduleRef){
+            $keyModuleRef[]=$moduleRef->getKey();
+        }
+
+        if(in_array($this->m_moduleInfo->getKey(), $keyModuleRef)){
+            $this->m_viewModule->setReferentTeacher();
+            $allStudents = ControllerUserDataBase::lookForAllStudents();
+            foreach ($allStudents as $student){
+                $students[$student->getId()] = $student->getFirstName() . " " . $student->getLastName();
+            }
+            $this->m_viewModule->setAllStudents($students);
+
+            $allTeachers = ControllerUserDataBase::lookForAllTeacher();
+            foreach ($allTeachers as $teacher){
+                $teachers[$teacher->getId()] = $teacher->getFirstName()." ".$teacher->getLastName();
+            }
+            $this->m_viewModule->setAllTeachers($teachers);
+        }
         $this->m_viewModule->render();
     }
 }

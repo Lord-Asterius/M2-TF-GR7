@@ -25,6 +25,15 @@
     </div>
     <div class="card-body">
         <p class="card-text">Liste des inscrits</p>
+        <!-- Button trigger modal -->
+        <?php if($context["isReferent"] === true): ?>
+            <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#AddStudentModal">
+                Ajouter un étudiant
+            </button>
+            <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#AddTeacherModal">
+                Ajouter un enseignant
+            </button>
+        <?php endif;?>
         <ul class="list-group mx-auto w-50 p-3">
             <?php foreach($context["enrolledUsers"] as $enrolledUser): ?>
                 <li class="list-group-item text-left">
@@ -82,6 +91,68 @@
                 <input type="hidden" id="userId" name="userId" value="-1">
             </div>
         </form>
+    </div>
+</div>
+
+<!-- Modal Add Student -->
+<div class="modal fade" id="AddStudentModal" tabindex="-1" role="dialog" aria-labelledby="addStudent" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form method="get" action="index.php">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addStudent">Ajouter un enseignant au module</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <input type="hidden" name="page" value="module">
+                    <input type="hidden" name="module" value="<?= $context['moduleName'] ?>">
+                    <input type="hidden" name="action" value="addUser">
+                </div>
+                <div class="modal-body">
+                    <select name="user">
+                        <option value="" disabled selected>Sélectionner l'étudiant</option>
+                        <?php foreach($context["students"] as $id => $student): ?>
+                        <option value="<?= $id ?>"><?= $student ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                    <input type="submit" class="btn btn-primary" value="Ajouter">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Add Teacher -->
+<div class="modal fade" id="AddTeacherModal" tabindex="-1" role="dialog" aria-labelledby="addTeacher" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form method="get" action="index.php">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addTeacher">Ajouter un enseignant au module</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <input type="hidden" name="page" value="module">
+                    <input type="hidden" name="module" value="<?= $context['moduleName'] ?>">
+                    <input type="hidden" name="action" value="addUser">
+                </div>
+                <div class="modal-body">
+                    <select name="user">
+                        <option value="" disabled selected>Sélectionner l'enseignant</option>
+                        <?php foreach($context["teachers"] as $id => $teacher): ?>
+                        <option value="<?= $id ?>"><?= $teacher ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                    <input type="submit" class="btn btn-primary" value="Ajouter">
+                </div>
+            </form>
+        </div>
     </div>
 </div>
 
