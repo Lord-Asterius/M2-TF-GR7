@@ -57,10 +57,6 @@ class ControllerEtudiantList
     {
         $errorToDisplay = "";
 
-//        if (count(User::isPasswordValid($_POST['password'])) != 0) {
-//            $errorToDisplay = $errorToDisplay . "Mot de pass : min 8 caracteres; au moins un nombre, une majuscule, minuscule et un caractere spécial.\n";
-//        }
-
         if (!(preg_match("/[a-zA-Z]/", $_POST['last_name']) && preg_match("/[a-zA-Z]/", $_POST['first_name']))) {
             $errorToDisplay = $errorToDisplay . "Le nom et prénom de l'utilisateurs doivent contenir uniquement des lettres\n";
         }
