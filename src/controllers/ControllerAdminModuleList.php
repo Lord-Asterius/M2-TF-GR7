@@ -147,7 +147,6 @@ class ControllerAdminModuleList
     public function editModuleInscriptionEnseignantsRef($getParameters)
     {
         $enseignants = ControllerUserDataBase::lookForAllTeacher();
-        var_dump($enseignants);
         $tab = array();
         // Parcourt tout les enseignant
 
@@ -228,8 +227,6 @@ class ControllerAdminModuleList
             $enseignantsFromPost[] = $k;
         }
 
-        print_r($enseignantsFromPost);
-
         $enseignants = ControllerUserDataBase::lookForAllTeacher();
         //Filter enseignant from module in BDD
         $enseignantsBDD = array();
@@ -267,7 +264,6 @@ class ControllerAdminModuleList
     }
     public function setModuleInscriptionsEnseignants($getParameters)
     {
-        print_r($getParameters);
         $enseignantsFromPost = array();
         foreach ($_POST as $k => $v) {
             $enseignantsFromPost[] = $k;
