@@ -92,8 +92,8 @@ class DataBaseTest extends TestCase
         $this->assertArrayHasKey('JTanrien', $teachers);
         $this->assertArrayHasKey('GMendufric', $teachers);
 
-        $this->assertEquals(1, sizeof($teachers['JTanrien']->getModule()));
-        $this->assertEquals(1, sizeof($teachers['JTanrien']->getModuleReferent()));
+        $this->assertEquals(2, sizeof($teachers['JTanrien']->getModule()));
+        $this->assertEquals(2, sizeof($teachers['JTanrien']->getModuleReferent()));
     }
 
     public function testSelectAllAdmin()

@@ -187,10 +187,10 @@ class ControllerDataBase
             return self::$selectAllTeacher = self::$dataBaseConnector->prepare("SELECT *
 FROM user
          LEFT JOIN user_module ON user.key = user_module.user_key
-         LEFT JOIN module ON user_module.module_key = module.key
-         LEFT JOIN enseigant_referent ON user.key = enseigant_referent.module_key
+         LEFT JOIN module ON user_module.module_key = module.key 
+         LEFT JOIN enseigant_referent ON user.key = enseigant_referent.enseigant_key
          LEFT JOIN module as module_ref ON enseigant_referent.module_key = module_ref.key
-WHERE user.role = 'ENSEIGNANT' ");
+WHERE user.role = 'ENSEIGNANT'");
         }
         return true;
     }

@@ -45,6 +45,7 @@ class TestUtils
 
 
         ControllerDataBase::exec('INSERT INTO enseigant_referent(enseigant_key, module_key) VALUES (\'1\', \'1\')');
+        ControllerDataBase::exec('INSERT INTO enseigant_referent(enseigant_key, module_key) VALUES (\'1\', \'3\')');
 
         ControllerDataBase::exec('INSERT INTO user_module(user_key, module_key) VALUES (\'1\', \'2\')');
         ControllerDataBase::exec('INSERT INTO user_module(user_key, module_key) VALUES (\'2\', \'1\')');
