@@ -17,7 +17,6 @@ class ViewAbsenceList
     public function setAttendanceData($attendanceData)
     {
         $this->m_context["attendanceData"] = $attendanceData;
-      
     }
 
     public function render()

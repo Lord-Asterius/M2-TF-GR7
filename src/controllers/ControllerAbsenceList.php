@@ -22,8 +22,6 @@ class ControllerAbsenceList
     {
         $this->m_viewAbsenceList = new ViewAbsenceList();
         $this->m_viewAbsenceAdd = new  ViewAbsenceAdd();
-
-        ControllerDataBase::connectToDatabase();
     }
 
     public function handleRequest($getParameters)
@@ -81,7 +79,10 @@ class ControllerAbsenceList
         $date = isset($postParameters["date"]) ? $postParameters["date"] : '';
         $comment = isset($postParameters["comment"]) ? $postParameters["comment"] : '';
         $reason = isset($postParameters["reason"]) ? $postParameters["reason"] : '';
-     
+        
+        // print_r($getParameters);
+        // print_r($postParameters);
+
         switch($action) {
             case 'add':
                 $res = ControllerAbsenceDataBase::insertAbsence($studentKey, $comment, $reason, $date);
@@ -89,11 +90,9 @@ class ControllerAbsenceList
             break;   
         }
 
-
-
-        $allStudent = ControllerUserDataBase::lookForAllStudents();
-      
-        $this->m_viewAbsenceAdd->setAttendanceData($s_key, $allStudent);
+       
+        $this->m_viewAbsenceAdd->setAttendanceData($s_key);
         $this->m_viewAbsenceAdd->render();
+
     }
 }

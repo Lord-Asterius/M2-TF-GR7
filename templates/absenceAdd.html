@@ -6,32 +6,15 @@
     action="index.php?page=<?= PAGE_ID_ABSENCE_ADD ?>&action=add"
   >
     <div class="form-group">
-
-    <label>Select student</label>
-     <select name="studentKey" id="studentKey" class="form-control"
-     <?= $studentKey  ? 'disabled':'' ?>
-     >
-      <?php foreach($context["studentList"] as $student): ?>
-
-     
-
-      <option value='<?= $student->getKey() ?>'  
-       <?= ($studentKey && $student->getId() === $studentKey) ? 'selected':'' ?>
-       
-        ><?= $student->getFirstName() ?></option>
-
-      <?php endforeach; ?>
-     </select>
-
-      <!-- <label>Student Key</label>
+      <label>Student Key</label>
       <input type="text" name="studentKey" class="form-control"
       placeholder="Student Key" 
       value="<?= isset($studentKey) ? $studentKey: '' ?>" 
       <?= isset($studentKey) ?  'readonly' : '' ?>
-     /> -->
+     />
 
       <div class="form-group">
-        <label for="exampleInputEmail1">Date</label>
+        <label for="datepicker">Date</label>
 
         <input id="datepicker" name="date" width="276" />
         <script>
@@ -41,7 +24,7 @@
         </script>
       </div>
       <label for="name module">comment</label>
-      <input
+      <input id="name module"
         type="text"
         name="comment"
         class="form-control"
