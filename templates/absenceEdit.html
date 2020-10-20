@@ -1,75 +1,62 @@
-<?php $attendanceData  = $context["attendanceData"] ?>
-<?php $firstName = $attendanceData["first_name"] ?>
-<?php $lastName = $attendanceData["last_name"] ?>
+
+ <?php $attendanceData  = $context["attendanceData"] ?>
+ <?php $firstName = $attendanceData["first_name"] ?>
+ <?php $lastName = $attendanceData["last_name"] ?>
 
 <div class="container" style="padding-top: 3em">
     <h1>Ajouter un absence -- <?= $firstName ?> <?= $lastName ?></h1>
     <form
-            method="post"
-            action="index.php?page=<?= PAGE_ID_ABSENCE_EDIT ?>&action=update&absenceKey=<?= $attendanceData['absenceKey'] ?>"
+      method="post"
+      action="index.php?page=<?= PAGE_ID_ABSENCE_EDIT ?>&action=update&absenceKey=<?= $attendanceData['absenceKey'] ?>"
     >
+   
+      <div class="form-group">
+        <!-- <label>Student Key</label>
+        <input
+          type="text"
+          name="studentKey"
+          class="form-control"
+          placeholder="Student Key"
+          value= '<?= $attendanceData["studentId"] ?>'
+          readonly
+        /> -->
+      
 
+        <input
+        type="hidden"
+        name="absenceKey"
+        value= '<?= $attendanceData["absenceKey"] ?>'
+      />
+  
         <div class="form-group">
-            <label>Student Key</label>
-            <input type="text" name="studentKey" class="form-control" placeholder="Student Key" value='<?= $attendanceData["studentId"] ?>' readonly/>
-
-            <input
-                    type="hidden"
-                    name="absenceKey"
-                    value='<?= $attendanceData["absenceKey"] ?>'
-            />
-
-            <div class="form-group">
-                <label for="datepicker">Date</label>
-                <input id="datepicker" name="date" width="276"/>
-            </div>
-
-            <div class="form-group">
-                <label for="absenceTime">Heure de l'absence</label>
-                <input class="form-control" type="time" id="absenceTime" name="absenceTime"/>
-            </div>
-
-            <label for="name module">comment</label>
-            <input
-                    type="text"
-                    name="comment"
-                    class="form-control"
-                    placeholder="Comment"
-                    value='<?= $attendanceData["comment"] ?>'
-            />
-            <label for="name module">Motif d'absence</label>
-            <input
-                    type="text"
-                    name="reason"
-                    class="form-control"
-                    placeholder="Reason"
-                    value='<?= $attendanceData["reason"] ?>'
-            />
-        </div>
-        <button type="submit" class="btn btn-primary">envoyer</button>
-    </form>
-</div>
-
-<script>
-    $(document).ready(function () {
-
-        var dateNow = new Date();
-        var day = (dateNow.getDate() < 10) ? '0' + dateNow.getDate() : dateNow.getDate();
-        var month = ((dateNow.getMonth()+1) < 10) ? '0' + (dateNow.getMonth()+1) : (dateNow.getMonth()+1);
-        var dateFormatted = dateNow.getFullYear() + '/' + month + "/" + day;
-
-        $('#datepicker').datepicker(
-            {
-                uiLibrary: 'bootstrap4',
-                locale: 'fr-fr',
-                format: 'yyyy/mm/dd',
+          <label for="exampleInputEmail1">Date</label>
+  
+          <input id="datepicker" name="date" width="276"   value= '<?= $attendanceData["date_time"] ?>'
+          />
+          <script>
+            $('#datepicker').datepicker({
+              uiLibrary: 'bootstrap4',
             });
-
-        $('#datepicker').datepicker().value(dateFormatted);
-
-        var hours = (dateNow.getHours() < 10) ? '0' + dateNow.getHours() : dateNow.getHours();
-        var minutes = (dateNow.getMinutes() < 10) ? '0' + dateNow.getMinutes() : dateNow.getMinutes();
-
-        $('#absenceTime').val(hours + ":" + minutes);
-    })
-</script>
+          </script>
+        </div>
+        <label for="name module">comment</label>
+        <input
+          type="text"
+          name="comment"
+          class="form-control"
+          placeholder="Comment"
+          value= '<?= $attendanceData["comment"] ?>'
+        />
+        <label for="name module">Motif d'absence</label>
+        <input
+          type="text"
+          name="reason"
+          class="form-control"
+          placeholder="Reason"
+          value= '<?= $attendanceData["reason"] ?>'
+        />
+      </div>
+      <button type="submit" class="btn btn-primary">envoyer</button>
+    </form>
+  </div>
+  
