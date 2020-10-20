@@ -138,8 +138,8 @@ class ControllerUserDataBase
                     $teacher->forceSetPassword($row['password']);
                     $teachers[$teacher->getId()] = $teacher;
                 }
-                if ($row['13']) {
-                    $moduleRefere = new Module($row['13'], $row['16']);
+                if ($row['14']) {
+                    $moduleRefere = new Module($row['14'], $row['16']);
                     $teacher->addModuleReferent($moduleRefere);
                 }
                 if ($row['10']) {

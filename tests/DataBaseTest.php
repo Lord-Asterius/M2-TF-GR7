@@ -92,7 +92,7 @@ class DataBaseTest extends TestCase
         $this->assertArrayHasKey('JTanrien', $teachers);
         $this->assertArrayHasKey('GMendufric', $teachers);
 
-        $this->assertEquals(2, sizeof($teachers['JTanrien']->getModule()));
+        $this->assertEquals(1, sizeof($teachers['JTanrien']->getModule()));
         $this->assertEquals(2, sizeof($teachers['JTanrien']->getModuleReferent()));
     }
 
@@ -155,7 +155,7 @@ class DataBaseTest extends TestCase
         $controllerUser->removeModuleUserReferent($module);
 
         $this->assertTrue(sizeof($controllerUser->getUser()->getModule()) == 1);
-        $this->assertEquals(0, sizeof($controllerUser->getUser()->getModuleReferent()));
+        $this->assertEquals(1, sizeof($controllerUser->getUser()->getModuleReferent()));
         $this->assertEquals(0, sizeof($controllerUser->getUser()->getAbsence()));
 
         $this->assertTrue(!in_array(new Module('1', 'test pas vraiment fonctionnelle'), $controllerUser->getUser()->getModule()));
@@ -175,7 +175,7 @@ class DataBaseTest extends TestCase
     {
         $userFetched = ControllerUserDataBase::lookForSpecificUser('JTanrien');
         $this->assertTrue(sizeof($userFetched->getModule()) == 1);
-        $this->assertTrue(sizeof($userFetched->getModuleReferent()) == 1);
+        $this->assertTrue(sizeof($userFetched->getModuleReferent()) == 2);
         $this->assertTrue(sizeof($userFetched->getAbsence()) == 0);
 
         $this->assertTrue(in_array(new Module('1', 'test pas vraiment fonctionnelle'), $userFetched->getModuleReferent()));
