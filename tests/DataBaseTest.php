@@ -164,7 +164,7 @@ class DataBaseTest extends TestCase
         $userTest = ControllerUserDataBase::lookForSpecificUser($user->getId());
 
         $this->assertTrue(sizeof($userTest->getModule()) == 1);
-        $this->assertTrue(sizeof($userTest->getModuleReferent()) == 0);
+        $this->assertTrue(sizeof($userTest->getModuleReferent()) == 1);
         $this->assertTrue(sizeof($userTest->getAbsence()) == 0);
 
         $this->assertTrue(!in_array(new Module('1', 'test pas vraiment fonctionnelle'), $userTest->getModule()));
