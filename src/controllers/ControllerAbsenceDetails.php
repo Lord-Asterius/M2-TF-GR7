@@ -28,14 +28,14 @@ class ControllerAbsenceDetails
         $action = isset($getParameters["action"]) ? $getParameters["action"] : '';
         $absenceKey = isset($getParameters["absenceKey"]) ? $getParameters["absenceKey"] : '';
 
-
+       
         switch($action) {
             case 'delete':
                 $this->deleteAbsence($absenceKey);
                 break;
         }
 
-        $studentId = $getParameters['studentId'];
+        $studentId = $getParameters['studentKey'];
         $students = ControllerAbsenceDataBase::lookForSpecificUser($studentId);
         $this->m_viewAbsence->setAttendanceData($students);
         $this->m_viewAbsence->render();
@@ -89,6 +89,8 @@ class ControllerAbsenceDetails
             break;
 
         }
+
+        $this->m_viewAbsenceAdd->setAttendanceData($studentKey);
         $this->m_viewAbsenceAdd->render();
     }
 

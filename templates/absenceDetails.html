@@ -1,4 +1,5 @@
-<?php $student_id= $_GET['studentId']; ?>
+<?php $student_id= $_GET['studentKey']; ?>
+
 <?php $studentName = $context["attendanceData"][0]["firstName"].' '.$context["attendanceData"][0]["lastName"]  ?>
 <script>
   var selected_user_id="<?php echo $student_id; ?>";
@@ -58,8 +59,7 @@
             />
             <a
             class="navbar-brand"
-            href="index.php?page=<?= PAGE_ID_ABSENSE_DETAIL ?>&absenceKey=<?= $attendanceData['id'] ?>
-            &action=delete&studentId=<?=$student_id?>"
+            href="index.php?page=<?= PAGE_ID_ABSENSE_DETAIL ?>&absenceKey=<?= $attendanceData['id'] ?>&action=delete&studentKey=<?=$student_id?>"
           >
             <img
               src="images/bootstrap-icons/trash.svg"

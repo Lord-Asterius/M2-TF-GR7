@@ -13,8 +13,6 @@
      >
       <?php foreach($context["studentList"] as $student): ?>
 
-     
-
       <option value='<?= $student->getKey() ?>'  
        <?= ($studentKey && $student->getId() === $studentKey) ? 'selected':'' ?>
        
@@ -23,12 +21,13 @@
       <?php endforeach; ?>
      </select>
 
-      <!-- <label>Student Key</label>
-      <input type="text" name="studentKey" class="form-control"
+
+      
+      <input type="hidden" name="<?= $studentKey  ? 'studentKey':'adsfa' ?>" class="form-control"
       placeholder="Student Key" 
       value="<?= isset($studentKey) ? $studentKey: '' ?>" 
       <?= isset($studentKey) ?  'readonly' : '' ?>
-     /> -->
+     />
 
       <div class="form-group">
         <label for="exampleInputEmail1">Date</label>

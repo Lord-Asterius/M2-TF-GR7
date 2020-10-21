@@ -54,7 +54,7 @@ class ControllerAbsenceList
                                     "lastName" => $student["lastName"],
                                     "module" => $student["moduleName"],
                                     "date"=> $student["date"],
-                                    "studentKey" => $student["studentId"]      
+                                    "studentKey" => $student["studentKey"]      
                                 ];
         }
 
@@ -74,6 +74,8 @@ class ControllerAbsenceList
     }
 
     public function add_absence($getParameters, $postParameters){
+
+       
        
         $action = isset($getParameters["action"]) ? $getParameters["action"] : '';
         $studentKey = isset($postParameters["studentKey"]) ? $postParameters["studentKey"] : NULL;

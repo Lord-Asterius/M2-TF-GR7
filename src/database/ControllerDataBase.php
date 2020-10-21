@@ -45,8 +45,10 @@ class ControllerDataBase
     public static function connectToDatabase()
     {
         try {
-            self::$dataBaseConnector = new PDO('mysql:host=' . SERVER . ';dbname=' . DB, USER, PASS);
+            self::$dataBaseConnector = new PDO('mysql:host=' . SERVER . ';dbname=' . 'prod_qui_est_la', USER, PASS);
         } catch (PDOException $e) {
+            
+
             if (IS_RELEASE) {
                 self::errorExit('<h4>Error when connecting to the database</h4>');
             } else {
@@ -294,7 +296,7 @@ WHERE user.role = 'ENSEIGNANT'");
     {
         if (self::$selectAllAbsence == null) {
             self::setPrepareToNull();
-            return self::$selectAllAbsence = self::$dataBaseConnector->prepare("SELECT absence.key as absenceKey, user.id as studentId,  absence.date_time, user.first_name, user.last_name, module.name as module FROM absence LEFT JOIN user ON user.key = absence.etudiant_key LEFT JOIN user_module on user.key = user_module.user_key left JOIN module on module.key = user_module.module_key");
+            return self::$selectAllAbsence = self::$dataBaseConnector->prepare("SELECT absence.key as absenceKey, user.key as studentKey,  absence.date_time, user.first_name, user.last_name, module.name as module FROM absence LEFT JOIN user ON user.key = absence.etudiant_key LEFT JOIN user_module on user.key = user_module.user_key left JOIN module on module.key = user_module.module_key");
         }
         return true;
     }
@@ -321,7 +323,7 @@ WHERE user.role = 'ENSEIGNANT'");
         }
         if (self::$selectSpecificStudentAbsence == null) {
             self::setPrepareToNull();
-            return self::$selectSpecificStudentAbsence = self::$dataBaseConnector->prepare("select user.first_name, absence.key  as absenceKey, user.last_name, user.mail, module.name, absence.reason, absence.comment, absence.date_time as date from user, module, user_module, absence where user.key = user_module.user_key and module.key = user_module.module_key and absence.etudiant_key = user.key and user.id = ?");
+            return self::$selectSpecificStudentAbsence = self::$dataBaseConnector->prepare("select user.first_name, absence.key  as absenceKey, user.last_name, user.mail, module.name, absence.reason, absence.comment, absence.date_time as date from user, module, user_module, absence where user.key = user_module.user_key and module.key = user_module.module_key and absence.etudiant_key = user.key and user.key = ?");
         }
         return true;
     }

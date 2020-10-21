@@ -65,7 +65,7 @@ class ControllerAbsenceDataBase
                     $data['moduleName'] = $row['module'];
                     $data['date'] = $row['date_time'];
                     $data["absenceKey"] = $row['absenceKey'];
-                    $data["studentId"] = $row['studentId'];
+                    $data["studentKey"] = $row['studentKey'];
 
                     $response[] = $data;
 
@@ -89,11 +89,10 @@ class ControllerAbsenceDataBase
 
             if ($row) {
 
-
+             
                 $response = [];
 
                 do {
-                    $data['studentKey'] = $row['student_number'];
                     $data['firstName'] = $row['first_name'];
                     $data['lastName'] = $row['last_name'];
                     $data['mail'] = $row['mail'];
