@@ -14,9 +14,10 @@ class ViewAbsenceAdd
         $this->m_context = [];
     }
 
-    public function setAttendanceData($attendanceData)
+    public function setAttendanceData($attendanceData, $studentList)
     {
         $this->m_context["studentKey"] = $attendanceData;
+        $this->m_context["studentList"] = $studentList;
     }
 
     public function render()
